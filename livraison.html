@@ -3,1285 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Éclaria - Livraison</title>
+    <title>Éclaria - Adresse de Livraison</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
-
-        /* Color Palette */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
         :root {
-            --lilac-color: #D8BFD8; /* Lilac */
-            --white-color: #FFFFFF;
-            --silver-color: #C0C0C0;
-            --dark-text-color: #333333;
-            --light-text-color: #555555;
-            --accent-color: #A97CBE; /* A slightly darker Lilac for accents */
+            --lilac-primary: #D1C4E9; --lilac-accent: #A076C9; --white-pure: #FFFFFF; --silver-light: #F5F5F5; --silver-medium: #E0E0E0; --text-dark: #373737; --text-light: #6c757d;
+            --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif; --font-logo: 'Great Vibes', cursive;
         }
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: var(--font-primary); margin: 0; padding: 0; color: var(--text-dark); background-color: var(--silver-light); line-height: 1.7; font-weight: 300; padding-top: 80px; }
+        .container { width: 90%; max-width: 1180px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
+        .site-header { background-color: var(--white-pure); padding: 15px 0; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.08); height: 80px; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+        .site-logo a { font-family: var(--font-logo); font-size: 2.8em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        .main-navigation ul { list-style: none; margin: 0; padding: 0; display: flex; }
+        .main-navigation li { margin-left: 30px; }
+        .main-navigation a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 0.95em; padding-bottom: 5px; position: relative; transition: color 0.3s ease; }
+        .main-navigation a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: var(--lilac-accent); transition: width 0.3s ease; }
+        .main-navigation a:hover, .main-navigation a.active { color: var(--lilac-accent); }
+        .main-navigation a:hover::after, .main-navigation a.active::after { width: 100%; }
+        .header-icons { display: flex; align-items: center; }
+        .cart-icon svg { width: 24px; height: 24px; fill: var(--text-dark); transition: fill 0.3s ease; }
+        .cart-icon:hover svg { fill: var(--lilac-accent); }
+        main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 80px - 160px); }
+        h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.75em; }
+        h1 { font-size: 2.8em; line-height: 1.2; } h2 { font-size: 2.2em; line-height: 1.3; } h3 { font-size: 1.6em; line-height: 1.4; }
+        p { margin-bottom: 1.5em; font-size: 1em; }
+        .btn { display: inline-block; padding: 12px 30px; font-family: var(--font-headings); font-weight: 500; font-size: 1em; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; }
+        .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); }
+        .btn-primary:hover { background-color: #8a6aaf; border-color: #8a6aaf; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.4); }
+        .site-footer { background-color: var(--silver-light); color: var(--text-light); padding: 40px 0; text-align: center; font-size: 0.9em; }
+        .footer-links { margin-bottom: 15px; }
+        .footer-links a { color: var(--text-light); text-decoration: none; margin: 0 10px; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--lilac-accent); }
+        .social-media-footer a { margin: 0 8px; }
+        .social-media-footer svg { width: 22px; height: 22px; fill: var(--text-light); transition: fill 0.3s ease; }
+        .social-media-footer a:hover svg { fill: var(--lilac-accent); }
+        .copyright { margin-top: 15px; font-size: 0.85em; }
+        
+        .checkout-header { text-align: center; margin-bottom: 40px; }
+        .checkout-header h1 { font-size: 2.4em; color: var(--text-dark); margin-bottom: 0.2em;}
+        .checkout-steps { display: flex; justify-content: center; margin-bottom: 30px; padding: 0; list-style: none;}
+        .checkout-step { color: var(--text-light); margin: 0 15px; font-family: var(--font-headings); font-weight: 500; position: relative; font-size: 0.95em;}
+        .checkout-step.active { color: var(--lilac-accent); font-weight: 600;}
+        .checkout-step.completed { color: var(--text-dark); }
+        .checkout-step:not(:last-child)::after { content: '>'; color: var(--silver-medium); margin-left: 15px; position: absolute; right: -20px; font-weight:300;}
 
-        /* General Body Styles */
-        body {
-            font-family: 'Poppins', 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            color: var(--dark-text-color);
-            background-color: var(--white-color);
-            line-height: 1.6;
+        .checkout-layout-new { display: flex; gap: 40px; align-items: flex-start; }
+        .checkout-form-main { flex: 1.7; background-color: var(--white-pure); padding: 35px; border-radius: 12px; box-shadow: 0 6px 25px rgba(0,0,0,0.07); }
+        .checkout-form-main h2 { font-size: 1.7em; margin-bottom: 25px; color: var(--text-dark); border-bottom: 1px solid var(--silver-medium); padding-bottom: 15px;}
+        
+        .form-row-new { display: flex; gap: 20px; margin-bottom: 22px; }
+        .form-group-new { flex: 1; margin-bottom: 0; } 
+        .form-group-new.full-width { flex-basis: 100%; margin-bottom: 22px; } 
+        
+        .form-group-new label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9em; color: var(--text-dark); }
+        .form-group-new input[type="text"],
+        .form-group-new input[type="email"],
+        .form-group-new input[type="tel"],
+        .form-group-new select {
+            width: 100%; padding: 14px 18px; border: 1px solid var(--silver-medium); border-radius: 8px; 
+            font-family: var(--font-primary); font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; background-color: var(--white-pure);
         }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
+        .form-group-new input:focus, .form-group-new select:focus {
+            border-color: var(--lilac-accent); outline: none; box-shadow: 0 0 0 3px rgba(160, 118, 201, 0.2);
         }
+        .form-actions-new { margin-top: 30px; }
+        .btn-checkout { width: 100%; padding: 16px; font-size: 1.1em; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Header Styles */
-        header {
-            background-color: var(--white-color);
-            padding: 1.5em 0;
-            border-bottom: 1px solid #eee; /* Softer border */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
+        .order-summary-sidebar { flex: 1; background-color: var(--white-pure); padding: 30px; border-radius: 12px; box-shadow: 0 6px 25px rgba(0,0,0,0.07); position: sticky; top: 100px; }
+        .order-summary-sidebar h2 { font-size: 1.5em; margin-bottom: 20px; color: var(--text-dark); border-bottom: 1px solid var(--silver-medium); padding-bottom: 15px;}
+        .summary-item-new { display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--silver-light); }
+        .summary-item-new:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+        .summary-image-new img { width: 65px; height: 65px; object-fit: cover; border-radius: 8px; margin-right: 15px; border: 1px solid var(--silver-medium); }
+        .summary-details-new { flex-grow: 1;}
+        .summary-details-new p { margin: 0; line-height: 1.4; }
+        .summary-item-name-new { font-weight: 500; color: var(--text-dark); margin-bottom: 5px; font-size: 0.95em; }
+        .summary-item-qty-new { font-size: 0.85em; color: var(--text-light); }
+        .summary-item-price-new { margin-left: auto; font-weight: 500; color: var(--text-dark); font-size: 1em; }
+        
+        .summary-totals-new { margin-top: 20px; padding-top:20px; border-top: 1px solid var(--silver-medium); }
+        .summary-totals-new p { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1em; }
+        .summary-totals-new .total-label { color: var(--text-light); }
+        .summary-totals-new .total-value { font-weight: 500; color: var(--text-dark); }
+        .summary-totals-new .grand-total .total-label, .summary-totals-new .grand-total .total-value { font-size: 1.2em; font-weight: 600; color: var(--lilac-accent); }
 
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Logo Style */
-        .logo {
-            font-family: 'Poppins', sans-serif; /* Or a more script-like font if preferred and available */
-            font-size: 2.5em; /* Increased size for prominence */
-            font-weight: 600; /* Bold but not too heavy */
-            color: var(--accent-color); /* Using accent Lilac for the logo */
-            text-decoration: none;
-            letter-spacing: 1px; /* Slight letter spacing for elegance */
-        }
-
-        /* Navigation Styles */
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 25px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark-text-color);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active {
-            color: var(--accent-color); /* Lilac hover/active state */
-        }
-
-        /* Main Content Styles */
-        main {
-            padding: 2em 0;
-        }
-
-        /* Footer Styles */
-        footer {
-            background-color: var(--lilac-color); /* Lilac background for footer */
-            color: var(--white-color);
-            text-align: center;
-            padding: 2em 0;
-            margin-top: 3em;
-        }
-
-        footer p {
-            margin: 0;
-            font-weight: 300;
-        }
-
-        footer a {
-            color: var(--white-color);
-            text-decoration: underline;
-        }
-
-        footer a:hover {
-            text-decoration: none;
-        }
-
-        /* Headings */
-        h1, h2, h3, h4, h5, h6 {
-            color: var(--dark-text-color);
-            font-family: 'Poppins', 'Montserrat', sans-serif;
-            font-weight: 600;
-            margin-top: 0;
-        }
-
-        h1 {
-            font-size: 2.2em;
-            margin-bottom: 0.5em;
-        }
-
-        h2 {
-            font-size: 1.8em;
-            margin-bottom: 0.4em;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white-color);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #9569A9; /* Darker shade of accent for hover */
-        }
-
-        .btn-secondary {
-            background-color: var(--silver-color);
-            color: var(--dark-text-color);
-        }
-
-        .btn-secondary:hover {
-            background-color: #A8A8A8; /* Darker silver */
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background-color: var(--lilac-color); /* Light Lilac background */
-            color: var(--dark-text-color);
-            padding: 4em 0;
-            text-align: center;
-        }
-
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2em;
-        }
-
-        .hero-text {
-            flex: 1;
-            text-align: left;
-        }
-
-        .hero-text h1 {
-            font-size: 2.8em;
-            color: var(--white-color); /* White text on Lilac */
-            font-weight: 700;
-            margin-bottom: 0.5em;
-            line-height: 1.2;
-        }
-
-        .hero-text p {
-            font-size: 1.1em;
-            color: var(--white-color); /* Slightly lighter text or white */
-            margin-bottom: 1.5em;
-            font-weight: 300;
-        }
-
-        .hero-image {
-            flex: 1;
-            max-width: 450px; /* Control image size */
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .btn-primary { /* Specific style for primary CTA in hero if needed */
-            background-color: var(--white-color);
-            color: var(--accent-color);
-            padding: 12px 25px;
-            font-size: 1.1em;
-        }
-        .btn-primary:hover {
-            background-color: #f0e4f7; /* Lighter lilac or off-white */
-        }
-
-
-        /* Features Section */
-        .features-section {
-            padding: 4em 0;
-            text-align: center;
-        }
-
-        .features-section h2 {
-            font-size: 2em;
-            margin-bottom: 1.5em;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2em;
-        }
-
-        .feature-item {
-            background-color: #f9f9f9; /* Light background for items */
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
-            text-align: center;
-        }
-
-        .feature-icon {
-            width: 60px; /* Adjust as needed */
-            height: 60px;
-            margin-bottom: 1em;
-            /* background-color: var(--lilac-color); TEMP for placeholder */
-            /* border-radius: 50%; */
-        }
-
-        .feature-item h3 {
-            font-size: 1.4em;
-            color: var(--accent-color);
-            margin-bottom: 0.5em;
-        }
-
-        /* How It Works Section */
-        .how-it-works-section {
-            padding: 4em 0;
-            background-color: var(--white-color); /* Or a very light grey */
-        }
-
-        .how-it-works-section h2 {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 1.5em;
-        }
-
-        .how-it-works-content {
-            display: flex;
-            align-items: center;
-            gap: 3em;
-        }
-
-        .how-it-works-image {
-            flex: 1;
-            max-width: 400px;
-        }
-
-        .how-it-works-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        .how-it-works-text {
-            flex: 1.5;
-        }
-
-        .how-it-works-text p {
-            font-size: 1.05em;
-            margin-bottom: 1em;
-        }
-
-        /* Testimonials Section */
-        .testimonials-section {
-            padding: 4em 0;
-            background-color: var(--lilac-color); /* Lilac background for testimonials */
-        }
-
-        .testimonials-section h2 {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 1.5em;
-            color: var(--white-color);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2em;
-        }
-
-        .testimonial-item {
-            background-color: var(--white-color);
-            padding: 1.5em;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            color: var(--dark-text-color);
-        }
-
-        .testimonial-item p {
-            font-style: italic;
-            margin-bottom: 1em;
-            color: var(--light-text-color);
-        }
-
-        .testimonial-item h4 {
-            font-weight: 600;
-            color: var(--accent-color);
-            text-align: right;
-        }
-
-        /* Newsletter Section */
-        .newsletter-section {
-            padding: 3em 0;
-            background-color: #f0f0f0; /* Light grey background */
-            text-align: center;
-        }
-
-        .newsletter-section h2 {
-            font-size: 1.8em;
-            margin-bottom: 0.5em;
-        }
-
-        .newsletter-section p {
-            margin-bottom: 1.5em;
-            color: var(--light-text-color);
-        }
-
-        .newsletter-form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .newsletter-form input[type="email"] {
-            flex-grow: 1;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px 0 0 5px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1em;
-        }
-
-        .newsletter-form button {
-            border-radius: 0 5px 5px 0;
-            padding: 12px 20px; /* Match input padding */
-        }
-
-
-        /* Responsive Adjustments */
         @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            .hero-text {
-                text-align: center;
-                margin-bottom: 2em;
-            }
-            .how-it-works-content {
-                flex-direction: column;
-            }
-            .how-it-works-image {
-                margin-bottom: 2em;
-                max-width: 100%;
-            }
+            .checkout-layout-new { flex-direction: column-reverse; }
+            .order-summary-sidebar { position: static; width: 100%; margin-bottom: 30px; }
         }
-
         @media (max-width: 768px) {
-            .hero-text h1 {
-                font-size: 2.2em;
-            }
-            header .container {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        /* Product Page Specific Styles */
-        .product-page main {
-            padding-top: 2em;
-        }
-
-        .product-main-info {
-            padding-bottom: 3em;
-            border-bottom: 1px solid #eee;
-        }
-
-        .product-layout {
-            display: flex;
-            gap: 2.5em; /* Increased gap */
-        }
-
-        /* Product Gallery */
-        .product-gallery {
-            flex: 1.2; /* Slightly more space for gallery */
-            max-width: 550px; /* Max width for gallery section */
-        }
-
-        .main-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid #ddd; /* Subtle border */
-            margin-bottom: 1em;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .thumbnail-images {
-            display: flex;
-            gap: 0.75em; /* Gap between thumbnails */
-            flex-wrap: wrap; /* Allow thumbnails to wrap */
-        }
-
-        .thumbnail-images .thumbnail {
-            width: 80px; /* Thumbnail size */
-            height: 80px;
-            object-fit: cover; /* Ensure image covers the area */
-            border-radius: 5px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: border-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .thumbnail-images .thumbnail:hover {
-            border-color: var(--silver-color);
-            transform: scale(1.05);
-        }
-
-        .thumbnail-images .thumbnail.active-thumbnail {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 8px var(--accent-color);
-        }
-
-        /* Product Details */
-        .product-details {
-            flex: 1;
-            padding-left: 1em; /* Some space if gallery is on left */
-        }
-
-        .product-details h1 {
-            font-size: 2.4em; /* Prominent product title */
-            font-weight: 700;
-            color: var(--dark-text-color);
-            margin-bottom: 0.25em;
-        }
-
-        .product-brand {
-            font-size: 0.9em;
-            color: var(--light-text-color);
-            margin-bottom: 1em;
-        }
-
-        .product-price {
-            margin-bottom: 1.5em;
-        }
-
-        .product-price .current-price {
-            font-size: 2em;
-            font-weight: 600;
-            color: var(--accent-color);
-            margin-right: 0.5em;
-        }
-
-        .product-price .original-price {
-            font-size: 1.2em;
-            text-decoration: line-through;
-            color: var(--light-text-color);
-        }
-
-        .product-short-description {
-            font-size: 1.05em;
-            line-height: 1.7;
-            margin-bottom: 1.5em;
-        }
-
-        .product-actions {
-            margin-bottom: 2em;
-        }
-
-        .btn-add-to-cart {
-            padding: 15px 30px;
-            font-size: 1.15em;
-            width: 100%; /* Make button full width of its container */
-            max-width: 300px; /* But not too wide */
-        }
-
-        .trust-badges {
-            margin-top: 1.5em;
-        }
-
-        .trust-badges span {
-            display: flex; /* Align icon and text */
-            align-items: center;
-            font-size: 0.9em;
-            color: var(--light-text-color);
-            margin-bottom: 0.5em;
-        }
-
-        .trust-badges img {
-            width: 20px; /* Small icons */
-            height: 20px;
-            margin-right: 8px;
-            opacity: 0.7;
-        }
-
-        /* Product Description Details Section */
-        .product-description-details {
-            padding: 3em 0;
-        }
-
-        .product-description-details h2 {
-            font-size: 1.8em;
-            margin-bottom: 1em;
-            border-bottom: 2px solid var(--lilac-color);
-            padding-bottom: 0.3em;
-            display: inline-block; /* So border only spans text */
-        }
-
-        .product-description-details ul {
-            list-style-type: disc;
-            margin-left: 20px;
-            margin-bottom: 1em;
-        }
-
-        .product-description-details ul li {
-            margin-bottom: 0.5em;
-            line-height: 1.7;
-        }
-
-        /* Before/After Section */
-        .before-after-section {
-            padding: 3em 0;
-            background-color: #f9f9f9; /* Light background */
-            text-align: center;
-        }
-
-        .before-after-section h2 {
-            font-size: 1.8em;
-            margin-bottom: 1.5em;
-        }
-
-        .before-after-gallery {
-            display: flex;
-            justify-content: center;
-            gap: 2em;
-            margin-bottom: 1em;
-        }
-
-        .before-after-item {
-            max-width: 300px;
-        }
-
-        .before-after-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 0.5em;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .before-after-item p {
-            font-weight: 500;
-        }
-
-        .disclaimer {
-            font-size: 0.9em;
-            color: var(--light-text-color);
-            font-style: italic;
-        }
-
-        /* Comparison Section (Placeholder styling) */
-        .comparison-section {
-            padding: 3em 0;
-            text-align: center;
-        }
-        .comparison-section h2 {
-            font-size: 1.8em;
-            margin-bottom: 1em;
-        }
-
-        /* Product Page Testimonials - reuse .testimonials-section but can add specifics */
-        .product-page-testimonials {
-            background-color: var(--white-color); /* Different background than homepage testimonials if desired */
-        }
-        .product-page-testimonials h2 {
-            color: var(--dark-text-color); /* Adjust if background changes */
-        }
-        .product-page-testimonials .testimonial-item {
-            border: 1px solid #eee; /* Add border for definition on white bg */
-        }
-
-
-        /* Responsive adjustments for Product Page */
-        @media (max-width: 992px) {
-            .product-layout {
-                flex-direction: column;
-            }
-            .product-details {
-                padding-left: 0; /* Remove padding when stacked */
-                margin-top: 2em;
-            }
-            .product-gallery {
-                max-width: 100%; /* Allow gallery to take full width */
-            }
-        }
-
-        @media (max-width: 768px) {
-            .product-details h1 {
-                font-size: 2em;
-            }
-            .product-price .current-price {
-                font-size: 1.8em;
-            }
-            .btn-add-to-cart {
-                padding: 12px 25px;
-                font-size: 1.1em;
-            }
-            .before-after-gallery {
-                flex-direction: column;
-                align-items: center;
-            }
-            .before-after-item {
-                margin-bottom: 1.5em;
-            }
-            .thumbnail-images .thumbnail {
-                width: 60px;
-                height: 60px;
-            }
-        }
-
-        /* Ensure the previous responsive rules for header are not overridden if placed before */
-        @media (max-width: 768px) {
-            header .container { /* This rule was from the general styles, ensure it's correctly placed or merged */
-                flex-direction: column;
-                align-items: center;
-            }
-            .logo { /* This rule was from the general styles */
-                margin-bottom: 0.5em;
-                font-size: 2em;
-            }
-            nav ul { /* This rule was from the general styles */
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-            nav ul li { /* This rule was from the general styles */
-                margin: 10px 0;
-            }
-            .container { /* This rule was from the general styles */
-                width: 95%;
-            }
-        }
-
-        /* Checkout Page (livraison.html & paiement.html) Styles */
-        .checkout-page main {
-            padding-top: 2em;
-            padding-bottom: 3em;
-            background-color: #f9f9f9; /* Light background for checkout process */
-        }
-
-        .checkout-layout {
-            display: flex;
-            gap: 2.5em;
-            align-items: flex-start; /* Align items to the top */
-        }
-
-        .checkout-form-container {
-            flex: 1.8; /* More space for the form */
-            background-color: var(--white-color);
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .checkout-form-container h1 {
-            font-size: 2em;
-            margin-bottom: 0.25em;
-            color: var(--dark-text-color);
-        }
-        .checkout-form-container h2 {
-            font-size: 1.5em;
-            margin-bottom: 1.5em;
-            color: var(--accent-color);
-            padding-bottom: 0.5em;
-            border-bottom: 1px solid #eee;
-        }
-
-        /* Form Styles */
-        .form-row {
-            display: flex;
-            gap: 1.5em;
-            margin-bottom: 1em;
-        }
-
-        .form-group {
-            margin-bottom: 1.25em;
-            flex-grow: 1; /* Allow groups to grow if in a row */
-        }
-
-        .form-group.half-width {
-            width: calc(50% - 0.75em); /* Adjust for gap */
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5em;
-            font-weight: 500;
-            font-size: 0.95em;
-            color: var(--dark-text-color);
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="tel"],
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box; /* Important for width 100% */
-            font-family: 'Poppins', sans-serif;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: var(--accent-color);
-            outline: none;
-            box-shadow: 0 0 5px rgba(169, 124, 190, 0.3); /* Accent color shadow */
-        }
-
-        .form-actions {
-            margin-top: 2em;
-        }
-
-        .btn-full-width {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1em;
-        }
-
-        .form-note {
-            font-size: 0.85em;
-            color: var(--light-text-color);
-            margin-top: 1em;
-            text-align: right;
-        }
-
-        /* Order Summary Styles */
-        .order-summary-container {
-            flex: 1;
-            background-color: var(--white-color);
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            position: sticky; /* Make it sticky on larger screens */
-            top: 20px; /* Adjust as needed */
-        }
-
-        .order-summary-container h2 {
-            font-size: 1.5em;
-            margin-bottom: 1em;
-            color: var(--dark-text-color);
-            padding-bottom: 0.5em;
-            border-bottom: 1px solid #eee;
-        }
-
-        .order-summary-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5em;
-            padding-bottom: 1.5em;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .summary-item-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-right: 1em;
-            border: 1px solid #eee;
-        }
-
-        .summary-item-details {
-            flex-grow: 1;
-        }
-
-        .summary-item-name {
-            font-weight: 500;
-            margin: 0 0 0.3em 0;
-        }
-
-        .summary-item-qty {
-            font-size: 0.9em;
-            color: var(--light-text-color);
-            margin: 0;
-        }
-
-        .summary-item-price {
-            font-weight: 500;
-            font-size: 1em;
-        }
-
-        .order-summary-total p {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.75em;
-            font-size: 1em;
-        }
-
-        .order-summary-total p.total-price,
-        .order-summary-total p.total-price span {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: var(--accent-color);
-        }
-
-        .order-summary-total hr {
-            border: none;
-            border-top: 1px dashed #ccc;
-            margin: 1em 0;
-        }
-
-        .trust-badges-summary {
-            margin-top: 1.5em;
-            padding-top: 1em;
-            border-top: 1px solid #f0f0f0;
-        }
-        .trust-badges-summary span {
-            display: flex;
-            align-items: center;
-            font-size: 0.85em;
-            color: var(--light-text-color);
-            margin-bottom: 0.5em;
-        }
-        .trust-badges-summary img {
-            width: 18px;
-            height: 18px;
-            margin-right: 6px;
-            opacity: 0.7;
-        }
-
-
-        /* Responsive adjustments for Checkout Pages */
-        @media (max-width: 992px) {
-            .checkout-layout {
-                flex-direction: column-reverse; /* Form below summary on smaller screens */
-            }
-            .order-summary-container {
-                position: static; /* Remove sticky behavior */
-                width: 100%;
-                margin-bottom: 2em; /* Space between summary and form */
-            }
-            .checkout-form-container {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-                gap: 0; /* Remove gap if stacked */
-                margin-bottom: 0;
-            }
-            .form-group.half-width {
-                width: 100%;
-                margin-bottom: 1.25em; /* Restore bottom margin */
-            }
-            .checkout-form-container h1 {
-                font-size: 1.8em;
-            }
-             .checkout-form-container h2 {
-                font-size: 1.3em;
-            }
-        }
-
-        /* Payment Page Specific Styles (extending checkout styles) */
-        .shipping-summary-review {
-            background-color: #fdfdfd;
-            padding: 1.5em;
-            border-radius: 6px;
-            margin-bottom: 2em;
-            border: 1px solid #eee;
-        }
-
-        .shipping-summary-review h2 {
-            font-size: 1.3em;
-            color: var(--dark-text-color);
-            margin-top: 0;
-            margin-bottom: 1em;
-            border-bottom: none; /* Override from .checkout-form-container h2 */
-            padding-bottom: 0;
-        }
-
-        #shipping-address-summary p {
-            margin-bottom: 0.5em;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-        #shipping-address-summary p strong {
-            color: var(--dark-text-color);
-        }
-
-        .edit-link {
-            font-size: 0.9em;
-            color: var(--accent-color);
-            text-decoration: underline;
-        }
-        .edit-link:hover {
-            text-decoration: none;
-        }
-
-        .payment-options {
-            margin-top: 1em;
-        }
-
-        .payment-option {
-            background-color: var(--white-color);
-            padding: 1.5em;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            margin-bottom: 1.5em;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .payment-option input[type="radio"] {
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        .payment-option label {
-            font-weight: 600;
-            font-size: 1.1em;
-            color: var(--dark-text-color);
-            display: flex; /* Align items in label */
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .payment-logo {
-            height: 24px; /* Adjust as needed */
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        .payment-gateway-fields {
-            margin-top: 1.5em;
-            padding-top: 1.5em;
-            border-top: 1px solid #eee;
-        }
-
-        .payment-option input[type="radio"]:checked + label + .payment-gateway-fields {
-            display: block; /* Show fields when radio is checked - JS will handle this for better control */
-        }
-        .payment-option input[type="radio"]:checked + label {
-           color: var(--accent-color);
-        }
-
-        .payment-option:has(input[type="radio"]:checked) { /* Style parent when radio is checked */
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px rgba(169, 124, 190, 0.2);
-        }
-
-
-        .secure-payment-info {
-            font-size: 0.85em;
-            color: var(--light-text-color);
-            margin-top: 1em;
-        }
-        .secure-payment-info img {
-            margin-right: 5px;
-        }
-
-        .btn-paypal {
-            background-color: #FFC439; /* PayPal Gold */
-            color: #1E4770; /* PayPal Blue */
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-flex; /* Align image and text */
-            align-items: center;
-            gap: 8px; /* Space between logo and text */
-        }
-        .btn-paypal:hover {
-            background-color: #f0b830;
-        }
-        .btn-paypal img {
-            height: 20px; /* PayPal button logo */
-            }
-
-            .logo {
-                margin-bottom: 0.5em;
-                font-size: 2em;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-
-            nav ul li {
-                margin: 10px 0;
-            }
-
-            .container {
-                width: 95%;
-            }
+            body { padding-top: 70px; } .site-header { height: 70px; } .site-logo a { font-size: 2.2em; }
+            .main-navigation { display: none; } .header-container { justify-content: space-between; }
+            .form-row-new { flex-direction: column; gap: 0; margin-bottom:0; }
+            .form-group-new.full-width, .form-group-new { margin-bottom: 22px; }
+            .checkout-header h1 { font-size: 2em;}
+            .checkout-form-main { padding: 20px; }
+            .order-summary-sidebar { padding: 20px; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <a href="index.html" class="logo">Éclaria</a>
-            <nav>
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="site-logo"><a href="index.html">Éclaria</a></div>
+            <nav class="main-navigation">
                 <ul>
                     <li><a href="index.html">Accueil</a></li>
                     <li><a href="produit.html">Produit</a></li>
-                    <li><a href="qui-sommes-nous.html">Qui Sommes-Nous</a></li>
+                    <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
                     <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
+            <div class="header-icons">
+                <a href="#" class="cart-icon" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></a>
+            </div>
         </div>
     </header>
     <main class="checkout-page">
         <div class="container">
-            <div class="checkout-layout">
-                <div class="checkout-form-container">
-                    <h1>Finaliser Votre Commande</h1>
+            <div class="checkout-header">
+                <h1>Finaliser Votre Commande</h1>
+                <ul class="checkout-steps">
+                    <li class="checkout-step active">Livraison</li>
+                    <li class="checkout-step">Paiement</li>
+                    <li class="checkout-step">Confirmation</li>
+                </ul>
+            </div>
+
+            <div class="checkout-layout-new">
+                <div class="checkout-form-main">
                     <h2>Adresse de Livraison</h2>
-                    <form id="shipping-form" action="paiement.html" method="GET"> <!-- Or POST if backend handles it -->
-                        <div class="form-row">
-                            <div class="form-group half-width">
+                    <form id="shipping-form" action="paiement.html" method="GET">
+                        <div class="form-row-new">
+                            <div class="form-group-new">
                                 <label for="prenom">Prénom *</label>
-                                <input type="text" id="prenom" name="prenom" required>
+                                <input type="text" id="prenom" name="prenom" required autocomplete="given-name">
                             </div>
-                            <div class="form-group half-width">
+                            <div class="form-group-new">
                                 <label for="nom">Nom *</label>
-                                <input type="text" id="nom" name="nom" required>
+                                <input type="text" id="nom" name="nom" required autocomplete="family-name">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group-new full-width">
                             <label for="email">Adresse e-mail *</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="email" required autocomplete="email">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group-new full-width">
                             <label for="telephone">Numéro de téléphone</label>
-                            <input type="tel" id="telephone" name="telephone">
+                            <input type="tel" id="telephone" name="telephone" placeholder="Optionnel" autocomplete="tel">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group-new full-width">
                             <label for="adresse1">Adresse (Ligne 1) *</label>
-                            <input type="text" id="adresse1" name="adresse1" required>
+                            <input type="text" id="adresse1" name="adresse1" required autocomplete="address-line1">
                         </div>
-                        <div class="form-group">
-                            <label for="adresse2">Complément d'adresse (Appartement, suite, etc.)</label>
-                            <input type="text" id="adresse2" name="adresse2">
+                        <div class="form-group-new full-width">
+                            <label for="adresse2">Complément d'adresse (Appartement, bâtiment, etc.)</label>
+                            <input type="text" id="adresse2" name="adresse2" autocomplete="address-line2">
                         </div>
-                        <div class="form-row">
-                            <div class="form-group half-width">
-                                <label for="ville">Ville *</label>
-                                <input type="text" id="ville" name="ville" required>
-                            </div>
-                            <div class="form-group half-width">
+                        <div class="form-row-new">
+                            <div class="form-group-new">
                                 <label for="code_postal">Code Postal *</label>
-                                <input type="text" id="code_postal" name="code_postal" required>
+                                <input type="text" id="code_postal" name="code_postal" required autocomplete="postal-code">
+                            </div>
+                            <div class="form-group-new">
+                                <label for="ville">Ville *</label>
+                                <input type="text" id="ville" name="ville" required autocomplete="address-level2">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group-new full-width">
                             <label for="pays">Pays *</label>
-                            <select id="pays" name="pays" required>
+                            <select id="pays" name="pays" required autocomplete="country-name">
                                 <option value="FR" selected>France</option>
                                 <option value="BE">Belgique</option>
-                                <!-- Add other countries if needed -->
                             </select>
                         </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary btn-full-width">Continuer vers le paiement</button>
+                        <div class="form-actions-new">
+                            <button type="submit" class="btn btn-primary btn-checkout">Continuer vers le paiement</button>
                         </div>
-                         <p class="form-note">Les champs marqués d'un * sont obligatoires.</p>
                     </form>
                 </div>
 
-                <div class="order-summary-container">
-                    <h2>Récapitulatif de la Commande</h2>
-                    <div class="order-summary-item">
-                        <img src="img/710E7veA9BL._SL1500_.jpg" alt="CryoGlow LED Face Mask" class="summary-item-image">
-                        <div class="summary-item-details">
-                            <p class="summary-item-name">CryoGlow LED Face Mask</p>
-                            <p class="summary-item-qty">Quantité: 1</p>
+                <aside class="order-summary-sidebar">
+                    <h2>Votre Commande</h2>
+                    <div class="summary-item-new">
+                        <div class="summary-image-new">
+                            <img src="img/710E7veA9BL._SL1500_.jpg" alt="CryoGlow LED Face Mask">
                         </div>
-                        <p class="summary-item-price">149€</p>
+                        <div class="summary-details-new">
+                            <p class="summary-item-name-new">CryoGlow LED Face Mask</p>
+                            <p class="summary-item-qty-new">Quantité: 1</p>
+                        </div>
+                        <p class="summary-item-price-new">149€</p>
                     </div>
-                    <div class="order-summary-total">
-                        <p>Sous-total: <span>149€</span></p>
-                        <p>Livraison: <span>Calculée à l'étape suivante (ou Gratuite)</span></p>
+                    <div class="summary-totals-new">
+                        <p><span class="total-label">Sous-total :</span> <span class="total-value">149€</span></p>
+                        <p><span class="total-label">Livraison :</span> <span class="total-value">Offerte</span></p>
                         <hr>
-                        <p class="total-price">Total: <span>149€</span></p>
+                        <p class="grand-total"><span class="total-label">Total :</span> <span class="total-value">149€</span></p>
                     </div>
-                     <div class="trust-badges-summary">
-                        <span><img src="img/icon-secure.svg" alt="Paiement sécurisé"> Paiement 100% Sécurisé</span>
-                        <span><img src="img/icon-guarantee.svg" alt="Garantie"> Garantie 30 Jours</span>
-                    </div>
-                </div>
+                </aside>
             </div>
         </div>
     </main>
-    <footer>
-        <div class="container">
-            <p>&copy; <script>document.write(new Date().getFullYear());</script> Éclaria. Tous droits réservés.</p>
-            <p>
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-links">
                 <a href="politique-de-confidentialite.html">Politique de Confidentialité</a> |
-                <a href="conditions-utilisation.html">Conditions d'Utilisation</a>
-            </p>
+                <a href="conditions-utilisation.html">Conditions d'Utilisation</a> |
+                <a href="contact.html">Contactez-nous</a>
+            </div>
+            <div class="social-media-footer">
+                <a href="https://instagram.com/eclaria_officiel" target="_blank" aria-label="Instagram Éclaria"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
+            </div>
+            <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> Éclaria SAS. Tous droits réservés.</p>
         </div>
     </footer>
     <script>
-        // Main JavaScript file for Éclaria
-
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Éclaria website loaded successfully!');
-
-            // Product Image Gallery Changer
-            const mainProductImage = document.getElementById('mainProductImage');
-            const thumbnails = document.querySelectorAll('.thumbnail-images .thumbnail');
-
-            if (mainProductImage && thumbnails.length > 0) {
-                thumbnails.forEach(thumbnail => {
-                    thumbnail.addEventListener('click', function() {
-                        // Change main image src
-                        mainProductImage.src = this.src;
-                        mainProductImage.alt = this.alt.replace('Thumbnail', 'Vue'); // Update alt text
-
-                        // Update active thumbnail
-                        thumbnails.forEach(t => t.classList.remove('active-thumbnail'));
-                        this.classList.add('active-thumbnail');
-                    });
-                });
-            }
-
-            // You can add more JS functionalities here:
-            // - Mobile menu toggle
-            // - Smooth scroll for anchor links
-            // - Form validation for contact/newsletter
-            // - etc.
-        });
-
-        // Global function for onclick attribute in HTML (if preferred for simplicity in this case)
-        function changeImage(imageSrc) {
-            const mainProductImage = document.getElementById('mainProductImage');
-            const thumbnails = document.querySelectorAll('.thumbnail-images .thumbnail');
-            if (mainProductImage) {
-                mainProductImage.src = imageSrc;
-                
-                thumbnails.forEach(thumbnail => {
-                    if (thumbnail.src.includes(imageSrc.substring(imageSrc.lastIndexOf('/') + 1))) { // Check filename match
-                        thumbnail.classList.add('active-thumbnail');
-                    } else {
-                        thumbnail.classList.remove('active-thumbnail');
-                    }
-                });
-            }
-        }
-
-        // Payment Page Logic
-        document.addEventListener('DOMContentLoaded', function() {
-            // ... (other existingDOMContentLoaded code)
-
-            const paymentForm = document.getElementById('payment-form');
-            if (paymentForm) {
-                const paymentMethodRadios = document.querySelectorAll('input[name="payment_method"]');
-                const stripeFields = document.getElementById('stripe-fields');
-                const paypalFields = document.getElementById('paypal-fields');
-
-                paymentMethodRadios.forEach(radio => {
-                    radio.addEventListener('change', function() {
-                        if (this.value === 'stripe') {
-                            stripeFields.style.display = 'block';
-                            paypalFields.style.display = 'none';
-                        } else if (this.value === 'paypal') {
-                            stripeFields.style.display = 'none';
-                            paypalFields.style.display = 'block';
-                        }
-                    });
-                });
-
-                // Simulate populating shipping summary (in a real app, this data would come from server or state management)
-                const summaryAdresse = document.getElementById('summary-adresse');
-                const summaryVille = document.getElementById('summary-ville');
-                const summaryPays = document.getElementById('summary-pays');
-                const summaryEmail = document.getElementById('summary-email');
-
-                // Attempt to get data from URL parameters (if coming from livraison.html via GET)
-                const urlParams = new URLSearchParams(window.location.search);
-                if (summaryAdresse) summaryAdresse.textContent = urlParams.get('adresse1') || 'Non spécifiée';
-                if (summaryVille) summaryVille.textContent = `${urlParams.get('ville') || ''}, ${urlParams.get('code_postal') || ''}`;
-                if (summaryPays) summaryPays.textContent = urlParams.get('pays') === 'BE' ? 'Belgique' : 'France'; // Basic mapping
-                if (summaryEmail) summaryEmail.textContent = urlParams.get('email') || 'Non spécifié';
-
-
-                paymentForm.addEventListener('submit', function(event) {
-                    event.preventDefault(); // Prevent actual submission for demo
-                    const selectedPaymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
-                    
-                    if (selectedPaymentMethod === 'stripe') {
-                        // Basic validation for demo
-                        const cardNumber = document.getElementById('card-number').value;
-                        const expiryDate = document.getElementById('expiry-date').value;
-                        const cvc = document.getElementById('cvc').value;
-                        if (cardNumber && expiryDate && cvc) {
-                            alert('Paiement par Stripe simulé avec succès ! Merci pour votre achat.');
-                            // Redirect to a thank you page or clear cart
-                            window.location.href = "index.html"; // Placeholder redirect
-                        } else {
-                            alert('Veuillez remplir tous les champs de la carte.');
-                        }
-                    } else if (selectedPaymentMethod === 'paypal') {
-                        alert('Redirection vers PayPal simulée... Paiement complété ! Merci pour votre achat.');
-                        // In a real scenario, this would redirect to PayPal
-                         window.location.href = "index.html"; // Placeholder redirect
-                    }
-                });
-            }
-
-            // If on livraison.html, save form data to localStorage to simulate data persistence for paiement.html
+            console.log('Éclaria Livraison (re-designed) loaded successfully!');
             const shippingForm = document.getElementById('shipping-form');
             if (shippingForm) {
-                shippingForm.addEventListener('submit', function() {
-                    localStorage.setItem('shipping_prenom', document.getElementById('prenom').value);
-                    localStorage.setItem('shipping_nom', document.getElementById('nom').value);
-                    localStorage.setItem('shipping_email', document.getElementById('email').value);
-                    localStorage.setItem('shipping_adresse1', document.getElementById('adresse1').value);
-                    localStorage.setItem('shipping_adresse2', document.getElementById('adresse2').value);
-                    localStorage.setItem('shipping_ville', document.getElementById('ville').value);
-                    localStorage.setItem('shipping_code_postal', document.getElementById('code_postal').value);
-                    localStorage.setItem('shipping_pays', document.getElementById('pays').value);
+                shippingForm.addEventListener('submit', function(event) {
+                    // Basic client-side validation example (can be enhanced)
+                    let isValid = true;
+                    const requiredInputs = shippingForm.querySelectorAll('input[required], select[required]');
+                    requiredInputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            // Optionally, add some visual feedback for empty required fields
+                            input.style.borderColor = 'red'; 
+                        } else {
+                            input.style.borderColor = 'var(--silver-medium)'; // Reset border
+                        }
+                    });
+
+                    if (!isValid) {
+                        event.preventDefault(); // Stop form submission
+                        alert('Veuillez remplir tous les champs obligatoires (*).');
+                        return;
+                    }
+
+                    // Save to localStorage for paiement.html
+                    localStorage.setItem('eclaria_shipping_prenom', document.getElementById('prenom').value);
+                    localStorage.setItem('eclaria_shipping_nom', document.getElementById('nom').value);
+                    localStorage.setItem('eclaria_shipping_email', document.getElementById('email').value);
+                    localStorage.setItem('eclaria_shipping_telephone', document.getElementById('telephone').value);
+                    localStorage.setItem('eclaria_shipping_adresse1', document.getElementById('adresse1').value);
+                    localStorage.setItem('eclaria_shipping_adresse2', document.getElementById('adresse2').value);
+                    localStorage.setItem('eclaria_shipping_ville', document.getElementById('ville').value);
+                    localStorage.setItem('eclaria_shipping_code_postal', document.getElementById('code_postal').value);
+                    localStorage.setItem('eclaria_shipping_pays', document.getElementById('pays').value);
                 });
             }
-             // If on paiement.html, try to load data from localStorage if URL params are not available
-            const urlParams = new URLSearchParams(window.location.search); // Re-declare for this scope if not accessible
-            const paymentFormForLocalStorage = document.getElementById('payment-form'); // Use a different variable name to avoid conflict
-            if (paymentFormForLocalStorage && !urlParams.has('email')) { // Check if URL params were not set
-                const summaryAdresse = document.getElementById('summary-adresse'); // Re-declare for this scope
-                const summaryVille = document.getElementById('summary-ville'); // Re-declare for this scope
-                const summaryPays = document.getElementById('summary-pays'); // Re-declare for this scope
-                const summaryEmail = document.getElementById('summary-email'); // Re-declare for this scope
-
-                if (summaryAdresse) summaryAdresse.textContent = `${localStorage.getItem('shipping_adresse1') || ''} ${localStorage.getItem('shipping_adresse2') || ''}`.trim() || 'Non spécifiée';
-                if (summaryVille) summaryVille.textContent = `${localStorage.getItem('shipping_ville') || ''}, ${localStorage.getItem('shipping_code_postal') || ''}`.trim() || 'Non spécifiée';
-                if (summaryPays) {
-                    const paysCode = localStorage.getItem('shipping_pays');
-                    summaryPays.textContent = paysCode === 'BE' ? 'Belgique' : (paysCode === 'FR' ? 'France' : 'Non spécifié');
-                }
-                if (summaryEmail) summaryEmail.textContent = localStorage.getItem('shipping_email') || 'Non spécifié';
-            }
-
         });
     </script>
 </body>
