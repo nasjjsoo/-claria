@@ -7,31 +7,30 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
         :root {
-            --lilac-primary: #D1C4E9; --lilac-accent: #A076C9; --white-pure: #FFFFFF; --silver-light: #F5F5F5; --silver-medium: #E0E0E0; --text-dark: #373737; --text-light: #6c757d; --success-color: #28a745;
+            --lilac-primary: #E1D5F0; --lilac-accent: #A076C9; --white-pure: #FFFFFF; --silver-light: #F8F9FA; --silver-medium: #E9ECEF; --text-dark: #212529; --text-light: #6c757d;
             --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif; --font-logo: 'Great Vibes', cursive;
         }
         *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: var(--font-primary); margin: 0; padding: 0; color: var(--text-dark); background-color: var(--silver-light); line-height: 1.7; font-weight: 300; padding-top: 80px; display: flex; flex-direction: column; min-height: 100vh; }
+        body { font-family: var(--font-primary); margin: 0; padding: 0; color: var(--text-dark); background-color: var(--silver-light); line-height: 1.7; font-weight: 300; padding-top: 70px; display: flex; flex-direction: column; min-height: 100vh; }
         .container { width: 90%; max-width: 1180px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
-        .site-header { background-color: var(--white-pure); padding: 15px 0; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.08); height: 80px; }
-        .header-container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
-        .site-logo a { font-family: var(--font-logo); font-size: 2.8em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
-        .main-navigation ul { list-style: none; margin: 0; padding: 0; display: flex; }
-        .main-navigation li { margin-left: 30px; }
-        .main-navigation a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 0.95em; padding-bottom: 5px; position: relative; transition: color 0.3s ease; }
-        .main-navigation a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: var(--lilac-accent); transition: width 0.3s ease; }
-        .main-navigation a:hover, .main-navigation a.active { color: var(--lilac-accent); }
-        .main-navigation a:hover::after, .main-navigation a.active::after { width: 100%; }
-        .header-icons { display: flex; align-items: center; }
-        .cart-icon svg { width: 24px; height: 24px; fill: var(--text-dark); transition: fill 0.3s ease; }
-        .cart-icon:hover svg { fill: var(--lilac-accent); }
-        main { padding-top: 40px; padding-bottom: 60px; flex-grow: 1; display:flex; align-items:center; justify-content:center; } /* Centering content */
-        h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.75em; }
-        h1 { font-size: 2.8em; line-height: 1.2; } h2 { font-size: 2.2em; line-height: 1.3; } h3 { font-size: 1.6em; line-height: 1.4; }
-        p { margin-bottom: 1.5em; font-size: 1em; }
-        .btn { display: inline-block; padding: 12px 30px; font-family: var(--font-headings); font-weight: 500; font-size: 1em; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; }
-        .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); }
-        .btn-primary:hover { background-color: #8a6aaf; border-color: #8a6aaf; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.4); }
+        .site-header-new { background-color: var(--white-pure); padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08); height: 70px; display: flex; align-items: center; }
+        .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .site-logo-new a { font-family: var(--font-logo); font-size: 2.5em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        .header-actions { display: flex; align-items: center; }
+        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 15px; }
+        .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
+        .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 60px 20px 20px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
+        .offcanvas-menu.open { right: 0; }
+        .close-menu-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; cursor: pointer; color: var(--text-light); }
+        .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
+        .offcanvas-menu nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
+        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--silver-light); }
+        .offcanvas-menu nav li:last-child a { border-bottom: none; }
+        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); z-index: 1050; }
+        .overlay-screen.active { display: block; }
+        main { padding-top: 40px; padding-bottom: 60px; flex-grow:1; display:flex; align-items:center; justify-content:center;}
+        h1 {font-size: 2.4em;}
         .site-footer { background-color: var(--silver-light); color: var(--text-light); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top:auto; }
         .footer-links { margin-bottom: 15px; }
         .footer-links a { color: var(--text-light); text-decoration: none; margin: 0 10px; transition: color 0.3s ease; }
@@ -40,131 +39,46 @@
         .social-media-footer svg { width: 22px; height: 22px; fill: var(--text-light); transition: fill 0.3s ease; }
         .social-media-footer a:hover svg { fill: var(--lilac-accent); }
         .copyright { margin-top: 15px; font-size: 0.85em; }
-        
-        .checkout-header { text-align: center; margin-bottom: 40px; }
-        .checkout-header h1 { font-size: 2.4em; color: var(--text-dark); margin-bottom: 0.2em;}
-        .checkout-steps { display: flex; justify-content: center; margin-bottom: 30px; padding:0; list-style:none;}
-        .checkout-step { color: var(--text-light); margin: 0 15px; font-family: var(--font-headings); font-weight: 500; position: relative; font-size: 0.95em;}
-        .checkout-step.active { color: var(--lilac-accent); font-weight:600;}
-        .checkout-step.completed { color: var(--text-dark); font-weight:600;}
-        .checkout-step:not(:last-child)::after { content: '>'; color: var(--silver-medium); margin-left: 15px; position: absolute; right: -20px; font-weight:300;}
-
-        .confirmation-container {
-            background-color: var(--white-pure);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.07);
-            text-align: center;
-            max-width: 650px;
-            width: 100%;
-        }
-        .confirmation-icon-new {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 25px auto;
-            display: block;
-        }
-        .confirmation-container h1 {
-            font-size: 2.2em;
-            color: var(--success-color);
-            margin-bottom: 15px;
-        }
-        .confirmation-container .lead-text {
-            font-size: 1.15em;
-            color: var(--text-light);
-            margin-bottom: 25px;
-            line-height: 1.8;
-        }
-        .order-details-summary {
-            background-color: var(--silver-light);
-            border: 1px solid var(--silver-medium);
-            border-radius: 8px;
-            padding: 20px;
-            margin: 30px 0;
-            text-align: left;
-        }
-        .order-details-summary h3 {
-            font-size: 1.3em;
-            color: var(--text-dark);
-            margin-top: 0;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--silver-medium);
-        }
-        .order-details-summary p {
-            margin-bottom: 10px;
-            font-size: 0.95em;
-            color: var(--text-light);
-        }
-        .order-details-summary strong {
-            color: var(--text-dark);
-            font-weight: 500;
-        }
-        .confirmation-actions .btn {
-            margin-top: 20px;
-            padding: 14px 35px;
-            font-size: 1.05em;
-        }
-
-        @media (max-width: 768px) {
-            body { padding-top: 70px; } .site-header { height: 70px; } .site-logo a { font-size: 2.2em; }
-            .main-navigation { display: none; } .header-container { justify-content: space-between; }
-            .checkout-header h1 { font-size: 2em;}
-            .confirmation-container h1 { font-size: 1.8em; }
-            .confirmation-container .lead-text { font-size: 1em; }
-            .confirmation-container { padding: 30px; }
-        }
+        @media (max-width: 768px) { .site-logo-new a { font-size: 2.2em; } }
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="container header-container">
-            <div class="site-logo"><a href="index.html">Éclaria</a></div>
-            <nav class="main-navigation">
-                <ul>
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="produit.html">Produit</a></li>
-                    <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                </ul>
-            </nav>
-            <div class="header-icons">
-                <a href="#" class="cart-icon" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></a>
+    <header class="site-header-new">
+        <div class="container header-container-new">
+            <div class="site-logo-new">
+                <a href="index.html">Éclaria</a>
+            </div>
+            <div class="header-actions">
+                <button class="cart-icon-new" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+                <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+                </button>
             </div>
         </div>
     </header>
-    <main class="checkout-page">
-        <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <div class="checkout-header" style="width:100%; max-width:650px;">
-                <h1>Merci pour Votre Commande !</h1>
-                <ul class="checkout-steps">
-                    <li class="checkout-step completed"><a href="livraison.html" style="text-decoration:none; color:inherit;">Livraison</a></li>
-                    <li class="checkout-step completed"><a href="paiement.html" style="text-decoration:none; color:inherit;">Paiement</a></li>
-                    <li class="checkout-step active">Confirmation</li>
-                </ul>
-            </div>
 
-            <div class="confirmation-container">
-                <img src="img/icon-check-circle.svg" alt="Confirmation" class="confirmation-icon-new"> <!-- Placeholder icon -->
-                <h2>Votre commande a été validée avec succès.</h2>
-                <p class="lead-text">Un e-mail de confirmation contenant les détails de votre achat et les informations de suivi vous sera envoyé d'ici quelques instants. Nous vous remercions pour votre confiance.</p>
-                
-                <div class="order-details-summary">
-                    <h3>Récapitulatif de la Commande</h3>
-                    <p><strong>Numéro de Commande :</strong> <span id="conf-order-number">EC000000000</span></p>
-                    <p><strong>Produit :</strong> CryoGlow LED Face Mask</p>
-                    <p><strong>Montant Total :</strong> <span id="conf-order-total">149€</span></p>
-                    <p><strong>Méthode de Paiement :</strong> <span id="conf-payment-method">Carte de Crédit</span></p>
-                    <p><strong>Adresse de Livraison :</strong> <span id="conf-shipping-address">Chargement...</span></p>
-                </div>
-
-                <p>Si vous avez des questions, n'hésitez pas à <a href="contact.html" style="color:var(--lilac-accent); text-decoration:underline;">nous contacter</a>.</p>
-                <div class="confirmation-actions">
-                    <a href="index.html" class="btn btn-primary">Retour à l'Accueil</a>
-                </div>
-            </div>
+    <div class="offcanvas-menu" id="offcanvasMenu">
+        <button class="close-menu-btn" aria-label="Fermer le menu">&times;</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="livraison.html">Livraison</a></li>
+                <li><a href="paiement.html">Paiement</a></li>
+                <li><a href="politique-de-confidentialite.html">Politique de confidentialité</a></li>
+                <li><a href="livraison-et-retours.html">Politique de retour</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="overlay-screen" id="overlayScreen"></div>
+    
+    <main>
+        <div class="container">
+             <h1>Confirmation de Commande</h1>
+            <p>Contenu de la page de confirmation à venir...</p>
         </div>
     </main>
+
     <footer class="site-footer">
         <div class="container footer-container">
             <div class="footer-links">
@@ -178,43 +92,33 @@
             <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> Éclaria SAS. Tous droits réservés.</p>
         </div>
     </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Éclaria Confirmation (re-designed) loaded successfully!');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const closeMenuBtn = document.querySelector('.close-menu-btn');
+            const offcanvasMenu = document.getElementById('offcanvasMenu');
+            const overlayScreen = document.getElementById('overlayScreen');
 
-            const orderNumberEl = document.getElementById('conf-order-number');
-            const orderTotalEl = document.getElementById('conf-order-total');
-            const paymentMethodEl = document.getElementById('conf-payment-method');
-            const shippingAddressEl = document.getElementById('conf-shipping-address');
-
-            if(orderNumberEl) {
-                orderNumberEl.textContent = localStorage.getItem('eclaria_order_id') || `EC${Math.floor(Math.random() * 900000) + 100000}`;
-            }
-            if(orderTotalEl) {
-                orderTotalEl.textContent = localStorage.getItem('eclaria_order_total') || '149€';
-            }
-            if(paymentMethodEl) {
-                paymentMethodEl.textContent = localStorage.getItem('eclaria_order_payment_method') || 'Non spécifiée';
+            function openMenu() {
+                if(offcanvasMenu) offcanvasMenu.classList.add('open');
+                if(overlayScreen) overlayScreen.classList.add('active');
+                if(menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
             }
 
-            if (shippingAddressEl) {
-                const adresse1 = localStorage.getItem('eclaria_shipping_adresse1') || '';
-                const adresse2 = localStorage.getItem('eclaria_shipping_adresse2') || '';
-                const ville = localStorage.getItem('eclaria_shipping_ville') || '';
-                const code_postal = localStorage.getItem('eclaria_shipping_code_postal') || '';
-                const paysCode = localStorage.getItem('eclaria_shipping_pays');
-                const pays = paysCode === 'BE' ? 'Belgique' : (paysCode === 'FR' ? 'France' : 'Non spécifié');
-                let fullAddress = [adresse1, adresse2, `${code_postal} ${ville}`, pays].filter(Boolean).join(', ');
-                shippingAddressEl.textContent = fullAddress || "Non fournie";
+            function closeMenu() {
+                if(offcanvasMenu) offcanvasMenu.classList.remove('open');
+                if(overlayScreen) overlayScreen.classList.remove('active');
+                if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
             }
+
+            if (menuToggle) menuToggle.addEventListener('click', openMenu);
+            if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+            if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
             
-            // Optionally clear localStorage items after use on confirmation page
-            // localStorage.removeItem('eclaria_order_id');
-            // localStorage.removeItem('eclaria_order_total');
-            // localStorage.removeItem('eclaria_order_payment_method');
-            // localStorage.removeItem('eclaria_shipping_email'); 
-            // etc. for all shipping details
+            console.log('Éclaria Confirmation (re-designed foundation) loaded successfully!');
         });
     </script>
+    <!-- Google Analytics / Facebook Pixel scripts go here -->
 </body>
 </html>
