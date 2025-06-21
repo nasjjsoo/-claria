@@ -1,678 +1,351 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Éclaria - Accueil</title>
+    <title>Éclaria - Startseite</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
-
         :root {
-            --lilac-primary: #D1C4E9; /* Lighter, calmer Lilac */
-            --lilac-accent: #A076C9;  /* Deeper Lilac for accents */
-            --white-pure: #FFFFFF;
-            --silver-light: #F5F5F5; /* Very light silver/grey for backgrounds */
-            --silver-medium: #E0E0E0; /* Soft silver for borders/details */
-            --text-dark: #373737;    /* Softer black for text */
-            --text-light: #6c757d;   /* Grey for secondary text */
-            
-            --font-primary: 'Poppins', sans-serif;
-            --font-headings: 'Montserrat', sans-serif;
-            --font-logo: 'Great Vibes', cursive; /* Elegant script font for logo */
+            --lilac-primary: #E1D5F0; --lilac-accent: #A076C9; --white-pure: #FFFFFF; --silver-light: #F8F9FA; --silver-medium: #E9ECEF; --text-dark: #212529; --text-light: #6c757d;
+            --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif; --font-logo: 'Great Vibes', cursive;
         }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-primary);
-            margin: 0;
-            padding: 0;
-            color: var(--text-dark);
-            background-color: var(--white-pure);
-            line-height: 1.7;
-            font-weight: 300;
-            padding-top: 80px; /* Placeholder for fixed header height */
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1180px; /* Slightly adjusted for common grid systems */
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-        /* Header */
-        .site-header {
-            background-color: var(--white-pure);
-            padding: 15px 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            height: 80px; /* Example fixed height */
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
-        }
-
-        .site-logo a {
-            font-family: var(--font-logo);
-            font-size: 2.8em; /* Adjusted for Great Vibes */
-            color: var(--lilac-accent);
-            text-decoration: none;
-            font-weight: normal; /* Great Vibes is already decorative */
-        }
-
-        .main-navigation ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        .main-navigation li {
-            margin-left: 30px;
-        }
-
-        .main-navigation a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-family: var(--font-headings);
-            font-weight: 500;
-            font-size: 0.95em;
-            padding-bottom: 5px;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .main-navigation a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--lilac-accent);
-            transition: width 0.3s ease;
-        }
-
-        .main-navigation a:hover,
-        .main-navigation a.active {
-            color: var(--lilac-accent);
-        }
-        .main-navigation a:hover::after,
-        .main-navigation a.active::after {
-            width: 100%;
-        }
-        
-        .header-icons {
-            display: flex;
-            align-items: center;
-        }
-
-        .cart-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--text-dark);
-            transition: fill 0.3s ease;
-        }
-        .cart-icon:hover svg {
-            fill: var(--lilac-accent);
-        }
-
-        /* Main Content Area */
-        main {
-            padding-top: 40px; /* Extra padding if header is transparent or overlaps */
-            padding-bottom: 60px;
-            min-height: calc(100vh - 80px - 160px); /* Full height minus header and footer */
-        }
-        
-        h1, h2, h3 {
-            font-family: var(--font-headings);
-            font-weight: 600;
-            color: var(--text-dark);
-             margin-bottom: 0.75em;
-        }
-        h1 { font-size: 2.8em; line-height: 1.2; }
-        h2 { font-size: 2.2em; line-height: 1.3; }
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: var(--font-primary); margin: 0; padding: 0; padding-top: 70px; background-color: var(--white-pure); color: var(--text-dark); line-height: 1.7; font-weight: 300; }
+        .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
+        .site-header-new { background-color: var(--white-pure); padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08); height: 70px; display: flex; align-items: center; }
+        .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .site-logo-new a { font-family: var(--font-logo); font-size: 2.5em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        .header-actions { display: flex; align-items: center; }
+        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
+        .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        .language-switcher { margin-left: 20px; display:flex; align-items:center; }
+        .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 5px 8px; margin: 0 3px; border-radius: 4px; transition: background-color 0.3s, color 0.3s; }
+        .language-switcher .lang-link.active-lang { color: var(--lilac-accent); font-weight: 600; background-color: var(--lilac-primary); }
+        .language-switcher .lang-link:hover:not(.active-lang) { background-color: var(--silver-medium); color: var(--text-dark); }
+        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 60px 20px 20px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
+        .offcanvas-menu.open { right: 0; }
+        .close-menu-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; cursor: pointer; color: var(--text-light); }
+        .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
+        .offcanvas-menu nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
+        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--silver-light); }
+        .offcanvas-menu nav li:last-child a { border-bottom: none; }
+        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); z-index: 1050; }
+        .overlay-screen.active { display: block; }
+        main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 70px - 160px); }
+        h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.75em; }
+        h1 { font-size: 2.8em; line-height: 1.2; } 
+        h2 { font-size: 2.2em; line-height: 1.3; } 
         h3 { font-size: 1.6em; line-height: 1.4; }
-
-        p {
-            margin-bottom: 1.5em;
-            font-size: 1em; /* Poppins default size */
-        }
-        
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            font-family: var(--font-headings);
-            font-weight: 500;
-            font-size: 1em;
-            text-decoration: none;
-            border-radius: 50px; /* Pill shape for modern look */
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-        .btn-primary {
-            background-color: var(--lilac-accent);
-            color: var(--white-pure);
-            border-color: var(--lilac-accent);
-        }
-        .btn-primary:hover {
-            background-color: #8a6aaf; /* Darker lilac accent */
-            border-color: #8a6aaf;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(160, 118, 201, 0.4);
-        }
-
-        /* Footer */
-        .site-footer {
-            background-color: var(--silver-light);
-            color: var(--text-light);
-            padding: 40px 0;
-            text-align: center;
-            font-size: 0.9em;
-        }
-        .footer-container {
-            /* container class already handles width and margin */
-        }
-        .footer-links {
-            margin-bottom: 15px;
-        }
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-        .footer-links a:hover {
-            color: var(--lilac-accent);
-        }
-        .social-media-footer a {
-            margin: 0 8px;
-        }
-        .social-media-footer svg {
-            width: 22px;
-            height: 22px;
-            fill: var(--text-light);
-            transition: fill 0.3s ease;
-        }
-        .social-media-footer a:hover svg {
-            fill: var(--lilac-accent);
-        }
-        .copyright {
-            margin-top: 15px;
-            font-size: 0.85em;
-        }
-
-        /* Responsive adjustments for Header */
-        @media (max-width: 768px) {
-            body {
-                padding-top: 70px; /* Adjust for smaller fixed header */
-            }
-            .site-header {
-                height: 70px;
-            }
-            .site-logo a {
-                font-size: 2.2em;
-            }
-            .main-navigation {
-                display: none; /* Simple hide for now, implement toggle later if needed */
-            }
-            .header-container {
-                justify-content: space-between; /* Logo left, icons right */
-            }
-        }
-
-        /* New Hero Section Styles */
-        .hero-section-new {
-            background-color: var(--silver-light); /* Or a subtle gradient with lilac */
-            padding: 60px 0;
-            text-align: center;
-        }
-        .hero-container-new {
-            display: flex;
-            align-items: center;
-            justify-content: space-around; /* More space */
-            gap: 40px;
-        }
-        .hero-text-new {
-            flex-basis: 50%;
-            text-align: left;
-            max-width: 550px;
-        }
-        .hero-title {
-            font-size: 3.2em; /* Larger, more impactful */
-            font-weight: 700;
-            color: var(--text-dark);
-            line-height: 1.15;
-            margin-bottom: 0.4em;
-        }
-        .hero-subtitle {
-            font-size: 1.15em;
-            color: var(--text-light);
-            margin-bottom: 1.8em;
-            max-width: 500px; /* Limit width for readability */
-        }
-        .btn-hero {
-            font-size: 1.1em;
-            padding: 15px 35px;
-        }
-        .hero-image-new {
-            flex-basis: 45%;
-            max-width: 480px;
-        }
-        .hero-image-new img {
-            width: 100%;
-            height: auto;
-            border-radius: 15px; /* Softer radius */
-            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-        }
-
-        /* Section Title General Style */
-        .section-title {
-            text-align: center;
-            font-size: 2.4em;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 1.5em; /* More space below title */
-            margin-top: 2em; /* More space above title */
-        }
-        
-        /* New Features Section */
-        .features-section-new {
-            padding: 50px 0;
-        }
-        .features-grid-new {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-        }
-        .feature-item-new {
-            background-color: var(--white-pure);
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .feature-item-new:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(160, 118, 201, 0.15);
-        }
-        .feature-icon-new {
-            width: 60px; /* Ensure your SVGs are this size or scale well */
-            height: 60px;
-            margin-bottom: 20px;
-            /* Consider using var(--lilac-accent) for fill/stroke in SVGs if they are inline */
-        }
-        .feature-item-new h3 {
-            font-size: 1.3em;
-            color: var(--lilac-accent);
-            margin-bottom: 0.5em;
-            font-weight: 600;
-        }
-        .feature-item-new p {
-            font-size: 0.95em;
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* New Before & After Section */
-        .before-after-section-new {
-            padding: 50px 0;
-            background-color: var(--silver-light);
-        }
-        .before-after-grid {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            gap: 30px;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-        }
-        .before-after-item-new {
-            flex-basis: calc(50% - 20px); /* Two items per row with gap */
-            max-width: 450px;
-            text-align: center;
-            background-color: var(--white-pure);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-        }
-        .before-after-item-new img {
-            width: 100%;
-            max-width: 350px; /* Control image size within card */
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 1px solid var(--silver-medium);
-        }
-        .before-after-item-new h4 {
-            font-size: 1.2em;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        .before-after-item-new p {
-            font-size: 0.9em;
-            color: var(--text-light);
-            line-height: 1.5;
-        }
-
-        /* CTA Banner Section */
-        .cta-banner-section {
-            background-color: var(--lilac-accent);
-            color: var(--white-pure);
-            padding: 60px 0;
-            text-align: center;
-        }
-        .cta-banner-section h2 {
-            font-size: 2.2em;
-            margin-bottom: 0.5em;
-            color: var(--white-pure);
-        }
-        .cta-banner-section p {
-            font-size: 1.1em;
-            margin-bottom: 1.5em;
-            opacity: 0.9;
-        }
-        .btn-cta-banner {
-            background-color: var(--white-pure);
-            color: var(--lilac-accent);
-            font-size: 1.1em;
-            padding: 15px 35px;
-        }
-        .btn-cta-banner:hover {
-            background-color: var(--lilac-primary);
-            color: var(--text-dark);
-            box-shadow: 0 4px 15px rgba(0,0,0, 0.1);
-        }
-
-        /* New Testimonials Section */
-        .testimonials-section-new {
-            padding: 50px 0;
-        }
-        .testimonials-grid-new {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .testimonial-item-new {
-            background-color: var(--silver-light);
-            padding: 30px;
-            border-radius: 12px;
-            border-left: 5px solid var(--lilac-accent);
-        }
-        .testimonial-item-new p {
-            font-size: 1em;
-            font-style: italic;
-            color: var(--text-dark);
-            margin-bottom: 1em;
-            line-height: 1.7;
-        }
-        .testimonial-author {
-            font-size: 0.95em;
-            font-weight: 500;
-            color: var(--lilac-accent);
-            text-align: right;
-        }
-
-        /* Trust Badges Section */
-        .trust-badge-section {
-            padding: 40px 0;
-            background-color: var(--white-pure); /* Or a very light grey */
-        }
-        .trust-badge-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .trust-badge {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            max-width: 200px; /* Control width of each badge */
-        }
-        .trust-badge img { /* Assuming SVGs or PNGs for badges */
-            width: 50px; /* Adjust size as needed */
-            height: 50px;
-            margin-bottom: 10px;
-            opacity: 0.7;
-        }
-        .trust-badge p {
-            font-size: 0.9em;
-            color: var(--text-light);
-            font-weight: 500;
-            margin-bottom: 0;
-        }
-
-        /* Responsive for new sections */
+        p { margin-bottom: 1.5em; font-size: 1em; color:var(--text-light); }
+        .btn { display: inline-block; padding: 12px 30px; font-family: var(--font-headings); font-weight: 500; font-size: 1em; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; }
+        .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); }
+        .btn-primary:hover { background-color: #8a6aaf; border-color: #8a6aaf; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.4); }
+        .site-footer { background-color: var(--silver-light); color: var(--text-light); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top:auto; }
+        .footer-links { margin-bottom: 15px; }
+        .footer-links a { color: var(--text-light); text-decoration: none; margin: 0 10px; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--lilac-accent); }
+        .social-media-footer a { margin: 0 8px; }
+        .social-media-footer svg { width: 22px; height: 22px; fill: var(--text-light); transition: fill 0.3s ease; }
+        .social-media-footer a:hover svg { fill: var(--lilac-accent); }
+        .copyright { margin-top: 15px; font-size: 0.85em; }
+        .hero-v2 { background: var(--white-pure); padding: 60px 0; overflow: hidden; }
+        .hero-v2-container { display: flex; align-items: center; gap: 40px; }
+        .hero-v2-content { flex: 1; padding-right: 40px; animation: slideInFromLeft 0.8s ease-out; }
+        .hero-v2-image-container { flex: 1; display: flex; justify-content: center; align-items: center; animation: fadeInScale 0.8s ease-out 0.2s backwards; }
+        .hero-v2-image { max-width: 100%; height: auto; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+        .hero-v2-title { font-size: 2.8em; font-weight: 700; color: var(--text-dark); line-height: 1.25; margin-bottom: 15px; }
+        .hero-v2-description { font-size: 1.1em; color: var(--text-light); margin-bottom: 25px; max-width: 520px; }
+        .hero-v2-price { font-size: 1.7em; font-weight: 600; color: var(--lilac-accent); margin-bottom: 25px; }
+        .original-price-hero { font-size: 0.7em; text-decoration: line-through; color: var(--text-light); margin-left: 8px; font-weight: 400; }
+        .btn-hero-v2 { font-size: 1.05em; padding: 15px 35px; text-transform: none; letter-spacing: 0.3px; }
+        .hero-v2-guarantee { font-size: 0.9em; color: var(--text-light); margin-top: 20px; display: inline-flex; align-items: center; }
+        .hero-v2-guarantee svg { width: 18px; height: 18px; vertical-align: -3px; margin-right: 6px; fill: var(--lilac-accent); }
+        .section-title-centered { text-align: center; font-size: 2.3em; font-weight: 600; color: var(--text-dark); margin-bottom: 50px; margin-top: 60px; }
+        .key-features-section { padding: 60px 0; background-color: var(--white-pure); }
+        .key-features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
+        .key-feature-item { text-align: center; padding: 25px 20px; background-color: var(--white-pure); border-radius: 12px; border: 1px solid var(--silver-medium); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .key-feature-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(160, 118, 201, 0.1); }
+        .key-feature-icon { width: 50px; height: 50px; margin-bottom: 18px; }
+        .key-feature-item h3 { font-size: 1.2em; color: var(--text-dark); margin-bottom: 10px; font-weight: 600; }
+        .key-feature-item p { font-size: 0.9em; color: var(--text-light); line-height: 1.6; }
+        .before-after-visual-section { padding: 60px 0; background-color: var(--silver-light); }
+        .before-after-visual-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .before-after-visual-item { flex-basis: calc(50% - 25px); max-width: 420px; text-align: center; background: var(--white-pure); padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .before-after-visual-item img { width: 100%; max-width: 320px; height: auto; border-radius: 10px; margin-bottom: 15px; border: 1px solid var(--silver-medium); }
+        .before-after-label { font-family: var(--font-headings); font-weight: 500; font-size: 1.05em; color: var(--text-dark); margin-bottom: 8px; }
+        .before-after-visual-item p { font-size: 0.9em; color: var(--text-light); line-height: 1.5; margin-bottom: 0; }
+        .results-disclaimer { text-align: center; font-size: 0.85em; color: var(--text-light); margin-top: 25px; }
+        .testimonials-v2-section { padding: 60px 0; background-color: var(--white-pure); }
+        .testimonials-v2-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .testimonial-v2-item { background-color: var(--silver-light); padding: 30px; border-radius: 15px; border-left: 5px solid var(--lilac-primary); position: relative; }
+        .testimonial-v2-item::before { content: '“'; font-family: 'Georgia', serif; font-size: 3em; color: var(--lilac-primary); position: absolute; top: 10px; left: 15px; opacity: 0.7; }
+        .testimonial-v2-quote { font-size: 0.95em; font-style: italic; color: var(--text-dark); line-height: 1.7; margin-bottom: 15px; padding-left: 25px; }
+        .testimonial-v2-author { font-size: 0.9em; font-weight: 500; color: var(--lilac-accent); text-align: right; }
+        .final-cta-trust-section { padding: 70px 0; background: var(--lilac-primary); text-align: center; }
+        .final-cta-trust-section .section-title-centered { color: var(--text-dark); }
+        .final-cta-subtitle { font-size: 1.1em; color: var(--text-dark); opacity:0.9; max-width: 600px; margin: 0 auto 30px auto; }
+        .btn-final-cta { font-size: 1.1em; padding: 16px 40px; text-transform: none; letter-spacing: 0.3px; margin-bottom: 40px; background-color:var(--lilac-accent); color:var(--white-pure);}
+        .btn-final-cta:hover { background-color: #8a6aaf; box-shadow: 0 4px 15px rgba(0,0,0, 0.15); }
+        .trust-elements-final { display: flex; justify-content: space-around; align-items: flex-start; flex-wrap: wrap; gap: 20px; max-width: 850px; margin: 0 auto; }
+        .trust-element { display: flex; flex-direction: column; align-items: center; text-align: center; flex-basis: 180px; }
+        .trust-element img { width: 40px; height: 40px; margin-bottom: 10px; opacity: 0.8; }
+        .trust-element span { font-size: 0.85em; color: var(--text-dark); font-weight: 500; }
+        @keyframes slideInFromLeft { 0% { transform: translateX(-40px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeInScale { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         @media (max-width: 992px) {
-            .hero-container-new {
-                flex-direction: column-reverse; /* Image above text on medium screens */
-                text-align: center;
-            }
-            .hero-text-new {
-                text-align: center;
-                max-width: 100%;
-                margin-top:30px;
-            }
-            .hero-title {
-                font-size: 2.8em;
-            }
-            .hero-subtitle {
-                font-size: 1.1em;
-            }
+            .hero-v2-container { flex-direction: column-reverse; text-align: center; }
+            .hero-v2-content { padding-right: 0; text-align: center; }
+            .hero-v2-title { font-size: 2.5em; }
+            .hero-v2-description { max-width: 100%; }
+            .hero-v2-image-container { margin-bottom: 30px; }
+            .section-title-centered { font-size: 2em; }
+            .header-actions { margin-left: auto; }
+             .main-navigation { display: none !important; }
         }
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.4em;
-            }
-            .hero-subtitle {
-                font-size: 1em;
-            }
-            .section-title {
-                font-size: 2em;
-            }
-            .features-grid-new {
-                grid-template-columns: 1fr; /* Stack features */
-            }
-            .before-after-grid {
-                flex-direction: column;
-                align-items: center;
-            }
-            .before-after-item-new {
-                flex-basis: 100%;
-                margin-bottom: 20px;
-            }
-            .cta-banner-section h2 {
-                font-size: 1.8em;
-            }
-            .testimonials-grid-new {
-                 grid-template-columns: 1fr; /* Stack testimonials */
-            }
-            .trust-badge-container {
-                flex-direction: column;
-                gap: 30px;
-            }
+            .hero-v2 { padding: 40px 0; }
+            .hero-v2-title { font-size: 2em; }
+            .hero-v2-description { font-size: 0.95em; }
+            .btn-hero-v2, .btn-final-cta { font-size: 1em; padding: 12px 28px; }
+            .key-features-grid, .testimonials-v2-grid { grid-template-columns: 1fr; }
+            .before-after-visual-grid { flex-direction: column; align-items: center; }
+            .before-after-visual-item { flex-basis: 100%; margin-bottom: 20px; }
+            .final-cta-trust-section { padding: 50px 0; }
+            .trust-elements-final { flex-direction:column; align-items:center; gap:25px;}
+            h1 {font-size: 2.2em;}
+            .site-logo-new a { font-size: 2.2em; } 
+            body { padding-top: 70px; } 
+            .site-header-new { height: 70px; }
+            .language-switcher { display: none; }
+            .menu-toggle { display: flex !important; }
         }
-
+         @media (min-width: 769px) {
+            .menu-toggle { display: none !important; } 
+            #desktop-nav { display: flex !important; }
+            #desktop-lang-switcher { display: flex !important;}
+        }
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="container header-container">
-            <div class="site-logo">
-                <a href="index.html">Éclaria</a>
+    <header class="site-header-new">
+        <div class="container header-container-new">
+            <div class="site-logo-new">
+                <a href="../index.html">Éclaria</a>
             </div>
-            <nav class="main-navigation">
-                <ul>
-                    <li><a href="index.html" class="active">Accueil</a></li>
-                    <li><a href="produit.html">Produit</a></li>
-                    <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
+            <nav class="main-navigation" id="desktop-nav">
+                 <ul>
+                    <li><a href="../index.html" lang="fr" hreflang="fr">Startseite (FR)</a></li>
+                    <li><a href="../produit.html" lang="fr" hreflang="fr">Produkt (FR)</a></li>
+                    <li><a href="../qui-sommes-nous.html" lang="fr" hreflang="fr">Unsere Geschichte (FR)</a></li>
+                    <li><a href="../faq.html" lang="fr" hreflang="fr">FAQ (FR)</a></li>
+                    <li><a href="../contact.html" lang="fr" hreflang="fr">Kontakt (FR)</a></li>
                 </ul>
             </nav>
-            <div class="header-icons">
-                <a href="#" class="cart-icon" aria-label="Panier">
+            <div class="header-actions">
+                <div class="language-switcher" id="desktop-lang-switcher">
+                    <a href="../index.html" class="lang-link" lang="fr" hreflang="fr">FR</a>
+                    <a href="../en/index.html" class="lang-link" lang="en" hreflang="en">EN</a>
+                    <a href="index.html" class="lang-link active-lang" lang="de" hreflang="de">DE</a>
+                    <a href="../nl/index.html" class="lang-link" lang="nl" hreflang="nl">NL</a>
+                </div>
+                <button class="cart-icon-new" aria-label="Warenkorb">
                     <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                </a>
-                <!-- Add mobile menu toggle icon here if implementing JS nav -->
+                </button>
+                <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+                </button>
             </div>
         </div>
     </header>
 
+    <div class="offcanvas-menu" id="offcanvasMenu">
+        <button class="close-menu-btn" aria-label="Menü schließen">&times;</button>
+        <nav>
+            <ul>
+                <li><a href="../index.html" lang="fr" hreflang="fr">Startseite (FR)</a></li>
+                <li><a href="../livraison.html" lang="fr" hreflang="fr">Lieferung (FR)</a></li>
+                <li><a href="../paiement.html" lang="fr" hreflang="fr">Zahlung (FR)</a></li>
+                <li><a href="../politique-de-confidentialite.html" lang="fr" hreflang="fr">Datenschutz (FR)</a></li>
+                <li><a href="../livraison-et-retours.html" lang="fr" hreflang="fr">Rückgaberecht (FR)</a></li>
+                <li><a href="../contact.html" lang="fr" hreflang="fr">Kontakt (FR)</a></li>
+            </ul>
+        </nav>
+         <div class="language-switcher" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--silver-medium);">
+            <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Sprache:</p>
+            <a href="../index.html" class="lang-link" lang="fr" hreflang="fr" style="display:block; margin: 5px 0;">Français</a>
+            <a href="../en/index.html" class="lang-link" lang="en" hreflang="en" style="display:block; margin: 5px 0;">English</a>
+            <a href="index.html" class="lang-link active-lang" lang="de" hreflang="de" style="display:block; margin: 5px 0;">Deutsch</a>
+            <a href="../nl/index.html" class="lang-link" lang="nl" hreflang="nl" style="display:block; margin: 5px 0;">Nederlands</a>
+        </div>
+    </div>
+    <div class="overlay-screen" id="overlayScreen"></div>
+
     <main>
-        <!-- Hero Section -->
-        <section class="hero-section-new">
-            <div class="container hero-container-new">
-                <div class="hero-text-new">
-                    <h1 class="hero-title">Révélez Votre Éclat Naturel.</h1>
-                    <p class="hero-subtitle">Découvrez CryoGlow, le masque LED révolutionnaire pour une peau visiblement plus jeune, pure et apaisée. L'expérience spa de luxe, chez vous.</p>
-                    <a href="livraison.html" class="btn btn-primary btn-hero">Commander maintenant</a>
+        <section class="hero-v2">
+            <div class="container hero-v2-container">
+                <div class="hero-v2-image-container">
+                    <img src="../img/eclaria-product-main.jpg" alt="Éclaria CryoGlow LED Gesichtsmaske in Anwendung" class="hero-v2-image">
                 </div>
-                <div class="hero-image-new">
-                    <img src="img/710E7veA9BL._SL1500_.jpg" alt="Masque LED Éclaria CryoGlow sur un fond élégant">
-                </div>
-            </div>
-        </section>
-
-        <!-- Product Features Section -->
-        <section class="features-section-new">
-            <div class="container">
-                <h2 class="section-title">Découvrez la puissance d'Éclaria CryoGlow</h2>
-                <div class="features-grid-new">
-                    <div class="feature-item-new">
-                        <img src="img/icon-led-red-blue.svg" alt="Thérapie LED Rouge et Bleue" class="feature-icon-new">
-                        <h3>Double Action LED</h3>
-                        <p>Lumière Rouge anti-âge stimulant le collagène et Lumière Bleue purifiante ciblant l'acné.</p>
-                    </div>
-                    <div class="feature-item-new">
-                        <img src="img/icon-cryo-eye.svg" alt="Technologie de refroidissement sous les yeux" class="feature-icon-new">
-                        <h3>Cryothérapie Apaisante</h3>
-                        <p>Réduit poches et cernes, raffermit le contour des yeux grâce à une technologie de refroidissement ciblée.</p>
-                    </div>
-                    <div class="feature-item-new">
-                        <img src="img/icon-design-lilac.svg" alt="Design Luxueux Lilac Chill" class="feature-icon-new">
-                        <h3>Design & Confort Ultime</h3>
-                        <p>Conception ergonomique en Lilac Chill, avec télécommande intuitive et chargement USB-C.</p>
-                    </div>
-                     <div class="feature-item-new">
-                        <img src="img/icon-results-fast.svg" alt="Résultats rapides" class="feature-icon-new">
-                        <h3>Résultats Visibles Rapidement</h3>
-                        <p>Une peau transformée et un teint amélioré en seulement 7 à 21 jours d'utilisation régulière.</p>
-                    </div>
+                <div class="hero-v2-content">
+                    <h1 class="hero-v2-title">Éclaria CryoGlow: Enthüllen Sie Ihre Außergewöhnliche Haut.</h1>
+                    <p class="hero-v2-description">
+                        Entdecken Sie die einzigartige Fusion von fortschrittlicher LED-Therapie und beruhigender Kryotechnologie. 
+                        Entwickelt, um Alterserscheinungen und Akne zu bekämpfen und die Ausstrahlung Ihrer Augenpartie neu zu beleben.
+                        Das luxuriöse Spa-Erlebnis, neu erfunden für Ihren Alltag.
+                    </p>
+                    <p class="hero-v2-price">149€ <span class="original-price-hero">349.99€</span></p>
+                    <a href="../livraison.html" class="btn btn-primary btn-hero-v2">Jetzt Bestellen</a>
+                    <p class="hero-v2-guarantee"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;vertical-align:-3px;margin-right:5px;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path></svg>30-Tage Geld-zurück-Garantie</p>
                 </div>
             </div>
         </section>
 
-        <!-- Before & After Section -->
-        <section class="before-after-section-new">
+        <section class="key-features-section">
             <div class="container">
-                <h2 class="section-title">Des Résultats Qui Parlent d'Eux-Mêmes</h2>
-                <div class="before-after-grid">
-                    <div class="before-after-item-new">
-                        <img src="img/placeholder-before.jpg" alt="Avant traitement Éclaria CryoGlow">
-                        <h4>Avant</h4>
-                        <p>Peau terne, ridules apparentes et imperfections.</p>
+                <h2 class="section-title-centered">Fortschrittliche Technologie, Sichtbare Ergebnisse</h2>
+                <div class="key-features-grid">
+                    <div class="key-feature-item">
+                        <img src="../img/icon-led-therapy.svg" alt="LED Therapie" class="key-feature-icon">
+                        <h3>Gezielte LED-Therapie</h3>
+                        <p>Rotes (Anti-Aging) und Blaues (Anti-Akne) Licht für präzise und effektive Wirkung.</p>
                     </div>
-                    <div class="before-after-item-new">
-                        <img src="img/placeholder-after.jpg" alt="Après traitement Éclaria CryoGlow">
-                        <h4>Après</h4>
-                        <p>Peau visiblement plus lisse, teint unifié et éclat retrouvé.</p>
+                    <div class="key-feature-item">
+                        <img src="../img/icon-cryo-technology.svg" alt="Kryotherapie" class="key-feature-icon">
+                        <h3>Revitalisierende Kryotherapie</h3>
+                        <p>Kühltechnologie zur Beruhigung, Straffung und Reduzierung von Schwellungen unter den Augen.</p>
+                    </div>
+                    <div class="key-feature-item">
+                        <img src="../img/icon-remote-control.svg" alt="Einfache Bedienung" class="key-feature-icon">
+                        <h3>Intuitive Steuerung</h3>
+                        <p>Ergonomische Fernbedienung und USB-C-Aufladung für vereinfachte Anwendung.</p>
+                    </div>
+                    <div class="key-feature-item">
+                        <img src="../img/icon-fast-results.svg" alt="Schnelle Ergebnisse" class="key-feature-icon">
+                        <h3>Ergebnisse in 7 Tagen</h3>
+                        <p>Beginnen Sie, eine Verbesserung Ihrer Haut in nur einer Woche Anwendung zu sehen.</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="before-after-visual-section">
+            <div class="container">
+                <h2 class="section-title-centered">Die Éclaria Transformation</h2>
+                <div class="before-after-visual-grid">
+                    <div class="before-after-visual-item">
+                        <img src="../img/masque-led-avant.jpg" alt="Haut vor Anwendung der Éclaria CryoGlow Maske">
+                        <p class="before-after-label">Vorher</p>
+                    </div>
+                    <div class="before-after-visual-item">
+                        <img src="../img/masque-led-apres.jpg" alt="Haut nach Anwendung der Éclaria CryoGlow Maske">
+                        <p class="before-after-label">Nach 21 Tagen</p>
+                    </div>
+                </div>
+                <p class="results-disclaimer">Ergebnisse können variieren. Unretuschierte Fotos von Éclaria-Kundinnen.</p>
             </div>
         </section>
         
-        <!-- Call to Action Banner -->
-        <section class="cta-banner-section">
+        <section class="final-cta-trust-section">
             <div class="container">
-                <h2>Prête à transformer votre peau ?</h2>
-                <p>Offrez-vous l'expérience Éclaria CryoGlow et redécouvrez la confiance d'une peau saine et rayonnante.</p>
-                <a href="livraison.html" class="btn btn-primary btn-cta-banner">Commander le Vôtre - 149€</a>
+                <h2 class="section-title-centered">Bereit, Ihre Beste Haut zu Enthüllen?</h2>
+                <p class="final-cta-subtitle">Schließen Sie sich Tausenden von Frauen an, die ihre Haut mit Éclaria CryoGlow verwandelt haben.</p>
+                <a href="../livraison.html" class="btn btn-primary btn-final-cta">Bestellen Sie Ihre Noch Heute</a>
+                <div class="trust-elements-final">
+                    <div class="trust-element">
+                        <img src="../img/icon-shield-check.svg" alt="Sichere Zahlung">
+                        <span>100% Sichere Zahlung</span>
+                    </div>
+                    <div class="trust-element">
+                        <img src="../img/icon-calendar-check.svg" alt="30-Tage-Garantie">
+                        <span>30-Tage Geld-zurück-Garantie</span>
+                    </div>
+                    <div class="trust-element">
+                        <img src="../img/icon-truck.svg" alt="Kostenloser Versand">
+                        <span>Kostenloser Versand in Frankreich & Belgien</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Testimonials Section -->
-        <section class="testimonials-section-new">
+        <section class="testimonials-v2-section">
             <div class="container">
-                <h2 class="section-title">Elles ont adopté Éclaria CryoGlow</h2>
-                <div class="testimonials-grid-new">
-                    <div class="testimonial-item-new">
-                        <p>"Incroyable ! J'ai vu une différence sur mes ridules en moins de deux semaines. Le mode cryo est un vrai plus pour mes yeux fatigués."</p>
-                        <div class="testimonial-author">- Sophie D.</div>
+                <h2 class="section-title-centered">Was unsere Kundinnen sagen</h2>
+                <div class="testimonials-v2-grid">
+                    <div class="testimonial-v2-item">
+                        <p class="testimonial-v2-quote">"Ich bin absolut begeistert! Meine Haut ist glatter, strahlender und meine feinen Linien sind verblasst. Das CryoGlow ist mein neues unverzichtbares Schönheitsritual."</p>
+                        <p class="testimonial-v2-author">- Charlotte B., Paris</p>
                     </div>
-                    <div class="testimonial-item-new">
-                        <p>"Enfin un masque LED qui tient ses promesses. Mon acné a diminué et ma peau est plus lumineuse. Facile à utiliser et très relaxant."</p>
-                        <div class="testimonial-author">- Marc L. (Recommande pour sa femme)</div>
+                    <div class="testimonial-v2-item">
+                        <p class="testimonial-v2-quote">"Nach Jahren des Kampfes gegen Akne habe ich endlich eine Lösung gefunden, die funktioniert. Meine Haut ist sichtbar reiner und beruhigter. Danke Éclaria!"</p>
+                        <p class="testimonial-v2-author">- Manon L., Lyon</p>
                     </div>
-                    <div class="testimonial-item-new">
-                        <p>"Le design est superbe et la qualité est au rendez-vous. J'adore la sensation de froid sous les yeux. C'est mon nouveau rituel beauté !"</p>
-                        <div class="testimonial-author">- Chloé V.</div>
+                    <div class="testimonial-v2-item">
+                        <p class="testimonial-v2-quote">"Der Kühleffekt unter den Augen ist unglaublich, um morgens Schwellungen zu reduzieren. Mein Blick ist frischer, jünger. Ich kann nicht mehr ohne!"</p>
+                        <p class="testimonial-v2-author">- Isabelle G., Marseille</p>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Trust Badges Section -->
-        <section class="trust-badge-section">
-            <div class="container trust-badge-container">
-                <div class="trust-badge">
-                    <img src="img/icon-secure-payment.svg" alt="Paiement Sécurisé">
-                    <p>Paiement 100% Sécurisé</p>
-                </div>
-                <div class="trust-badge">
-                    <img src="img/icon-money-back.svg" alt="Garantie Satisfait ou Remboursé">
-                    <p>Garantie 30 Jours</p>
-                </div>
-                <div class="trust-badge">
-                    <img src="img/icon-dermatologically-tested.svg" alt="Testé Dermatologiquement">
-                    <p>Testé Dermatologiquement</p>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <footer class="site-footer">
         <div class="container footer-container">
             <div class="footer-links">
-                <a href="politique-de-confidentialite.html">Politique de Confidentialité</a> |
-                <a href="conditions-utilisation.html">Conditions d'Utilisation</a> |
-                <a href="contact.html">Contactez-nous</a>
+                <a href="../politique-de-confidentialite.html">Datenschutzrichtlinie</a> |
+                <a href="../conditions-utilisation.html">Nutzungsbedingungen</a> |
+                <a href="../contact.html">Kontakt</a>
             </div>
             <div class="social-media-footer">
-                <a href="https://instagram.com/eclaria_officiel" target="_blank" aria-label="Instagram Éclaria">
-                    <svg viewBox="0 0 24 24"> <!-- Simple Instagram Icon SVG -->
-                        <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
-                    </svg>
-                </a>
-                <!-- Add other social icons here -->
+                <a href="https://instagram.com/eclaria_officiel" target="_blank" aria-label="Instagram Éclaria"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
             </div>
-            <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> Éclaria SAS. Tous droits réservés.</p>
+            <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> Éclaria SAS. Alle Rechte vorbehalten.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Éclaria website (re-designed foundation) loaded successfully!');
-            // JavaScript for fixed header padding adjustment, mobile menu, etc. will be added later
+            const menuToggle = document.querySelector('.menu-toggle');
+            const closeMenuBtn = document.querySelector('.close-menu-btn');
+            const offcanvasMenu = document.getElementById('offcanvasMenu');
+            const overlayScreen = document.getElementById('overlayScreen');
+            const desktopNav = document.getElementById('desktop-nav');
+            const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
+
+            function openMenu() {
+                if(offcanvasMenu) offcanvasMenu.classList.add('open');
+                if(overlayScreen) overlayScreen.classList.add('active');
+                if(menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+            }
+
+            function closeMenu() {
+                if(offcanvasMenu) offcanvasMenu.classList.remove('open');
+                if(overlayScreen) overlayScreen.classList.remove('active');
+                if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+            }
+
+            if (menuToggle) menuToggle.addEventListener('click', openMenu);
+            if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+            if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
+            
+            function handleResize() {
+                if (window.innerWidth > 768) {
+                    if(menuToggle) menuToggle.style.display = 'none';
+                    if(desktopNav) desktopNav.style.display = 'flex';
+                    if(desktopLangSwitcher) desktopLangSwitcher.style.display = 'flex';
+                    closeMenu(); 
+                } else {
+                    if(menuToggle) menuToggle.style.display = 'flex';
+                    if(desktopNav) desktopNav.style.display = 'none';
+                    if(desktopLangSwitcher) desktopLangSwitcher.style.display = 'none';
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize(); 
+
+            console.log('Éclaria Home (DE) (re-designed foundation with lang switcher) loaded successfully!');
         });
     </script>
     <!-- Google Analytics / Facebook Pixel scripts go here -->
