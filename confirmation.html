@@ -5,301 +5,215 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éclaria - Confirmation de Commande</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
-
-        /* Color Palette */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
         :root {
-            --lilac-color: #D8BFD8; /* Lilac */
-            --white-color: #FFFFFF;
-            --silver-color: #C0C0C0;
-            --dark-text-color: #333333;
-            --light-text-color: #555555;
-            --accent-color: #A97CBE; /* A slightly darker Lilac for accents */
-            --success-color: #28a745; /* Green for success messages */
+            --lilac-primary: #D1C4E9; --lilac-accent: #A076C9; --white-pure: #FFFFFF; --silver-light: #F5F5F5; --silver-medium: #E0E0E0; --text-dark: #373737; --text-light: #6c757d; --success-color: #28a745;
+            --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif; --font-logo: 'Great Vibes', cursive;
         }
-
-        /* General Body Styles */
-        body {
-            font-family: 'Poppins', 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            color: var(--dark-text-color);
-            background-color: var(--white-color);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Header Styles */
-        header {
-            background-color: var(--white-color);
-            padding: 1.5em 0;
-            border-bottom: 1px solid #eee;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5em;
-            font-weight: 600;
-            color: var(--accent-color);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 25px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark-text-color);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active {
-            color: var(--accent-color);
-        }
-
-        /* Main Content Styles */
-        main {
-            padding: 2em 0;
-            flex-grow: 1; /* Ensures main content takes available space */
-        }
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: var(--font-primary); margin: 0; padding: 0; color: var(--text-dark); background-color: var(--silver-light); line-height: 1.7; font-weight: 300; padding-top: 80px; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 90%; max-width: 1180px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
+        .site-header { background-color: var(--white-pure); padding: 15px 0; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.08); height: 80px; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+        .site-logo a { font-family: var(--font-logo); font-size: 2.8em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        .main-navigation ul { list-style: none; margin: 0; padding: 0; display: flex; }
+        .main-navigation li { margin-left: 30px; }
+        .main-navigation a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 0.95em; padding-bottom: 5px; position: relative; transition: color 0.3s ease; }
+        .main-navigation a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: var(--lilac-accent); transition: width 0.3s ease; }
+        .main-navigation a:hover, .main-navigation a.active { color: var(--lilac-accent); }
+        .main-navigation a:hover::after, .main-navigation a.active::after { width: 100%; }
+        .header-icons { display: flex; align-items: center; }
+        .cart-icon svg { width: 24px; height: 24px; fill: var(--text-dark); transition: fill 0.3s ease; }
+        .cart-icon:hover svg { fill: var(--lilac-accent); }
+        main { padding-top: 40px; padding-bottom: 60px; flex-grow: 1; display:flex; align-items:center; justify-content:center; } /* Centering content */
+        h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.75em; }
+        h1 { font-size: 2.8em; line-height: 1.2; } h2 { font-size: 2.2em; line-height: 1.3; } h3 { font-size: 1.6em; line-height: 1.4; }
+        p { margin-bottom: 1.5em; font-size: 1em; }
+        .btn { display: inline-block; padding: 12px 30px; font-family: var(--font-headings); font-weight: 500; font-size: 1em; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; }
+        .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); }
+        .btn-primary:hover { background-color: #8a6aaf; border-color: #8a6aaf; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.4); }
+        .site-footer { background-color: var(--silver-light); color: var(--text-light); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top:auto; }
+        .footer-links { margin-bottom: 15px; }
+        .footer-links a { color: var(--text-light); text-decoration: none; margin: 0 10px; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--lilac-accent); }
+        .social-media-footer a { margin: 0 8px; }
+        .social-media-footer svg { width: 22px; height: 22px; fill: var(--text-light); transition: fill 0.3s ease; }
+        .social-media-footer a:hover svg { fill: var(--lilac-accent); }
+        .copyright { margin-top: 15px; font-size: 0.85em; }
         
-        .confirmation-page {
+        .checkout-header { text-align: center; margin-bottom: 40px; }
+        .checkout-header h1 { font-size: 2.4em; color: var(--text-dark); margin-bottom: 0.2em;}
+        .checkout-steps { display: flex; justify-content: center; margin-bottom: 30px; padding:0; list-style:none;}
+        .checkout-step { color: var(--text-light); margin: 0 15px; font-family: var(--font-headings); font-weight: 500; position: relative; font-size: 0.95em;}
+        .checkout-step.active { color: var(--lilac-accent); font-weight:600;}
+        .checkout-step.completed { color: var(--text-dark); font-weight:600;}
+        .checkout-step:not(:last-child)::after { content: '>'; color: var(--silver-medium); margin-left: 15px; position: absolute; right: -20px; font-weight:300;}
+
+        .confirmation-container {
+            background-color: var(--white-pure);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.07);
             text-align: center;
-            padding: 3em 0;
+            max-width: 650px;
+            width: 100%;
         }
-
-        .confirmation-icon {
-            font-size: 4em;
+        .confirmation-icon-new {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px auto;
+            display: block;
+        }
+        .confirmation-container h1 {
+            font-size: 2.2em;
             color: var(--success-color);
-            margin-bottom: 0.5em;
+            margin-bottom: 15px;
         }
-
-        .confirmation-page h1 {
-            color: var(--success-color);
-            font-size: 2.5em;
-            margin-bottom: 0.5em;
+        .confirmation-container .lead-text {
+            font-size: 1.15em;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            line-height: 1.8;
         }
-
-        .confirmation-page p {
-            font-size: 1.1em;
-            color: var(--light-text-color);
-            margin-bottom: 1em;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .order-summary-confirmation {
-            background-color: #f9f9f9;
-            border: 1px solid #eee;
+        .order-details-summary {
+            background-color: var(--silver-light);
+            border: 1px solid var(--silver-medium);
             border-radius: 8px;
-            padding: 1.5em;
-            margin: 2em auto;
-            max-width: 500px;
+            padding: 20px;
+            margin: 30px 0;
             text-align: left;
         }
-        .order-summary-confirmation h3 {
-            color: var(--dark-text-color);
+        .order-details-summary h3 {
             font-size: 1.3em;
-            margin-bottom: 1em;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 0.5em;
+            color: var(--text-dark);
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--silver-medium);
         }
-        .order-summary-confirmation p {
-            font-size: 1em;
-            margin-bottom: 0.5em;
+        .order-details-summary p {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            color: var(--text-light);
         }
-         .order-summary-confirmation strong {
-             color: var(--dark-text-color);
-         }
-
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white-color);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
+        .order-details-summary strong {
+            color: var(--text-dark);
             font-weight: 500;
-            transition: background-color 0.3s ease;
-            border: none;
-            cursor: pointer;
+        }
+        .confirmation-actions .btn {
+            margin-top: 20px;
+            padding: 14px 35px;
+            font-size: 1.05em;
         }
 
-        .btn:hover {
-            background-color: #9569A9;
-        }
-
-        .btn-home {
-            margin-top: 1.5em;
-            padding: 12px 25px;
-            font-size: 1.1em;
-        }
-
-
-        /* Footer Styles */
-        footer {
-            background-color: var(--lilac-color);
-            color: var(--white-color);
-            text-align: center;
-            padding: 2em 0;
-            margin-top: auto; /* Pushes footer to bottom if content is short */
-        }
-
-        footer p {
-            margin: 0;
-            font-weight: 300;
-        }
-
-        footer a {
-            color: var(--white-color);
-            text-decoration: underline;
-        }
-
-        footer a:hover {
-            text-decoration: none;
-        }
-        
-        /* Responsive */
         @media (max-width: 768px) {
-            header .container {
-                flex-direction: column;
-                align-items: center;
-            }
-            .logo {
-                margin-bottom: 0.5em;
-                font-size: 2em;
-            }
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-            nav ul li {
-                margin: 10px 0;
-            }
-            .container {
-                width: 95%;
-            }
-            .confirmation-page h1 {
-                font-size: 2em;
-            }
+            body { padding-top: 70px; } .site-header { height: 70px; } .site-logo a { font-size: 2.2em; }
+            .main-navigation { display: none; } .header-container { justify-content: space-between; }
+            .checkout-header h1 { font-size: 2em;}
+            .confirmation-container h1 { font-size: 1.8em; }
+            .confirmation-container .lead-text { font-size: 1em; }
+            .confirmation-container { padding: 30px; }
         }
-
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <a href="index.html" class="logo">Éclaria</a>
-            <nav>
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="site-logo"><a href="index.html">Éclaria</a></div>
+            <nav class="main-navigation">
                 <ul>
                     <li><a href="index.html">Accueil</a></li>
                     <li><a href="produit.html">Produit</a></li>
-                    <li><a href="qui-sommes-nous.html">Qui Sommes-Nous</a></li>
+                    <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
                     <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
+            <div class="header-icons">
+                <a href="#" class="cart-icon" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></a>
+            </div>
         </div>
     </header>
-
-    <main class="confirmation-page">
-        <div class="container">
-            <div class="confirmation-icon">&#10004;</div> <!-- Checkmark icon -->
-            <h1>Merci pour Votre Commande !</h1>
-            <p>Votre commande a été traitée avec succès. Un e-mail de confirmation avec les détails de votre achat et les informations de suivi vous sera envoyé prochainement.</p>
-            
-            <div class="order-summary-confirmation">
-                <h3>Récapitulatif de la Commande</h3>
-                <p><strong>Numéro de Commande :</strong> <span id="order-number">EC123456789</span></p> <!-- Placeholder -->
-                <p><strong>Produit :</strong> CryoGlow LED Face Mask</p>
-                <p><strong>Total Payé :</strong> 149€</p>
-                <p><strong>Adresse de Livraison :</strong> <span id="shipping-address-display">Chargement...</span></p>
+    <main class="checkout-page">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div class="checkout-header" style="width:100%; max-width:650px;">
+                <h1>Merci pour Votre Commande !</h1>
+                <ul class="checkout-steps">
+                    <li class="checkout-step completed"><a href="livraison.html" style="text-decoration:none; color:inherit;">Livraison</a></li>
+                    <li class="checkout-step completed"><a href="paiement.html" style="text-decoration:none; color:inherit;">Paiement</a></li>
+                    <li class="checkout-step active">Confirmation</li>
+                </ul>
             </div>
 
-            <p>Si vous avez des questions, n'hésitez pas à nous <a href="contact.html">contacter</a>.</p>
-            <a href="index.html" class="btn btn-home">Retour à l'Accueil</a>
+            <div class="confirmation-container">
+                <img src="img/icon-check-circle.svg" alt="Confirmation" class="confirmation-icon-new"> <!-- Placeholder icon -->
+                <h2>Votre commande a été validée avec succès.</h2>
+                <p class="lead-text">Un e-mail de confirmation contenant les détails de votre achat et les informations de suivi vous sera envoyé d'ici quelques instants. Nous vous remercions pour votre confiance.</p>
+                
+                <div class="order-details-summary">
+                    <h3>Récapitulatif de la Commande</h3>
+                    <p><strong>Numéro de Commande :</strong> <span id="conf-order-number">EC000000000</span></p>
+                    <p><strong>Produit :</strong> CryoGlow LED Face Mask</p>
+                    <p><strong>Montant Total :</strong> <span id="conf-order-total">149€</span></p>
+                    <p><strong>Méthode de Paiement :</strong> <span id="conf-payment-method">Carte de Crédit</span></p>
+                    <p><strong>Adresse de Livraison :</strong> <span id="conf-shipping-address">Chargement...</span></p>
+                </div>
+
+                <p>Si vous avez des questions, n'hésitez pas à <a href="contact.html" style="color:var(--lilac-accent); text-decoration:underline;">nous contacter</a>.</p>
+                <div class="confirmation-actions">
+                    <a href="index.html" class="btn btn-primary">Retour à l'Accueil</a>
+                </div>
+            </div>
         </div>
     </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; <script>document.write(new Date().getFullYear());</script> Éclaria. Tous droits réservés.</p>
-            <p>
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-links">
                 <a href="politique-de-confidentialite.html">Politique de Confidentialité</a> |
-                <a href="conditions-utilisation.html">Conditions d'Utilisation</a>
-            </p>
+                <a href="conditions-utilisation.html">Conditions d'Utilisation</a> |
+                <a href="contact.html">Contactez-nous</a>
+            </div>
+            <div class="social-media-footer">
+                <a href="https://instagram.com/eclaria_officiel" target="_blank" aria-label="Instagram Éclaria"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
+            </div>
+            <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> Éclaria SAS. Tous droits réservés.</p>
         </div>
     </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page de confirmation chargée.');
+            console.log('Éclaria Confirmation (re-designed) loaded successfully!');
 
-            // Attempt to display shipping address from localStorage (simulated)
-            const shippingAddressDisplay = document.getElementById('shipping-address-display');
-            if (shippingAddressDisplay) {
-                const adresse1 = localStorage.getItem('shipping_adresse1') || '';
-                const adresse2 = localStorage.getItem('shipping_adresse2') || '';
-                const ville = localStorage.getItem('shipping_ville') || '';
-                const code_postal = localStorage.getItem('shipping_code_postal') || '';
-                const paysCode = localStorage.getItem('shipping_pays');
-                const pays = paysCode === 'BE' ? 'Belgique' : (paysCode === 'FR' ? 'France' : '');
+            const orderNumberEl = document.getElementById('conf-order-number');
+            const orderTotalEl = document.getElementById('conf-order-total');
+            const paymentMethodEl = document.getElementById('conf-payment-method');
+            const shippingAddressEl = document.getElementById('conf-shipping-address');
 
-                let fullAddress = [adresse1, adresse2, `${ville}, ${code_postal}`, pays].filter(Boolean).join(', ');
-                
-                if (fullAddress) {
-                    shippingAddressDisplay.textContent = fullAddress;
-                } else {
-                    shippingAddressDisplay.textContent = "Non spécifiée lors du processus de paiement.";
-                }
+            if(orderNumberEl) {
+                orderNumberEl.textContent = localStorage.getItem('eclaria_order_id') || `EC${Math.floor(Math.random() * 900000) + 100000}`;
+            }
+            if(orderTotalEl) {
+                orderTotalEl.textContent = localStorage.getItem('eclaria_order_total') || '149€';
+            }
+            if(paymentMethodEl) {
+                paymentMethodEl.textContent = localStorage.getItem('eclaria_order_payment_method') || 'Non spécifiée';
             }
 
-            // Simulate generating a unique order number (very basic)
-            const orderNumberSpan = document.getElementById('order-number');
-            if(orderNumberSpan){
-                const randomNumber = Math.floor(Math.random() * 1000000000);
-                orderNumberSpan.textContent = `EC${randomNumber}`;
+            if (shippingAddressEl) {
+                const adresse1 = localStorage.getItem('eclaria_shipping_adresse1') || '';
+                const adresse2 = localStorage.getItem('eclaria_shipping_adresse2') || '';
+                const ville = localStorage.getItem('eclaria_shipping_ville') || '';
+                const code_postal = localStorage.getItem('eclaria_shipping_code_postal') || '';
+                const paysCode = localStorage.getItem('eclaria_shipping_pays');
+                const pays = paysCode === 'BE' ? 'Belgique' : (paysCode === 'FR' ? 'France' : 'Non spécifié');
+                let fullAddress = [adresse1, adresse2, `${code_postal} ${ville}`, pays].filter(Boolean).join(', ');
+                shippingAddressEl.textContent = fullAddress || "Non fournie";
             }
-
-            // Clear localStorage items related to checkout after displaying them (optional)
-            // localStorage.removeItem('shipping_prenom');
-            // localStorage.removeItem('shipping_nom');
-            // localStorage.removeItem('shipping_email');
-            // localStorage.removeItem('shipping_adresse1');
-            // localStorage.removeItem('shipping_adresse2');
-            // localStorage.removeItem('shipping_ville');
-            // localStorage.removeItem('shipping_code_postal');
-            // localStorage.removeItem('shipping_pays');
+            
+            // Optionally clear localStorage items after use on confirmation page
+            // localStorage.removeItem('eclaria_order_id');
+            // localStorage.removeItem('eclaria_order_total');
+            // localStorage.removeItem('eclaria_order_payment_method');
+            // localStorage.removeItem('eclaria_shipping_email'); 
+            // etc. for all shipping details
         });
     </script>
 </body>
