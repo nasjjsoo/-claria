@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Éclaria - Startseite</title>
+    <title>Éclaria - Accueil</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
         :root {
@@ -30,6 +30,8 @@
         .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
         .offcanvas-menu nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
         .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--silver-light); }
+        /* Supprimer la navigation bureau pour l'instant, sera recréée en français */
+        /* .main-navigation { display: none !important; } */
         .offcanvas-menu nav li:last-child a { border-bottom: none; }
         .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); z-index: 1050; }
         .overlay-screen.active { display: block; }
@@ -132,28 +134,29 @@
     <header class="site-header-new">
         <div class="container header-container-new">
             <div class="site-logo-new">
-                <a href="../index.html">Éclaria</a>
+                <a href="index.html">Éclaria</a>
             </div>
             <nav class="main-navigation" id="desktop-nav">
                  <ul>
-                    <li><a href="../index.html" lang="fr" hreflang="fr">Startseite (FR)</a></li>
-                    <li><a href="../produit.html" lang="fr" hreflang="fr">Produkt (FR)</a></li>
-                    <li><a href="../qui-sommes-nous.html" lang="fr" hreflang="fr">Unsere Geschichte (FR)</a></li>
-                    <li><a href="../faq.html" lang="fr" hreflang="fr">FAQ (FR)</a></li>
-                    <li><a href="../contact.html" lang="fr" hreflang="fr">Kontakt (FR)</a></li>
+                    <li><a href="index.html" class="active-lang">Accueil</a></li>
+                    <li><a href="produit.html">Produit</a></li>
+                    <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
                 <div class="language-switcher" id="desktop-lang-switcher">
-                    <a href="../index.html" class="lang-link" lang="fr" hreflang="fr">FR</a>
-                    <a href="../en/index.html" class="lang-link" lang="en" hreflang="en">EN</a>
-                    <a href="index.html" class="lang-link active-lang" lang="de" hreflang="de">DE</a>
-                    <a href="../nl/index.html" class="lang-link" lang="nl" hreflang="nl">NL</a>
+                    <a href="index.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
+                    <!-- Autres langues désactivées pour l'instant, car le site doit être uniquement en français par défaut -->
+                    <!-- <a href="en/index.html" class="lang-link" lang="en" hreflang="en">EN</a> -->
+                    <!-- <a href="de/index.html" class="lang-link" lang="de" hreflang="de">DE</a> -->
+                    <!-- <a href="nl/index.html" class="lang-link" lang="nl" hreflang="nl">NL</a> -->
                 </div>
-                <button class="cart-icon-new" aria-label="Warenkorb">
+                <button class="cart-icon-new" aria-label="Panier">
                     <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
                 </button>
-                <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">
+                <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
                 </button>
             </div>
@@ -161,23 +164,27 @@
     </header>
 
     <div class="offcanvas-menu" id="offcanvasMenu">
-        <button class="close-menu-btn" aria-label="Menü schließen">&times;</button>
+        <button class="close-menu-btn" aria-label="Fermer le menu">&times;</button>
         <nav>
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="livraison.html">Livraison</a></li>
+                <li><a href="index.html" class="active-lang">Accueil</a></li>
+                <li><a href="produit.html">Produit</a></li>
+                <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
+                 <li><a href="faq.html">FAQ</a></li>
+                <li><a href="livraison.html">Livraison & Retours</a></li>
                 <li><a href="paiement.html">Paiement</a></li>
-                <li><a href="politique-de-confidentialite.html">Politique de confidentialité</a></li>
-                <li><a href="livraison-et-retours.html">Politique de retour</a></li>
+                <li><a href="politique-de-confidentialite.html">Politique de Confidentialité</a></li>
+                <li><a href="conditions-utilisation.html">Conditions d'Utilisation</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
          <div class="language-switcher" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--silver-medium);">
-            <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Sprache:</p>
-            <a href="../index.html" class="lang-link" lang="fr" hreflang="fr" style="display:block; margin: 5px 0;">Français</a>
-            <a href="../en/index.html" class="lang-link" lang="en" hreflang="en" style="display:block; margin: 5px 0;">English</a>
-            <a href="index.html" class="lang-link active-lang" lang="de" hreflang="de" style="display:block; margin: 5px 0;">Deutsch</a>
-            <a href="../nl/index.html" class="lang-link" lang="nl" hreflang="nl" style="display:block; margin: 5px 0;">Nederlands</a>
+            <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Langue :</p>
+            <a href="index.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0;">Français</a>
+            <!-- Autres langues désactivées 
+            <a href="en/index.html" class="lang-link" lang="en" hreflang="en" style="display:block; margin: 5px 0;">English</a>
+            <a href="de/index.html" class="lang-link" lang="de" hreflang="de" style="display:block; margin: 5px 0;">Deutsch</a>
+            <a href="nl/index.html" class="lang-link" lang="nl" hreflang="nl" style="display:block; margin: 5px 0;">Nederlands</a> -->
         </div>
     </div>
     <div class="overlay-screen" id="overlayScreen"></div>
@@ -186,45 +193,45 @@
         <section class="hero-v2">
             <div class="container hero-v2-container">
                 <div class="hero-v2-image-container">
-                    <img src="710E7veA9BL._SL1500_.jpg" alt="Éclaria CryoGlow LED Gesichtsmaske in Anwendung" class="hero-v2-image">
+                    <img src="img/710E7veA9BL._SL1500_.jpg" alt="Masque facial LED Éclaria CryoGlow en utilisation" class="hero-v2-image">
                 </div>
                 <div class="hero-v2-content">
-                    <h1 class="hero-v2-title">Éclaria CryoGlow: Enthüllen Sie Ihre Außergewöhnliche Haut.</h1>
+                    <h1 class="hero-v2-title">Éclaria CryoGlow : Révélez une Peau d'Exception.</h1>
                     <p class="hero-v2-description">
-                        Entdecken Sie die einzigartige Fusion von fortschrittlicher LED-Therapie und beruhigender Kryotechnologie. 
-                        Entwickelt, um Alterserscheinungen und Akne zu bekämpfen und die Ausstrahlung Ihrer Augenpartie neu zu beleben.
-                        Das luxuriöse Spa-Erlebnis, neu erfunden für Ihren Alltag.
+                        Découvrez la fusion unique de la thérapie LED avancée et de la cryotechnologie apaisante.
+                        Conçu pour combattre les signes de l'âge et l'acné, et pour raviver l'éclat de votre contour des yeux.
+                        L'expérience spa de luxe, réinventée pour votre quotidien.
                     </p>
                     <p class="hero-v2-price">149€ <span class="original-price-hero">349.99€</span></p>
-                    <a href="../livraison.html" class="btn btn-primary btn-hero-v2">Jetzt Bestellen</a>
-                    <p class="hero-v2-guarantee"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;vertical-align:-3px;margin-right:5px;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path></svg>30-Tage Geld-zurück-Garantie</p>
+                    <a href="livraison.html" class="btn btn-primary btn-hero-v2">Commander Maintenant</a>
+                    <p class="hero-v2-guarantee"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;vertical-align:-3px;margin-right:5px;"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path></svg>Garantie Satisfait ou Remboursé 30 Jours</p>
                 </div>
             </div>
         </section>
 
         <section class="key-features-section">
             <div class="container">
-                <h2 class="section-title-centered">Fortschrittliche Technologie, Sichtbare Ergebnisse</h2>
+                <h2 class="section-title-centered">Technologie Avancée, Résultats Visibles</h2>
                 <div class="key-features-grid">
                     <div class="key-feature-item">
-                        <img src="../img/icon-led-therapy.svg" alt="LED Therapie" class="key-feature-icon">
-                        <h3>Gezielte LED-Therapie</h3>
-                        <p>Rotes (Anti-Aging) und Blaues (Anti-Akne) Licht für präzise und effektive Wirkung.</p>
+                        <img src="img/icon-led-therapy.svg" alt="Thérapie LED" class="key-feature-icon">
+                        <h3>Thérapie LED Ciblée</h3>
+                        <p>Lumière rouge (anti-âge) et bleue (anti-acné) pour une action précise et efficace.</p>
                     </div>
                     <div class="key-feature-item">
-                        <img src="../img/icon-cryo-technology.svg" alt="Kryotherapie" class="key-feature-icon">
-                        <h3>Revitalisierende Kryotherapie</h3>
-                        <p>Kühltechnologie zur Beruhigung, Straffung und Reduzierung von Schwellungen unter den Augen.</p>
+                        <img src="img/icon-cryo-technology.svg" alt="Cryothérapie" class="key-feature-icon">
+                        <h3>Cryothérapie Revitalisante</h3>
+                        <p>Technologie de refroidissement pour apaiser, raffermir et réduire les poches sous les yeux.</p>
                     </div>
                     <div class="key-feature-item">
-                        <img src="../img/icon-remote-control.svg" alt="Einfache Bedienung" class="key-feature-icon">
-                        <h3>Intuitive Steuerung</h3>
-                        <p>Ergonomische Fernbedienung und USB-C-Aufladung für vereinfachte Anwendung.</p>
+                        <img src="img/icon-remote-control.svg" alt="Contrôle facile" class="key-feature-icon">
+                        <h3>Contrôle Intuitif</h3>
+                        <p>Télécommande ergonomique et chargement USB-C pour une utilisation simplifiée.</p>
                     </div>
                     <div class="key-feature-item">
-                        <img src="../img/icon-fast-results.svg" alt="Schnelle Ergebnisse" class="key-feature-icon">
-                        <h3>Ergebnisse in 7 Tagen</h3>
-                        <p>Beginnen Sie, eine Verbesserung Ihrer Haut in nur einer Woche Anwendung zu sehen.</p>
+                        <img src="img/icon-fast-results.svg" alt="Résultats rapides" class="key-feature-icon">
+                        <h3>Résultats en 7 Jours</h3>
+                        <p>Commencez à voir une amélioration de votre peau en seulement une semaine d'utilisation.</p>
                     </div>
                 </div>
             </div>
@@ -232,38 +239,38 @@
 
         <section class="before-after-visual-section">
             <div class="container">
-                <h2 class="section-title-centered">Die Éclaria Transformation</h2>
+                <h2 class="section-title-centered">La Transformation Éclaria</h2>
                 <div class="before-after-visual-grid">
                     <div class="before-after-visual-item">
-                        <img src="../img/masque-led-avant.jpg" alt="Haut vor Anwendung der Éclaria CryoGlow Maske">
-                        <p class="before-after-label">Vorher</p>
+                        <img src="img/masque-led-avant.jpg" alt="Peau avant utilisation du masque Éclaria CryoGlow">
+                        <p class="before-after-label">Avant</p>
                     </div>
                     <div class="before-after-visual-item">
-                        <img src="../img/masque-led-apres.jpg" alt="Haut nach Anwendung der Éclaria CryoGlow Maske">
-                        <p class="before-after-label">Nach 21 Tagen</p>
+                        <img src="img/masque-led-apres.jpg" alt="Peau après utilisation du masque Éclaria CryoGlow">
+                        <p class="before-after-label">Après 21 jours</p>
                     </div>
                 </div>
-                <p class="results-disclaimer">Ergebnisse können variieren. Unretuschierte Fotos von Éclaria-Kundinnen.</p>
+                <p class="results-disclaimer">Les résultats peuvent varier. Photos non retouchées de clientes Éclaria.</p>
             </div>
         </section>
         
         <section class="final-cta-trust-section">
             <div class="container">
-                <h2 class="section-title-centered">Bereit, Ihre Beste Haut zu Enthüllen?</h2>
-                <p class="final-cta-subtitle">Schließen Sie sich Tausenden von Frauen an, die ihre Haut mit Éclaria CryoGlow verwandelt haben.</p>
-                <a href="../livraison.html" class="btn btn-primary btn-final-cta">Bestellen Sie Ihre Noch Heute</a>
+                <h2 class="section-title-centered">Prête à Révéler Votre Meilleure Peau ?</h2>
+                <p class="final-cta-subtitle">Rejoignez des milliers de femmes qui ont transformé leur peau avec Éclaria CryoGlow.</p>
+                <a href="livraison.html" class="btn btn-primary btn-final-cta">Commandez le Vôtre Aujourd'hui</a>
                 <div class="trust-elements-final">
                     <div class="trust-element">
-                        <img src="../img/icon-shield-check.svg" alt="Sichere Zahlung">
-                        <span>100% Sichere Zahlung</span>
+                        <img src="img/icon-shield-check.svg" alt="Paiement sécurisé">
+                        <span>Paiement 100% Sécurisé</span>
                     </div>
                     <div class="trust-element">
-                        <img src="../img/icon-calendar-check.svg" alt="30-Tage-Garantie">
-                        <span>30-Tage Geld-zurück-Garantie</span>
+                        <img src="img/icon-calendar-check.svg" alt="Garantie 30 jours">
+                        <span>Garantie Satisfait ou Remboursé 30 Jours</span>
                     </div>
                     <div class="trust-element">
-                        <img src="../img/icon-truck.svg" alt="Kostenloser Versand">
-                        <span>Kostenloser Versand in Frankreich & Belgien</span>
+                        <img src="img/icon-truck.svg" alt="Livraison gratuite">
+                        <span>Livraison Gratuite en France & Belgique</span>
                     </div>
                 </div>
             </div>
@@ -271,18 +278,18 @@
 
         <section class="testimonials-v2-section">
             <div class="container">
-                <h2 class="section-title-centered">Was unsere Kundinnen sagen</h2>
+                <h2 class="section-title-centered">Ce que disent nos clientes</h2>
                 <div class="testimonials-v2-grid">
                     <div class="testimonial-v2-item">
-                        <p class="testimonial-v2-quote">"Ich bin absolut begeistert! Meine Haut ist glatter, strahlender und meine feinen Linien sind verblasst. Das CryoGlow ist mein neues unverzichtbares Schönheitsritual."</p>
+                        <p class="testimonial-v2-quote">"Je suis absolument ravie ! Ma peau est plus lisse, plus lumineuse et mes ridules se sont estompées. Le CryoGlow est mon nouveau rituel beauté indispensable."</p>
                         <p class="testimonial-v2-author">- Charlotte B., Paris</p>
                     </div>
                     <div class="testimonial-v2-item">
-                        <p class="testimonial-v2-quote">"Nach Jahren des Kampfes gegen Akne habe ich endlich eine Lösung gefunden, die funktioniert. Meine Haut ist sichtbar reiner und beruhigter. Danke Éclaria!"</p>
+                        <p class="testimonial-v2-quote">"Après des années à lutter contre l'acné, j'ai enfin trouvé une solution qui fonctionne. Ma peau est visiblement plus nette et apaisée. Merci Éclaria !"</p>
                         <p class="testimonial-v2-author">- Manon L., Lyon</p>
                     </div>
                     <div class="testimonial-v2-item">
-                        <p class="testimonial-v2-quote">"Der Kühleffekt unter den Augen ist unglaublich, um morgens Schwellungen zu reduzieren. Mein Blick ist frischer, jünger. Ich kann nicht mehr ohne!"</p>
+                        <p class="testimonial-v2-quote">"L'effet froid sous les yeux est incroyable pour décongestionner le matin. Mon regard est plus frais, plus jeune. Je ne peux plus m'en passer !"</p>
                         <p class="testimonial-v2-author">- Isabelle G., Marseille</p>
                     </div>
                 </div>
@@ -293,14 +300,14 @@
     <footer class="site-footer">
         <div class="container footer-container">
             <div class="footer-links">
-                <a href="../politique-de-confidentialite.html">Datenschutzrichtlinie</a> |
-                <a href="../conditions-utilisation.html">Nutzungsbedingungen</a> |
-                <a href="../contact.html">Kontakt</a>
+                <a href="politique-de-confidentialite.html">Politique de Confidentialité</a> |
+                <a href="conditions-utilisation.html">Conditions d'Utilisation</a> |
+                <a href="contact.html">Contact</a>
             </div>
             <div class="social-media-footer">
                 <a href="https://instagram.com/eclaria_officiel" target="_blank" aria-label="Instagram Éclaria"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
             </div>
-            <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> Éclaria SAS. Alle Rechte vorbehalten.</p>
+            <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> Éclaria SAS. Tous droits réservés.</p>
         </div>
     </footer>
 
@@ -312,6 +319,7 @@
             const overlayScreen = document.getElementById('overlayScreen');
             const desktopNav = document.getElementById('desktop-nav');
             const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
+            const cartButton = document.querySelector('.cart-icon-new');
 
             function openMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.add('open');
@@ -328,24 +336,41 @@
             if (menuToggle) menuToggle.addEventListener('click', openMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
             if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
+
+            if (cartButton) {
+                cartButton.addEventListener('click', function() {
+                    alert('Panier cliqué ! Fonctionnalité à venir.\n(Cart clicked! Feature coming soon.)');
+                    // À l'avenir, cela pourrait ouvrir un modal de panier, rediriger vers une page panier, etc.
+                });
+            }
             
+            // Initial check for desktop navigation and language switcher visibility based on screen width
             function handleResize() {
-                if (window.innerWidth > 768) {
-                    if(menuToggle) menuToggle.style.display = 'none';
-                    if(desktopNav) desktopNav.style.display = 'flex';
-                    if(desktopLangSwitcher) desktopLangSwitcher.style.display = 'flex';
-                    closeMenu(); 
-                } else {
-                    if(menuToggle) menuToggle.style.display = 'flex';
-                    if(desktopNav) desktopNav.style.display = 'none';
-                    if(desktopLangSwitcher) desktopLangSwitcher.style.display = 'none';
+                const isDesktop = window.innerWidth > 768;
+                if(desktopNav) desktopNav.style.display = isDesktop ? 'flex' : 'none';
+                if(desktopLangSwitcher) desktopLangSwitcher.style.display = isDesktop ? 'flex' : 'none';
+                if(menuToggle) menuToggle.style.display = isDesktop ? 'none' : 'flex';
+                if (isDesktop) { // Close offcanvas menu if switching to desktop view
+                    closeMenu();
                 }
             }
 
             window.addEventListener('resize', handleResize);
-            handleResize(); 
+            handleResize(); // Call on initial load
 
-            console.log('Éclaria Home (DE) (re-designed foundation with lang switcher) loaded successfully!');
+            // Ensure main navigation links are correctly styled if one is active
+            const currentPath = window.location.pathname.split("/").pop();
+            const navLinks = document.querySelectorAll('#desktop-nav ul li a, .offcanvas-menu nav ul li a');
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split("/").pop();
+                if (linkPath === currentPath || (currentPath === '' && (linkPath === 'index.html' || linkPath === ''))) {
+                    link.classList.add('active-lang'); // Reuse active-lang for simplicity or create 'active-nav'
+                } else {
+                    link.classList.remove('active-lang');
+                }
+            });
+
+            console.log('Éclaria Accueil (FR) chargée avec succès!');
         });
     </script>
     <!-- Google Analytics / Facebook Pixel scripts go here -->
