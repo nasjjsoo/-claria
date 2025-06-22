@@ -3,63 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Éclaria - Notre Histoire</title>
+    <title>Éclaria - Notre Histoire : Passion et Innovation pour Votre Peau</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
         :root {
-            --lilac-primary: #E1D5F0; --lilac-accent: #A076C9; --white-pure: #FFFFFF; --silver-light: #F8F9FA; --silver-medium: #E9ECEF; --text-dark: #212529; --text-light: #6c757d;
-            --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif; --font-logo: 'Great Vibes', cursive;
+            --lilac-primary: #E8E0F3; --lilac-secondary: #D1C4E9; --lilac-accent: #A076C9; --lilac-dark: #7E57C2;
+            --white-pure: #FFFFFF; --silver-light: #F9F9F9; --silver-medium: #E9ECEF; --text-dark: #2C3E50;
+            --text-light: #566573; --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif;
+            --font-logo: 'Great Vibes', cursive; --success-color: #28a745; --error-color: #dc3545;
         }
         *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: var(--font-primary); margin: 0; padding: 0; color: var(--text-dark); background-color: var(--white-pure); line-height: 1.7; font-weight: 300; padding-top: 70px; }
-        .container { width: 90%; max-width: 1180px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
-        .site-header-new { background-color: var(--white-pure); padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08); height: 70px; display: flex; align-items: center; }
+        body { 
+            font-family: var(--font-primary); margin: 0; padding: 0; padding-top: 70px; 
+            background-color: var(--silver-light); 
+            color: var(--text-dark); 
+            line-height: 1.7; font-weight: 400;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
+        
+        /* Header (Copied from index.html for consistency) */
+        .site-header-new { 
+            background-color: rgba(255, 255, 255, 0.97); backdrop-filter: blur(8px); 
+            padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; 
+            z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.07); height: 70px; 
+            display: flex; align-items: center; 
+        }
         .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .site-logo-new a { font-family: var(--font-logo); font-size: 2.5em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
-
-        /* Styles de navigation bureau (identiques à index.html et produit.html) */
-        .main-navigation { display: none; align-items: center; margin-left: 30px; }
-        .main-navigation ul { list-style: none; margin: 0; padding: 0; display: flex; }
-        .main-navigation li { margin-left: 25px; }
-        .main-navigation a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1em; transition: color 0.3s ease; }
-        .main-navigation a:hover, .main-navigation a.active-lang { color: var(--lilac-accent); }
-
+        .site-logo-new a { font-family: var(--font-logo); font-size: 2.6em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        #desktop-nav ul { list-style: none; margin: 0; padding: 0; display: flex; }
+        #desktop-nav li { margin-left: 28px; }
+        #desktop-nav a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1em; padding-bottom: 5px; position: relative; transition: color 0.3s ease; }
+        #desktop-nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: var(--lilac-accent); transition: width 0.3s ease; }
+        #desktop-nav a:hover, #desktop-nav a.active-lang { color: var(--lilac-accent); }
+        #desktop-nav a:hover::after, #desktop-nav a.active-lang::after { width: 100%; }
         .header-actions { display: flex; align-items: center; }
-        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 15px; }
+        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
         .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
         .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
-
-        /* Styles du sélecteur de langue bureau (identiques à index.html et produit.html) */
-        .language-switcher { margin-left: 20px; display:none; align-items:center; }
-        .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 5px 8px; margin: 0 3px; border-radius: 4px; transition: background-color 0.3s, color 0.3s; }
-        .language-switcher .lang-link.active-lang { color: var(--lilac-accent); font-weight: 600; background-color: var(--lilac-primary); }
+        .language-switcher { margin-left: 20px; display:flex; align-items:center; }
+        .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 6px 10px; margin: 0 3px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
+        .language-switcher .lang-link.active-lang { color: var(--lilac-dark); font-weight: 600; background-color: var(--lilac-primary); }
         .language-switcher .lang-link:hover:not(.active-lang) { background-color: var(--silver-medium); color: var(--text-dark); }
-        
-        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 60px 20px 20px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
+        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 20px rgba(0,0,0,0.1); padding: 70px 25px 25px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
         .offcanvas-menu.open { right: 0; }
-        .close-menu-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; cursor: pointer; color: var(--text-light); }
+        .close-menu-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 2.2em; cursor: pointer; color: var(--text-light); transition: color 0.3s ease;}
+        .close-menu-btn:hover { color: var(--lilac-accent); }
         .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
-        .offcanvas-menu nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
-        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--silver-light); }
-        .offcanvas-menu nav li a.active-lang { color: var(--lilac-accent); font-weight: 600; } /* remplacé .active par .active-lang */
+        .offcanvas-menu nav li a { display: block; padding: 14px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
+        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--lilac-primary); }
         .offcanvas-menu nav li:last-child a { border-bottom: none; }
-        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); z-index: 1050; }
+        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 62, 80, 0.5); z-index: 1050; }
         .overlay-screen.active { display: block; }
-        main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 70px - 160px); }
-        h1 {font-size: 2.4em;}
-        .site-footer { background-color: var(--silver-light); color: var(--text-light); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top:auto; }
-        .footer-links { margin-bottom: 15px; }
-        .footer-links a { color: var(--text-light); text-decoration: none; margin: 0 10px; transition: color 0.3s ease; }
-        .footer-links a:hover { color: var(--lilac-accent); }
-        .social-media-footer a { margin: 0 8px; }
-        .social-media-footer svg { width: 22px; height: 22px; fill: var(--text-light); transition: fill 0.3s ease; }
-        .social-media-footer a:hover svg { fill: var(--lilac-accent); }
-        .copyright { margin-top: 15px; font-size: 0.85em; }
-        @media (max-width: 768px) { .site-logo-new a { font-size: 2.2em; } }
-        .page-content h2 { font-size: 1.8em; color: var(--lilac-accent); margin-top: 1.5em; margin-bottom: 0.8em; }
-        .page-content p, .page-content ul li, .page-content ol li { line-height: 1.8; margin-bottom: 1em; }
-        .page-content ul, .page-content ol { list-style-position: outside; padding-left: 20px; }
-        .page-content strong { font-weight: 600; } .page-content em { font-style: italic; color: var(--text-light); }
+        
+        main { 
+            padding-top: 50px; padding-bottom: 70px; 
+            flex-grow: 1; display: flex; flex-direction: column;
+        }
+        
+        .site-footer { background-color: var(--text-dark); color: var(--silver-light); padding: 50px 0; text-align: center; font-size: 0.95em; margin-top:auto; }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { color: var(--silver-light); text-decoration: none; margin: 0 12px; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--lilac-primary); }
+        .social-media-footer a { margin: 0 10px; }
+        .social-media-footer svg { width: 24px; height: 24px; fill: var(--silver-light); transition: fill 0.3s ease; }
+        .social-media-footer a:hover svg { fill: var(--lilac-primary); }
+        .copyright { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
+
+        /* Page Content Wrapper (for static pages) */
+        .page-content-wrapper { 
+            background-color: var(--white-pure);
+            padding: 40px 50px; /* Increased padding */
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(44,62,80,0.08); /* Softer shadow */
+            margin: 20px auto; /* Centered with auto margins */
+            max-width: 900px; /* Max width for readability */
+        }
+        .page-content-wrapper h1 { 
+            font-size: 2.6em; /* Larger title */
+            margin-bottom: 0.8em;
+            color: var(--text-dark);
+            text-align: center;
+        }
+        .page-content-wrapper h2 { 
+            font-size: 1.8em; color: var(--lilac-dark); 
+            margin-top: 1.8em; margin-bottom: 0.8em; 
+            padding-bottom: 8px; border-bottom: 2px solid var(--lilac-primary);
+        }
+         .page-content-wrapper h3 {
+            font-size: 1.4em;
+            color: var(--text-dark);
+            margin-top: 1.5em;
+            margin-bottom: 0.6em;
+        }
+        .page-content-wrapper p, 
+        .page-content-wrapper ul li, 
+        .page-content-wrapper ol li { 
+            line-height: 1.8; margin-bottom: 1.2em; font-size: 1.05em; color: var(--text-light); 
+        }
+        .page-content-wrapper ul, 
+        .page-content-wrapper ol { 
+            list-style-position: outside; padding-left: 25px; margin-bottom: 1.5em; 
+        }
+        .page-content-wrapper ul li::marker { color: var(--lilac-accent); }
+        .page-content-wrapper strong { font-weight: 600; color: var(--text-dark); } 
+        .page-content-wrapper a { color: var(--lilac-dark); text-decoration: none; font-weight: 500; }
+        .page-content-wrapper a:hover { text-decoration: underline; color: var(--lilac-accent); }
+        .page-content-wrapper .date-updated {
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            display: block;
+        }
+         .about-us-image {
+            width: 100%;
+            max-width: 400px; /* Adjust as needed */
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin: 30px auto;
+            display: block;
+        }
+
+
+        @media (max-width: 768px) {
+            .site-logo-new a { font-size: 2.3em; } 
+            #desktop-nav, #desktop-lang-switcher { display: none !important; } 
+            .menu-toggle { display: flex !important; } 
+            .language-switcher:not(.offcanvas-lang-switcher) { display: none; }
+             .page-content-wrapper { padding: 30px 25px; margin: 15px auto; }
+            .page-content-wrapper h1 { font-size: 2.2em; }
+            .page-content-wrapper h2 { font-size: 1.6em; }
+             .page-content-wrapper h3 { font-size: 1.3em; }
+        }
+         @media (min-width: 993px) { 
+            .menu-toggle { display: none !important; } 
+            #desktop-nav { display: flex !important; }
+            #desktop-lang-switcher { display: flex !important;}
+        }
     </style>
 </head>
 <body>
@@ -78,11 +161,13 @@
                 </ul>
             </nav>
             <div class="header-actions">
-                <div class="language-switcher" id="desktop-lang-switcher">
-                    <a href="index.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
+                 <div class="language-switcher" id="desktop-lang-switcher">
+                    <a href="qui-sommes-nous.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
                 </div>
-                <button class="cart-icon-new" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
-                <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+                <a href="livraison.html" class="cart-icon-new" aria-label="Panier">
+                    <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                </a>
+                <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="offcanvasMenu">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
                 </button>
             </div>
@@ -90,7 +175,7 @@
     </header>
 
     <div class="offcanvas-menu" id="offcanvasMenu">
-        <button class="close-menu-btn" aria-label="Fermer le menu">&times;</button>
+        <button class="close-menu-btn" aria-label="Fermer le menu" aria-controls="offcanvasMenu">&times;</button>
         <nav>
             <ul>
                 <li><a href="index.html">Accueil</a></li>
@@ -104,17 +189,44 @@
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
-        <div class="language-switcher" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--silver-medium);">
+        <div class="language-switcher offcanvas-lang-switcher" style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--silver-light);">
             <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Langue :</p>
-            <a href="index.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0;">Français</a>
+            <a href="qui-sommes-nous.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0; padding: 8px 10px;">Français</a>
         </div>
     </div>
     <div class="overlay-screen" id="overlayScreen"></div>
 
     <main>
-        <div class="container page-content">
-            <h1>Notre Histoire</h1>
-            <p>Contenu de la page "Qui Sommes-Nous" / "Notre Histoire" à venir...</p>
+        <div class="container">
+            <div class="page-content-wrapper">
+                <h1>Notre Histoire : Illuminez Votre Beauté avec Éclaria</h1>
+                <p class="date-updated">Fondée en 2023</p>
+
+                <img src="https://via.placeholder.com/400x300/E8E0F3/2C3E50?text=Team+Éclaria" alt="L'équipe Éclaria ou un visuel inspirant de la marque" class="about-us-image">
+
+                <p>Chez Éclaria, nous croyons que chaque personne mérite de se sentir radieuse et confiante dans sa peau. Née d'une passion pour l'innovation technologique au service de la beauté, Éclaria a été fondée avec une mission claire : rendre les soins de la peau de qualité professionnelle accessibles à tous, directement à domicile.</p>
+
+                <h2>L'Étincelle d'une Idée</h2>
+                <p>L'aventure Éclaria a commencé par une simple observation : les traitements esthétiques les plus efficaces, comme la thérapie par lumière LED et la cryothérapie, étaient souvent coûteux, chronophages et réservés à des visites en institut. Pourquoi ne pas condenser ces technologies éprouvées dans un appareil élégant, facile à utiliser et suffisamment abordable pour une utilisation quotidienne ?</p>
+                <p>C'est ainsi qu'est né notre produit phare, le masque facial <strong>Éclaria CryoGlow</strong>. Fruit de mois de recherche, de développement et de tests rigoureux, le CryoGlow incarne notre engagement envers l'excellence et l'innovation.</p>
+
+                <h2>Notre Philosophie : Science, Simplicité, Résultats</h2>
+                <p>Nous sommes convaincus que les meilleurs soins de la peau reposent sur une science solide. C'est pourquoi nous collaborons avec des experts en dermatologie et des ingénieurs pour concevoir des produits qui offrent des résultats visibles et durables. Nous privilégions :</p>
+                <ul>
+                    <li><strong>L'efficacité prouvée :</strong> Chaque technologie intégrée dans nos produits est choisie pour ses bénéfices scientifiquement démontrés sur la santé et l'apparence de la peau.</li>
+                    <li><strong>La simplicité d'utilisation :</strong> Nous pensons que prendre soin de sa peau ne devrait pas être compliqué. Nos appareils sont conçus pour s'intégrer facilement à votre routine beauté, avec des commandes intuitives et des séances rapides.</li>
+                    <li><strong>La qualité et la sécurité :</strong> La sécurité de nos clients est primordiale. Nos produits sont fabriqués selon des normes strictes, avec des matériaux de haute qualité, pour une expérience sûre et agréable.</li>
+                </ul>
+
+                <h2>Plus qu'un Produit, une Communauté</h2>
+                <p>Éclaria, c'est aussi une communauté de personnes passionnées par le bien-être et la beauté authentique. Nous sommes à l'écoute de nos clients, de leurs besoins et de leurs retours, car c'est ensemble que nous continuons d'innover et d'améliorer nos solutions.</p>
+                <p>Nous sommes fiers de voir comment Éclaria aide des milliers de personnes à retrouver une peau plus saine, plus jeune et plus éclatante. Votre confiance est notre plus grande motivation.</p>
+                
+                <h2>L'Avenir d'Éclaria</h2>
+                <p>Notre voyage ne fait que commencer. Nous sommes constamment à la recherche de nouvelles avancées technologiques pour développer des solutions de beauté toujours plus performantes et personnalisées. Notre objectif reste inchangé : vous donner les outils pour révéler la meilleure version de votre peau, jour après jour.</p>
+                <p>Merci de faire partie de l'aventure Éclaria.</p>
+                <p><strong>L'équipe Éclaria</strong></p>
+            </div>
         </div>
     </main>
     <footer class="site-footer">
@@ -122,7 +234,7 @@
             <div class="footer-links">
                 <a href="politique-de-confidentialite.html">Politique de Confidentialité</a> |
                 <a href="conditions-utilisation.html">Conditions d'Utilisation</a> |
-                <a href="contact.html">Contactez-nous</a>
+                <a href="contact.html">Contact</a>
             </div>
             <div class="social-media-footer">
                 <a href="https://instagram.com/eclaria_officiel" target="_blank" aria-label="Instagram Éclaria"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
@@ -132,61 +244,58 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Menu Off-canvas (copied from index.html)
             const menuToggle = document.querySelector('.menu-toggle');
             const closeMenuBtn = document.querySelector('.close-menu-btn');
             const offcanvasMenu = document.getElementById('offcanvasMenu');
             const overlayScreen = document.getElementById('overlayScreen');
-            const desktopNav = document.getElementById('desktop-nav');
-            const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
-            const cartButton = document.querySelector('.cart-icon-new');
-
+            
             function openMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.add('open');
                 if(overlayScreen) overlayScreen.classList.add('active');
                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
             }
 
             function closeMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.remove('open');
                 if(overlayScreen) overlayScreen.classList.remove('active');
                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
             }
 
             if (menuToggle) menuToggle.addEventListener('click', openMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
             if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
 
-            if (cartButton) {
-                cartButton.addEventListener('click', function() {
-                    alert('Panier cliqué ! Fonctionnalité à venir.\n(Cart clicked! Feature coming soon.)');
-                });
-            }
-            
+            // Gestion responsive du header (copied from index.html)
+            const desktopNav = document.getElementById('desktop-nav');
+            const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
             function handleResize() {
-                const isDesktop = window.innerWidth > 768;
+                const isDesktop = window.innerWidth > 992;
                 if(desktopNav) desktopNav.style.display = isDesktop ? 'flex' : 'none';
                 if(desktopLangSwitcher) desktopLangSwitcher.style.display = isDesktop ? 'flex' : 'none';
                 if(menuToggle) menuToggle.style.display = isDesktop ? 'none' : 'flex';
-                if (isDesktop) {
+                if (isDesktop && offcanvasMenu && offcanvasMenu.classList.contains('open')) { 
                     closeMenu();
                 }
             }
-
             window.addEventListener('resize', handleResize);
-            handleResize();
+            handleResize(); 
 
-            const currentPath = window.location.pathname.split("/").pop();
+            // Active link styling (copied from index.html)
+            const currentPath = window.location.pathname.split("/").pop() || "index.html";
             const navLinks = document.querySelectorAll('#desktop-nav ul li a, .offcanvas-menu nav ul li a');
             navLinks.forEach(link => {
-                const linkPath = link.getAttribute('href').split("/").pop();
-                if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+                const linkPath = link.getAttribute('href').split("/").pop() || "index.html";
+                 if (linkPath === currentPath || (currentPath === "qui-sommes-nous.html" && linkPath === "qui-sommes-nous.html")) { 
                     link.classList.add('active-lang');
                 } else {
                     link.classList.remove('active-lang');
                 }
             });
             
-            console.log('Page Qui Sommes-Nous Éclaria (FR) chargée avec succès !');
+            console.log('Éclaria Page Qui Sommes-Nous (FR) v2 chargée avec succès !');
         });
     </script>
 </body>
