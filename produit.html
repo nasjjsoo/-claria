@@ -3,1188 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Éclaria - CryoGlow LED Face Mask</title>
+    <title>Éclaria - Masque CryoGlow LED : Rajeunissement et Éclat</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
-
-        /* Color Palette */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
         :root {
-            --lilac-color: #D8BFD8; /* Lilac */
-            --white-color: #FFFFFF;
-            --silver-color: #C0C0C0;
-            --dark-text-color: #333333;
-            --light-text-color: #555555;
-            --accent-color: #A97CBE; /* A slightly darker Lilac for accents */
+            --lilac-primary: #E8E0F3; --lilac-secondary: #D1C4E9; --lilac-accent: #A076C9; --lilac-dark: #7E57C2;
+            --white-pure: #FFFFFF; --silver-light: #F9F9F9; --silver-medium: #E9ECEF; --text-dark: #2C3E50;
+            --text-light: #566573; --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif;
+            --font-logo: 'Great Vibes', cursive; --success-color: #28a745; --error-color: #dc3545;
         }
-
-        /* General Body Styles */
-        body {
-            font-family: 'Poppins', 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            color: var(--dark-text-color);
-            background-color: var(--white-color);
-            line-height: 1.6;
+        *, *::before, *::after { box-sizing: border-box; }
+        body { 
+            font-family: var(--font-primary); margin: 0; padding: 0; padding-top: 70px; 
+            background-color: var(--white-pure); color: var(--text-dark); 
+            line-height: 1.7; font-weight: 400;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
+        .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
+        
+        /* Header (Copied from index.html for consistency) */
+        .site-header-new { 
+            background-color: rgba(255, 255, 255, 0.97); backdrop-filter: blur(8px); 
+            padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; 
+            z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.07); height: 70px; 
+            display: flex; align-items: center; 
         }
+        .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .site-logo-new a { font-family: var(--font-logo); font-size: 2.6em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        #desktop-nav ul { list-style: none; margin: 0; padding: 0; display: flex; }
+        #desktop-nav li { margin-left: 28px; }
+        #desktop-nav a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1em; padding-bottom: 5px; position: relative; transition: color 0.3s ease; }
+        #desktop-nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: var(--lilac-accent); transition: width 0.3s ease; }
+        #desktop-nav a:hover, #desktop-nav a.active-lang { color: var(--lilac-accent); }
+        #desktop-nav a:hover::after, #desktop-nav a.active-lang::after { width: 100%; }
+        .header-actions { display: flex; align-items: center; }
+        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
+        .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        .language-switcher { margin-left: 20px; display:flex; align-items:center; }
+        .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 6px 10px; margin: 0 3px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
+        .language-switcher .lang-link.active-lang { color: var(--lilac-dark); font-weight: 600; background-color: var(--lilac-primary); }
+        .language-switcher .lang-link:hover:not(.active-lang) { background-color: var(--silver-medium); color: var(--text-dark); }
+        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 20px rgba(0,0,0,0.1); padding: 70px 25px 25px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
+        .offcanvas-menu.open { right: 0; }
+        .close-menu-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 2.2em; cursor: pointer; color: var(--text-light); transition: color 0.3s ease;}
+        .close-menu-btn:hover { color: var(--lilac-accent); }
+        .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
+        .offcanvas-menu nav li a { display: block; padding: 14px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
+        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--lilac-primary); }
+        .offcanvas-menu nav li:last-child a { border-bottom: none; }
+        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 62, 80, 0.5); z-index: 1050; }
+        .overlay-screen.active { display: block; }
+        
+        /* Main content and typography (Copied from index.html) */
+        main { padding-top: 50px; padding-bottom: 70px; min-height: calc(100vh - 70px - 180px); }
+        h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.8em; }
+        h1 { font-size: 2.8em; line-height: 1.25; } 
+        h2 { font-size: 2.3em; line-height: 1.3; } 
+        h3 { font-size: 1.5em; line-height: 1.4; }
+        p { margin-bottom: 1.6em; font-size: 1.05em; color:var(--text-light); }
+        .btn { display: inline-block; padding: 14px 35px; font-family: var(--font-headings); font-weight: 500; font-size: 1.05em; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; letter-spacing: 0.5px; }
+        .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.2); }
+        .btn-primary:hover { background-color: var(--lilac-dark); border-color: var(--lilac-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(126, 87, 194, 0.3); }
 
-        /* Header Styles */
-        header {
-            background-color: var(--white-color);
-            padding: 1.5em 0;
-            border-bottom: 1px solid #eee; /* Softer border */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Logo Style */
-        .logo {
-            font-family: 'Poppins', sans-serif; /* Or a more script-like font if preferred and available */
-            font-size: 2.5em; /* Increased size for prominence */
-            font-weight: 600; /* Bold but not too heavy */
-            color: var(--accent-color); /* Using accent Lilac for the logo */
-            text-decoration: none;
-            letter-spacing: 1px; /* Slight letter spacing for elegance */
-        }
-
-        /* Navigation Styles */
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 25px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark-text-color);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active {
-            color: var(--accent-color); /* Lilac hover/active state */
-        }
-
-        /* Main Content Styles */
-        main {
-            padding: 2em 0;
-        }
-
-        /* Footer Styles */
-        footer {
-            background-color: var(--lilac-color); /* Lilac background for footer */
-            color: var(--white-color);
-            text-align: center;
-            padding: 2em 0;
-            margin-top: 3em;
-        }
-
-        footer p {
-            margin: 0;
-            font-weight: 300;
-        }
-
-        footer a {
-            color: var(--white-color);
-            text-decoration: underline;
-        }
-
-        footer a:hover {
-            text-decoration: none;
-        }
-
-        /* Headings */
-        h1, h2, h3, h4, h5, h6 {
-            color: var(--dark-text-color);
-            font-family: 'Poppins', 'Montserrat', sans-serif;
-            font-weight: 600;
-            margin-top: 0;
-        }
-
-        h1 {
-            font-size: 2.2em;
-            margin-bottom: 0.5em;
-        }
-
-        h2 {
-            font-size: 1.8em;
-            margin-bottom: 0.4em;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white-color);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #9569A9; /* Darker shade of accent for hover */
-        }
-
-        .btn-secondary {
-            background-color: var(--silver-color);
-            color: var(--dark-text-color);
-        }
-
-        .btn-secondary:hover {
-            background-color: #A8A8A8; /* Darker silver */
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background-color: var(--lilac-color); /* Light Lilac background */
-            color: var(--dark-text-color);
-            padding: 4em 0;
-            text-align: center;
-        }
-
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2em;
-        }
-
-        .hero-text {
-            flex: 1;
-            text-align: left;
-        }
-
-        .hero-text h1 {
-            font-size: 2.8em;
-            color: var(--white-color); /* White text on Lilac */
-            font-weight: 700;
-            margin-bottom: 0.5em;
-            line-height: 1.2;
-        }
-
-        .hero-text p {
-            font-size: 1.1em;
-            color: var(--white-color); /* Slightly lighter text or white */
-            margin-bottom: 1.5em;
-            font-weight: 300;
-        }
-
-        .hero-image {
-            flex: 1;
-            max-width: 450px; /* Control image size */
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .btn-primary { /* Specific style for primary CTA in hero if needed */
-            background-color: var(--white-color);
-            color: var(--accent-color);
-            padding: 12px 25px;
-            font-size: 1.1em;
-        }
-        .btn-primary:hover {
-            background-color: #f0e4f7; /* Lighter lilac or off-white */
-        }
-
-
-        /* Features Section */
-        .features-section {
-            padding: 4em 0;
-            text-align: center;
-        }
-
-        .features-section h2 {
-            font-size: 2em;
-            margin-bottom: 1.5em;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2em;
-        }
-
-        .feature-item {
-            background-color: #f9f9f9; /* Light background for items */
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
-            text-align: center;
-        }
-
-        .feature-icon {
-            width: 60px; /* Adjust as needed */
-            height: 60px;
-            margin-bottom: 1em;
-            /* background-color: var(--lilac-color); TEMP for placeholder */
-            /* border-radius: 50%; */
-        }
-
-        .feature-item h3 {
-            font-size: 1.4em;
-            color: var(--accent-color);
-            margin-bottom: 0.5em;
-        }
-
-        /* How It Works Section */
-        .how-it-works-section {
-            padding: 4em 0;
-            background-color: var(--white-color); /* Or a very light grey */
-        }
-
-        .how-it-works-section h2 {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 1.5em;
-        }
-
-        .how-it-works-content {
-            display: flex;
-            align-items: center;
-            gap: 3em;
-        }
-
-        .how-it-works-image {
-            flex: 1;
-            max-width: 400px;
-        }
-
-        .how-it-works-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        .how-it-works-text {
-            flex: 1.5;
-        }
-
-        .how-it-works-text p {
-            font-size: 1.05em;
-            margin-bottom: 1em;
-        }
-
-        /* Testimonials Section */
-        .testimonials-section {
-            padding: 4em 0;
-            background-color: var(--lilac-color); /* Lilac background for testimonials */
-        }
-
-        .testimonials-section h2 {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 1.5em;
-            color: var(--white-color);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2em;
-        }
-
-        .testimonial-item {
-            background-color: var(--white-color);
-            padding: 1.5em;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            color: var(--dark-text-color);
-        }
-
-        .testimonial-item p {
-            font-style: italic;
-            margin-bottom: 1em;
-            color: var(--light-text-color);
-        }
-
-        .testimonial-item h4 {
-            font-weight: 600;
-            color: var(--accent-color);
-            text-align: right;
-        }
-
-        /* Newsletter Section */
-        .newsletter-section {
-            padding: 3em 0;
-            background-color: #f0f0f0; /* Light grey background */
-            text-align: center;
-        }
-
-        .newsletter-section h2 {
-            font-size: 1.8em;
-            margin-bottom: 0.5em;
-        }
-
-        .newsletter-section p {
-            margin-bottom: 1.5em;
-            color: var(--light-text-color);
-        }
-
-        .newsletter-form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .newsletter-form input[type="email"] {
-            flex-grow: 1;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px 0 0 5px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1em;
-        }
-
-        .newsletter-form button {
-            border-radius: 0 5px 5px 0;
-            padding: 12px 20px; /* Match input padding */
-        }
-
-
-        /* Responsive Adjustments */
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            .hero-text {
-                text-align: center;
-                margin-bottom: 2em;
-            }
-            .how-it-works-content {
-                flex-direction: column;
-            }
-            .how-it-works-image {
-                margin-bottom: 2em;
-                max-width: 100%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero-text h1 {
-                font-size: 2.2em;
-            }
-            header .container {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
+        /* Footer (Copied from index.html) */
+        .site-footer { background-color: var(--text-dark); color: var(--silver-light); padding: 50px 0; text-align: center; font-size: 0.95em; margin-top:auto; }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { color: var(--silver-light); text-decoration: none; margin: 0 12px; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--lilac-primary); }
+        .social-media-footer a { margin: 0 10px; }
+        .social-media-footer svg { width: 24px; height: 24px; fill: var(--silver-light); transition: fill 0.3s ease; }
+        .social-media-footer a:hover svg { fill: var(--lilac-primary); }
+        .copyright { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
 
         /* Product Page Specific Styles */
-        .product-page main {
-            padding-top: 2em;
+        .product-page-section { padding: 60px 0; }
+        .product-page-section:nth-child(odd) { background-color: var(--silver-light); }
+        
+        .product-layout { display: flex; gap: 40px; align-items: flex-start; }
+        .product-gallery { flex: 1.3; /* More space for gallery */ }
+        .main-image img { 
+            width: 100%; height: auto; border-radius: 18px; 
+            border: 1px solid var(--silver-medium); margin-bottom: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            aspect-ratio: 1 / 1; object-fit: cover;
+        }
+        .thumbnail-images { display: flex; gap: 10px; flex-wrap: wrap; }
+        .thumbnail-images .thumbnail { 
+            width: 85px; height: 85px; object-fit: cover; border-radius: 10px; 
+            cursor: pointer; border: 2px solid var(--silver-medium); 
+            transition: border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; 
+        }
+        .thumbnail-images .thumbnail:hover { border-color: var(--lilac-secondary); transform: scale(1.05); }
+        .thumbnail-images .thumbnail.active-thumbnail { 
+            border-color: var(--lilac-accent); 
+            box-shadow: 0 0 10px rgba(160, 118, 201, 0.5); 
         }
 
-        .product-main-info {
-            padding-bottom: 3em;
-            border-bottom: 1px solid #eee;
+        .product-details { flex: 1; padding-left: 20px; }
+        .product-details .product-title { font-size: 2.6em; font-weight: 700; color: var(--text-dark); margin-bottom: 0.3em; line-height: 1.2; }
+        .product-brand { font-size: 1em; color: var(--text-light); margin-bottom: 15px; display: block; }
+        .product-price-tag { margin-bottom: 20px; }
+        .product-price-tag .current-price { font-size: 2.2em; font-weight: 600; color: var(--lilac-dark); margin-right: 10px; }
+        .product-price-tag .original-price { font-size: 1.3em; text-decoration: line-through; color: var(--text-light); }
+        .product-short-description { font-size: 1.1em; line-height: 1.75; margin-bottom: 25px; color: var(--text-light); }
+        
+        .product-actions { margin-bottom: 25px; }
+        .btn-add-to-cart { 
+            padding: 18px 40px; font-size: 1.2em; width: 100%; 
+            max-width: 350px; text-transform: uppercase; letter-spacing: 1px;
         }
+        
+        .trust-badges-product { margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
+        .trust-badges-product .badge-item { display: flex; align-items: center; font-size: 0.95em; color: var(--text-light); }
+        .trust-badges-product .badge-item svg { width: 22px; height: 22px; margin-right: 10px; fill: var(--lilac-accent); }
 
-        .product-layout {
-            display: flex;
-            gap: 2.5em; /* Increased gap */
+        .product-description-content h2, .product-features-content h2 { 
+            font-size: 2em; margin-bottom: 20px; color: var(--text-dark); 
+            padding-bottom: 10px; border-bottom: 2px solid var(--lilac-primary); 
+            display: inline-block;
         }
+        .product-description-content p, .product-features-content p { margin-bottom: 1em; }
+        .product-description-content ul, .product-features-content ul { 
+            list-style: none; padding-left: 0; margin-bottom: 1.5em; 
+        }
+        .product-description-content ul li, .product-features-content ul li { 
+            margin-bottom: 0.8em; line-height: 1.75; padding-left: 25px; position: relative; 
+        }
+        .product-description-content ul li::before, .product-features-content ul li::before {
+            content: '✓'; /* Checkmark icon */
+            color: var(--lilac-accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 1px;
+        }
+        .product-description-content strong, .product-features-content strong { font-weight: 600; color: var(--text-dark); }
+        .product-description-content em, .product-features-content em { font-style: italic; color: var(--text-light); font-size: 0.9em;}
 
-        /* Product Gallery */
-        .product-gallery {
-            flex: 1.2; /* Slightly more space for gallery */
-            max-width: 550px; /* Max width for gallery section */
-        }
+        /* Re-using testimonial and before-after styles from index.html (slightly adapted) */
+        .section-title-centered { text-align: center; font-size: 2.3em; font-weight: 600; color: var(--text-dark); margin-bottom: 50px; margin-top: 0; }
+        .before-after-visual-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .before-after-visual-item { flex-basis: calc(50% - 25px); max-width: 420px; text-align: center; background: var(--white-pure); padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .before-after-visual-item img { width: 100%; max-width: 320px; height: auto; border-radius: 10px; margin-bottom: 15px; border: 1px solid var(--silver-medium); aspect-ratio: 1 / 1; object-fit: cover; background-color: var(--silver-medium); }
+        .before-after-label { font-family: var(--font-headings); font-weight: 500; font-size: 1.05em; color: var(--text-dark); margin-bottom: 8px; }
+        .before-after-visual-item p:not(.before-after-label) { font-size: 0.9em; color: var(--text-light); line-height: 1.5; margin-bottom: 0; }
+        .results-disclaimer { text-align: center; font-size: 0.85em; color: var(--text-light); margin-top: 25px; }
 
-        .main-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid #ddd; /* Subtle border */
-            margin-bottom: 1em;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .thumbnail-images {
-            display: flex;
-            gap: 0.75em; /* Gap between thumbnails */
-            flex-wrap: wrap; /* Allow thumbnails to wrap */
-        }
-
-        .thumbnail-images .thumbnail {
-            width: 80px; /* Thumbnail size */
-            height: 80px;
-            object-fit: cover; /* Ensure image covers the area */
-            border-radius: 5px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: border-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .thumbnail-images .thumbnail:hover {
-            border-color: var(--silver-color);
-            transform: scale(1.05);
-        }
-
-        .thumbnail-images .thumbnail.active-thumbnail {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 8px var(--accent-color);
-        }
-
-        /* Product Details */
-        .product-details {
-            flex: 1;
-            padding-left: 1em; /* Some space if gallery is on left */
-        }
-
-        .product-details h1 {
-            font-size: 2.4em; /* Prominent product title */
-            font-weight: 700;
-            color: var(--dark-text-color);
-            margin-bottom: 0.25em;
-        }
-
-        .product-brand {
-            font-size: 0.9em;
-            color: var(--light-text-color);
-            margin-bottom: 1em;
-        }
-
-        .product-price {
-            margin-bottom: 1.5em;
-        }
-
-        .product-price .current-price {
-            font-size: 2em;
-            font-weight: 600;
-            color: var(--accent-color);
-            margin-right: 0.5em;
-        }
-
-        .product-price .original-price {
-            font-size: 1.2em;
-            text-decoration: line-through;
-            color: var(--light-text-color);
-        }
-
-        .product-short-description {
-            font-size: 1.05em;
-            line-height: 1.7;
-            margin-bottom: 1.5em;
-        }
-
-        .product-actions {
-            margin-bottom: 2em;
-        }
-
-        .btn-add-to-cart {
-            padding: 15px 30px;
-            font-size: 1.15em;
-            width: 100%; /* Make button full width of its container */
-            max-width: 300px; /* But not too wide */
-        }
-
-        .trust-badges {
-            margin-top: 1.5em;
-        }
-
-        .trust-badges span {
-            display: flex; /* Align icon and text */
-            align-items: center;
-            font-size: 0.9em;
-            color: var(--light-text-color);
-            margin-bottom: 0.5em;
-        }
-
-        .trust-badges img {
-            width: 20px; /* Small icons */
-            height: 20px;
-            margin-right: 8px;
-            opacity: 0.7;
-        }
-
-        /* Product Description Details Section */
-        .product-description-details {
-            padding: 3em 0;
-        }
-
-        .product-description-details h2 {
-            font-size: 1.8em;
-            margin-bottom: 1em;
-            border-bottom: 2px solid var(--lilac-color);
-            padding-bottom: 0.3em;
-            display: inline-block; /* So border only spans text */
-        }
-
-        .product-description-details ul {
-            list-style-type: disc;
-            margin-left: 20px;
-            margin-bottom: 1em;
-        }
-
-        .product-description-details ul li {
-            margin-bottom: 0.5em;
-            line-height: 1.7;
-        }
-
-        /* Before/After Section */
-        .before-after-section {
-            padding: 3em 0;
-            background-color: #f9f9f9; /* Light background */
-            text-align: center;
-        }
-
-        .before-after-section h2 {
-            font-size: 1.8em;
-            margin-bottom: 1.5em;
-        }
-
-        .before-after-gallery {
-            display: flex;
-            justify-content: center;
-            gap: 2em;
-            margin-bottom: 1em;
-        }
-
-        .before-after-item {
-            max-width: 300px;
-        }
-
-        .before-after-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 0.5em;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .before-after-item p {
-            font-weight: 500;
-        }
-
-        .disclaimer {
-            font-size: 0.9em;
-            color: var(--light-text-color);
-            font-style: italic;
-        }
-
-        /* Comparison Section (Placeholder styling) */
-        .comparison-section {
-            padding: 3em 0;
-            text-align: center;
-        }
-        .comparison-section h2 {
-            font-size: 1.8em;
-            margin-bottom: 1em;
-        }
-
-        /* Product Page Testimonials - reuse .testimonials-section but can add specifics */
-        .product-page-testimonials {
-            background-color: var(--white-color); /* Different background than homepage testimonials if desired */
-        }
-        .product-page-testimonials h2 {
-            color: var(--dark-text-color); /* Adjust if background changes */
-        }
-        .product-page-testimonials .testimonial-item {
-            border: 1px solid #eee; /* Add border for definition on white bg */
-        }
-
+        .testimonials-v2-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .testimonial-v2-item { background-color: var(--lilac-primary); padding: 30px; border-radius: 15px; border-left: 5px solid var(--lilac-accent); position: relative; box-shadow: 0 8px 20px rgba(160, 118, 201, 0.1); }
+        .testimonial-v2-item::before { content: '“'; font-family: 'Georgia', serif; font-size: 3em; color: var(--lilac-accent); position: absolute; top: 10px; left: 15px; opacity: 0.6; }
+        .testimonial-v2-quote { font-size: 0.95em; font-style: italic; color: var(--text-dark); line-height: 1.7; margin-bottom: 15px; padding-left: 25px; }
+        .testimonial-v2-author { font-size: 0.9em; font-weight: 600; color: var(--lilac-dark); text-align: right; }
 
         /* Responsive adjustments for Product Page */
         @media (max-width: 992px) {
-            .product-layout {
-                flex-direction: column;
-            }
-            .product-details {
-                padding-left: 0; /* Remove padding when stacked */
-                margin-top: 2em;
-            }
-            .product-gallery {
-                max-width: 100%; /* Allow gallery to take full width */
-            }
+            .product-layout { flex-direction: column; }
+            .product-details { padding-left: 0; margin-top: 30px; }
+            .product-gallery { max-width: 100%; }
+            .product-details .product-title {font-size: 2.2em;}
         }
-
         @media (max-width: 768px) {
-            .product-details h1 {
-                font-size: 2em;
-            }
-            .product-price .current-price {
-                font-size: 1.8em;
-            }
-            .btn-add-to-cart {
-                padding: 12px 25px;
-                font-size: 1.1em;
-            }
-            .before-after-gallery {
-                flex-direction: column;
-                align-items: center;
-            }
-            .before-after-item {
-                margin-bottom: 1.5em;
-            }
-            .thumbnail-images .thumbnail {
-                width: 60px;
-                height: 60px;
-            }
+            .product-details .product-title { font-size: 2em; }
+            .product-price-tag .current-price { font-size: 1.9em; }
+            .btn-add-to-cart { padding: 15px 30px; font-size: 1.1em; max-width: 100%; }
+            .thumbnail-images .thumbnail { width: 70px; height: 70px; }
+            .before-after-visual-grid { flex-direction: column; align-items: center; }
+            .before-after-visual-item { flex-basis: 100%; margin-bottom: 20px; max-width: 320px; }
+            .site-logo-new a { font-size: 2.3em; } /* Copied from index.html responsive */
+            #desktop-nav, #desktop-lang-switcher { display: none !important; } /* Copied from index.html responsive */
+            .menu-toggle { display: flex !important; } /* Copied from index.html responsive */
+            .language-switcher:not(.offcanvas-lang-switcher) { display: none; } /* Copied from index.html responsive */
         }
-
-        /* Ensure the previous responsive rules for header are not overridden if placed before */
-        @media (max-width: 768px) {
-            header .container { /* This rule was from the general styles, ensure it's correctly placed or merged */
-                flex-direction: column;
-                align-items: center;
-            }
-            .logo { /* This rule was from the general styles */
-                margin-bottom: 0.5em;
-                font-size: 2em;
-            }
-            nav ul { /* This rule was from the general styles */
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-            nav ul li { /* This rule was from the general styles */
-                margin: 10px 0;
-            }
-            .container { /* This rule was from the general styles */
-                width: 95%;
-            }
-        }
-
-        /* Checkout Page (livraison.html & paiement.html) Styles */
-        .checkout-page main {
-            padding-top: 2em;
-            padding-bottom: 3em;
-            background-color: #f9f9f9; /* Light background for checkout process */
-        }
-
-        .checkout-layout {
-            display: flex;
-            gap: 2.5em;
-            align-items: flex-start; /* Align items to the top */
-        }
-
-        .checkout-form-container {
-            flex: 1.8; /* More space for the form */
-            background-color: var(--white-color);
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .checkout-form-container h1 {
-            font-size: 2em;
-            margin-bottom: 0.25em;
-            color: var(--dark-text-color);
-        }
-        .checkout-form-container h2 {
-            font-size: 1.5em;
-            margin-bottom: 1.5em;
-            color: var(--accent-color);
-            padding-bottom: 0.5em;
-            border-bottom: 1px solid #eee;
-        }
-
-        /* Form Styles */
-        .form-row {
-            display: flex;
-            gap: 1.5em;
-            margin-bottom: 1em;
-        }
-
-        .form-group {
-            margin-bottom: 1.25em;
-            flex-grow: 1; /* Allow groups to grow if in a row */
-        }
-
-        .form-group.half-width {
-            width: calc(50% - 0.75em); /* Adjust for gap */
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5em;
-            font-weight: 500;
-            font-size: 0.95em;
-            color: var(--dark-text-color);
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="tel"],
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box; /* Important for width 100% */
-            font-family: 'Poppins', sans-serif;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: var(--accent-color);
-            outline: none;
-            box-shadow: 0 0 5px rgba(169, 124, 190, 0.3); /* Accent color shadow */
-        }
-
-        .form-actions {
-            margin-top: 2em;
-        }
-
-        .btn-full-width {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1em;
-        }
-
-        .form-note {
-            font-size: 0.85em;
-            color: var(--light-text-color);
-            margin-top: 1em;
-            text-align: right;
-        }
-
-        /* Order Summary Styles */
-        .order-summary-container {
-            flex: 1;
-            background-color: var(--white-color);
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            position: sticky; /* Make it sticky on larger screens */
-            top: 20px; /* Adjust as needed */
-        }
-
-        .order-summary-container h2 {
-            font-size: 1.5em;
-            margin-bottom: 1em;
-            color: var(--dark-text-color);
-            padding-bottom: 0.5em;
-            border-bottom: 1px solid #eee;
-        }
-
-        .order-summary-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5em;
-            padding-bottom: 1.5em;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .summary-item-image {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-right: 1em;
-            border: 1px solid #eee;
-        }
-
-        .summary-item-details {
-            flex-grow: 1;
-        }
-
-        .summary-item-name {
-            font-weight: 500;
-            margin: 0 0 0.3em 0;
-        }
-
-        .summary-item-qty {
-            font-size: 0.9em;
-            color: var(--light-text-color);
-            margin: 0;
-        }
-
-        .summary-item-price {
-            font-weight: 500;
-            font-size: 1em;
-        }
-
-        .order-summary-total p {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.75em;
-            font-size: 1em;
-        }
-
-        .order-summary-total p.total-price,
-        .order-summary-total p.total-price span {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: var(--accent-color);
-        }
-
-        .order-summary-total hr {
-            border: none;
-            border-top: 1px dashed #ccc;
-            margin: 1em 0;
-        }
-
-        .trust-badges-summary {
-            margin-top: 1.5em;
-            padding-top: 1em;
-            border-top: 1px solid #f0f0f0;
-        }
-        .trust-badges-summary span {
-            display: flex;
-            align-items: center;
-            font-size: 0.85em;
-            color: var(--light-text-color);
-            margin-bottom: 0.5em;
-        }
-        .trust-badges-summary img {
-            width: 18px;
-            height: 18px;
-            margin-right: 6px;
-            opacity: 0.7;
-        }
-
-
-        /* Responsive adjustments for Checkout Pages */
-        @media (max-width: 992px) {
-            .checkout-layout {
-                flex-direction: column-reverse; /* Form below summary on smaller screens */
-            }
-            .order-summary-container {
-                position: static; /* Remove sticky behavior */
-                width: 100%;
-                margin-bottom: 2em; /* Space between summary and form */
-            }
-            .checkout-form-container {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-                gap: 0; /* Remove gap if stacked */
-                margin-bottom: 0;
-            }
-            .form-group.half-width {
-                width: 100%;
-                margin-bottom: 1.25em; /* Restore bottom margin */
-            }
-            .checkout-form-container h1 {
-                font-size: 1.8em;
-            }
-             .checkout-form-container h2 {
-                font-size: 1.3em;
-            }
-        }
-
-        /* Payment Page Specific Styles (extending checkout styles) */
-        .shipping-summary-review {
-            background-color: #fdfdfd;
-            padding: 1.5em;
-            border-radius: 6px;
-            margin-bottom: 2em;
-            border: 1px solid #eee;
-        }
-
-        .shipping-summary-review h2 {
-            font-size: 1.3em;
-            color: var(--dark-text-color);
-            margin-top: 0;
-            margin-bottom: 1em;
-            border-bottom: none; /* Override from .checkout-form-container h2 */
-            padding-bottom: 0;
-        }
-
-        #shipping-address-summary p {
-            margin-bottom: 0.5em;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-        #shipping-address-summary p strong {
-            color: var(--dark-text-color);
-        }
-
-        .edit-link {
-            font-size: 0.9em;
-            color: var(--accent-color);
-            text-decoration: underline;
-        }
-        .edit-link:hover {
-            text-decoration: none;
-        }
-
-        .payment-options {
-            margin-top: 1em;
-        }
-
-        .payment-option {
-            background-color: var(--white-color);
-            padding: 1.5em;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            margin-bottom: 1.5em;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .payment-option input[type="radio"] {
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        .payment-option label {
-            font-weight: 600;
-            font-size: 1.1em;
-            color: var(--dark-text-color);
-            display: flex; /* Align items in label */
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .payment-logo {
-            height: 24px; /* Adjust as needed */
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        .payment-gateway-fields {
-            margin-top: 1.5em;
-            padding-top: 1.5em;
-            border-top: 1px solid #eee;
-        }
-
-        .payment-option input[type="radio"]:checked + label + .payment-gateway-fields {
-            display: block; /* Show fields when radio is checked - JS will handle this for better control */
-        }
-        .payment-option input[type="radio"]:checked + label {
-           color: var(--accent-color);
-        }
-
-        .payment-option:has(input[type="radio"]:checked) { /* Style parent when radio is checked */
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px rgba(169, 124, 190, 0.2);
-        }
-
-
-        .secure-payment-info {
-            font-size: 0.85em;
-            color: var(--light-text-color);
-            margin-top: 1em;
-        }
-        .secure-payment-info img {
-            margin-right: 5px;
-        }
-
-        .btn-paypal {
-            background-color: #FFC439; /* PayPal Gold */
-            color: #1E4770; /* PayPal Blue */
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-flex; /* Align image and text */
-            align-items: center;
-            gap: 8px; /* Space between logo and text */
-        }
-        .btn-paypal:hover {
-            background-color: #f0b830;
-        }
-        .btn-paypal img {
-            height: 20px; /* PayPal button logo */
-            }
-
-            .logo {
-                margin-bottom: 0.5em;
-                font-size: 2em;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-
-            nav ul li {
-                margin: 10px 0;
-            }
-
-            .container {
-                width: 95%;
-            }
+         @media (min-width: 993px) { /* Copied from index.html responsive */
+            .menu-toggle { display: none !important; } 
+            #desktop-nav { display: flex !important; }
+            #desktop-lang-switcher { display: flex !important;}
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <a href="index.html" class="logo">Éclaria</a>
-            <nav>
-                <ul>
+    <header class="site-header-new">
+        <div class="container header-container-new">
+            <div class="site-logo-new">
+                <a href="index.html">Éclaria</a>
+            </div>
+            <nav class="main-navigation" id="desktop-nav">
+                 <ul>
                     <li><a href="index.html">Accueil</a></li>
-                    <li><a href="produit.html" class="active">Produit</a></li>
-                    <li><a href="qui-sommes-nous.html">Qui Sommes-Nous</a></li>
+                    <li><a href="produit.html" class="active-lang">Produit</a></li>
+                    <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
+            <div class="header-actions">
+                <div class="language-switcher" id="desktop-lang-switcher">
+                    <a href="index.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
+                </div>
+                <a href="livraison.html" class="cart-icon-new" aria-label="Panier">
+                    <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                </a>
+                <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="offcanvasMenu">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main class="product-page">
-        <section class="product-main-info">
+    <div class="offcanvas-menu" id="offcanvasMenu">
+        <button class="close-menu-btn" aria-label="Fermer le menu" aria-controls="offcanvasMenu">&times;</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="produit.html" class="active-lang">Produit</a></li>
+                <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="livraison-et-retours.html">Livraison & Retours</a></li>
+                <li><a href="paiement.html">Paiement</a></li>
+                <li><a href="politique-de-confidentialite.html">Politique de Confidentialité</a></li>
+                <li><a href="conditions-utilisation.html">Conditions d'Utilisation</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+         <div class="language-switcher offcanvas-lang-switcher" style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--silver-light);">
+            <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Langue :</p>
+            <a href="produit.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0; padding: 8px 10px;">Français</a>
+        </div>
+    </div>
+    <div class="overlay-screen" id="overlayScreen"></div>
+
+    <main>
+        <section class="product-page-section product-main-info">
             <div class="container">
                 <div class="product-layout">
-                    <!-- Product Image Gallery -->
                     <div class="product-gallery">
                         <div class="main-image">
-                            <img src="img/710E7veA9BL._SL1500_.jpg" alt="CryoGlow LED Face Mask - Vue principale" id="mainProductImage">
+                            <img src="710E7veA9BL._SL1500_.jpg" alt="Masque CryoGlow LED - Vue principale" id="mainProductImage">
                         </div>
                         <div class="thumbnail-images">
-                            <img src="img/710E7veA9BL._SL1500_.jpg" alt="Thumbnail 1" class="thumbnail active-thumbnail" onclick="changeImage('img/710E7veA9BL._SL1500_.jpg')">
-                            <img src="img/81ZV0LrE0XL._SL1500_.jpg" alt="Thumbnail 2" class="thumbnail" onclick="changeImage('img/81ZV0LrE0XL._SL1500_.jpg')">
-                            <img src="img/9134U+IU6CL._SL1500_.jpg" alt="Thumbnail 3" class="thumbnail" onclick="changeImage('img/9134U+IU6CL._SL1500_.jpg')">
-                            <img src="img/81YEt9pCawL._SL1500_.jpg" alt="Thumbnail 4" class="thumbnail" onclick="changeImage('img/81YEt9pCawL._SL1500_.jpg')">
-                            <!-- Add more thumbnails as needed -->
+                            <img src="710E7veA9BL._SL1500_.jpg" alt="Vue détaillée du masque CryoGlow" class="thumbnail active-thumbnail" data-image-src="710E7veA9BL._SL1500_.jpg">
+                            <img src="81ZV0LrE0XL._SL1500_.jpg" alt="Masque CryoGlow avec télécommande" class="thumbnail" data-image-src="81ZV0LrE0XL._SL1500_.jpg">
+                            <img src="9134U+IU6CL._SL1500_.jpg" alt="Contenu de la boîte Éclaria CryoGlow" class="thumbnail" data-image-src="9134U+IU6CL._SL1500_.jpg">
+                            <img src="81YEt9pCawL._SL1500_.jpg" alt="Zoom sur les LEDs du masque CryoGlow" class="thumbnail" data-image-src="81YEt9pCawL._SL1500_.jpg">
+                             <img src="71gR8lEe5uL._SL1500_.jpg" alt="Technologie LED du masque" class="thumbnail" data-image-src="71gR8lEe5uL._SL1500_.jpg">
                         </div>
                     </div>
 
-                    <!-- Product Details -->
                     <div class="product-details">
-                        <h1>CryoGlow LED Face Mask</h1>
-                        <p class="product-brand">Marque: Éclaria (inspiré par Shark)</p>
-                        <div class="product-price">
+                        <h1 class="product-title">Masque Facial CryoGlow LED</h1>
+                        <span class="product-brand">Par Éclaria</span>
+                        <div class="product-price-tag">
                             <span class="current-price">149€</span>
                             <span class="original-price">349.99€</span>
                         </div>
                         <p class="product-short-description">
-                            Rajeunissez votre peau avec notre masque LED multi-actions : anti-âge, anti-acné, et apaisement cryo pour le contour des yeux. Technologie avancée pour des résultats professionnels à domicile.
+                            Transformez votre routine de soins avec le CryoGlow, le masque LED multi-fonctions. Thérapie lumineuse ciblée et cryotechnologie pour une peau visiblement rajeunie, apaisée et éclatante.
                         </p>
                         
                         <div class="product-actions">
-                            <button class="btn btn-primary btn-add-to-cart">Ajouter au Panier</button>
-                            <!-- <button class="btn btn-secondary">Acheter Maintenant</button> -->
+                            <a href="livraison.html" class="btn btn-primary btn-add-to-cart">Ajouter au Panier</a>
                         </div>
 
-                        <div class="trust-badges">
-                            <span><img src="img/icon-secure.svg" alt="Paiement sécurisé"> Paiement 100% Sécurisé (Stripe, PayPal)</span>
-                            <span><img src="img/icon-guarantee.svg" alt="Garantie"> Garantie Satisfait ou Remboursé 30 Jours</span>
+                        <div class="trust-badges-product">
+                            <div class="badge-item">
+                                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path></svg>
+                                <span>Paiement 100% Sécurisé</span>
+                            </div>
+                            <div class="badge-item">
+                                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                                <span>Garantie Satisfait ou Remboursé 30 Jours</span>
+                            </div>
+                             <div class="badge-item">
+                                <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path></svg>
+                                <span>Livraison Offerte (France & Belgique)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="product-description-details">
+        <section class="product-page-section product-description-content">
             <div class="container">
-                <h2>Description Détaillée du Produit</h2>
-                <p>Le masque facial Éclaria CryoGlow est une révolution dans les soins de la peau à domicile. Conçu pour offrir une expérience luxueuse et des résultats visibles, il combine plusieurs technologies de pointe :</p>
+                <h2>Plongez au Cœur de la Technologie Éclaria CryoGlow</h2>
+                <p>Le masque facial Éclaria CryoGlow n'est pas un simple accessoire de beauté ; c'est une véritable innovation technologique pensée pour sublimer votre peau. Chaque détail a été conçu pour vous offrir une expérience de soin digne d'un institut, dans le confort de votre foyer.</p>
                 <ul>
-                    <li><strong>Traitement Anti-Âge Avancé :</strong> Une session de 6 minutes utilisant des LED Rouges et Infrarouges pour minimiser les ridules et raffermir la peau. <em>(Basé sur une étude clinique de 12 semaines)</em></li>
-                    <li><strong>Solution Anti-Acné Efficace :</strong> 8 minutes de session avec LED Bleues, Rouges et Infrarouges pour réduire l'acné et les rougeurs, favorisant un teint unifié. <em>(Basé sur une étude clinique de 12 semaines)</em></li>
-                    <li><strong>Maintien de l'Éclat de la Peau :</strong> Des sessions de 4 minutes avec LED rouges, bleues et infrarouges pour améliorer la radiance de la peau et préserver sa condition optimale.</li>
-                    <li><strong>Soin Revitalisant Contour des Yeux :</strong> Un traitement refroidissant ajustable (5-15 minutes) grâce à la technologie InstaChill™ Cold pour un effet tenseur et apaisant visible.</li>
-                    <li><strong>Technologie InstaChill™ Cold :</strong> Refroidissement intégré d'inspiration cryogénique qui aide à raffermir visiblement le dessous des yeux dès la première utilisation, avec 3 niveaux de froid contrôlés.</li>
+                    <li><strong>Thérapie LED Multi-Spectrale :</strong> Profitez des bienfaits combinés de la lumière Rouge (stimulation du collagène, réduction des rides), Infrarouge (pénétration profonde pour la réparation cellulaire) et Bleue (action purifiante, idéale contre l'acné et les imperfections).</li>
+                    <li><strong>Cryotechnologie InstaChill™ :</strong> Inspirée des soins cryogéniques professionnels, cette fonction offre un refroidissement instantané et contrôlé (3 niveaux) pour décongestionner, raffermir la peau et resserrer les pores. Particulièrement efficace pour le contour des yeux fatigué.</li>
+                    <li><strong>Design Ergonomique et Confortable :</strong> Fabriqué avec des matériaux souples et légers, le masque s'adapte parfaitement aux contours de votre visage pour une diffusion homogène de la lumière et un confort optimal pendant vos séances.</li>
+                    <li><strong>Utilisation Simplifiée :</strong> Une télécommande intuitive vous permet de sélectionner facilement votre programme de soin, d'ajuster l'intensité et de contrôler la durée. Le chargement par USB-C assure une recharge rapide et pratique.</li>
+                    <li><strong>Résultats Cliniquement Observés :</strong> Des études ont démontré une amélioration visible de la texture de la peau, une réduction des signes de l'âge et une diminution des imperfections après quelques semaines d'utilisation régulière.</li>
                 </ul>
-                <h3>Caractéristiques Techniques :</h3>
-                <ul>
-                    <li>Couleur : Lilac Chill</li>
-                    <li>Convient à tous les types de peau</li>
-                    <li>Poids de l'article : 675 grammes</li>
-                    <li>Contrôle à distance via télécommande incluse</li>
-                    <li>Chargement pratique par USB-C</li>
-                    <li>Pochette de rangement fournie</li>
-                </ul>
-                <p><em>*Le CryoGlow peut être éligible aux avantages FSA et HSA, sous réserve des exigences de votre administrateur de plan de santé.</em></p>
-            </div>
-        </section>
-
-        <!-- Before/After Section (Placeholder) -->
-        <section id="before-after" class="before-after-section">
-            <div class="container">
-                <h2>Résultats Visibles: Avant & Après</h2>
-                <div class="before-after-gallery">
-                    <div class="before-after-item">
-                        <img src="img/placeholder-before.jpg" alt="Avant traitement Éclaria">
-                        <p>Avant</p>
-                    </div>
-                    <div class="before-after-item">
-                        <img src="img/placeholder-after.jpg" alt="Après traitement Éclaria">
-                        <p>Après</p>
-                    </div>
-                </div>
-                <p class="disclaimer">Les résultats peuvent varier en fonction des individus et de la régularité d'utilisation.</p>
+                <em>*Les résultats individuels peuvent varier. Pour des résultats optimaux, une utilisation régulière est recommandée. Consultez un professionnel de santé en cas de conditions cutanées spécifiques.</em>
             </div>
         </section>
         
-        <!-- Comparison Table Section (Placeholder) -->
-        <section id="comparison" class="comparison-section">
+        <section class="product-page-section product-features-content">
             <div class="container">
-                <h2>Comparez CryoGlow</h2>
-                <p>Tableau de comparaison à venir...</p>
-                <!-- Placeholder for comparison table -->
+                 <h2>Ce Qui Est Inclus</h2>
+                 <ul>
+                    <li>Masque Facial Éclaria CryoGlow LED</li>
+                    <li>Télécommande intuitive</li>
+                    <li>Câble de chargement USB-C</li>
+                    <li>Pochette de rangement élégante en velours</li>
+                    <li>Manuel d'utilisation détaillé en français</li>
+                    <li>Guide de démarrage rapide</li>
+                </ul>
+                <h3>Spécifications Techniques :</h3>
+                <ul>
+                    <li>Couleurs LED : Rouge (630nm), Infrarouge (850nm), Bleu (460nm)</li>
+                    <li>Niveaux de Cryothérapie : 3 (Doux, Moyen, Intense)</li>
+                    <li>Matériaux : Silicone de qualité médicale, ABS</li>
+                    <li>Batterie : Lithium-ion rechargeable (autonomie approx. 60-90 min)</li>
+                    <li>Temps de charge : Approx. 2 heures</li>
+                    <li>Poids du masque : Environ 450g</li>
+                    <li>Certification : CE, RoHS</li>
+                </ul>
             </div>
         </section>
 
-        <!-- Customer Reviews Section -->
-        <section id="product-reviews" class="testimonials-section product-page-testimonials">
+        <section class="product-page-section" id="product-before-after">
             <div class="container">
-                <h2>Avis de nos Client(e)s sur le CryoGlow</h2>
-                <div class="testimonials-grid">
-                     <div class="testimonial-item">
-                        <p>"Incroyable ! J'ai vu une différence sur mes ridules en moins de deux semaines. Le mode cryo est un vrai plus pour mes yeux fatigués."</p>
-                        <h4>- Sophie D.</h4>
+                <h2 class="section-title-centered">La Transformation Éclaria en Images</h2>
+                <div class="before-after-visual-grid">
+                    <div class="before-after-visual-item">
+                        <img src="https://via.placeholder.com/350x350/E9ECEF/6c757d?text=Avant+CryoGlow" alt="Peau avant utilisation du masque Éclaria CryoGlow">
+                        <p class="before-after-label">Avant</p>
+                        <p>Imperfections, teint irrégulier et manque d'éclat.</p>
                     </div>
-                    <div class="testimonial-item">
-                        <p>"Enfin un masque LED qui tient ses promesses. Mon acné a diminué et ma peau est plus lumineuse. Facile à utiliser et très relaxant."</p>
-                        <h4>- Marc L.</h4>
+                    <div class="before-after-visual-item">
+                        <img src="https://via.placeholder.com/350x350/E9ECEF/6c757d?text=Après+CryoGlow" alt="Peau après utilisation du masque Éclaria CryoGlow">
+                        <p class="before-after-label">Après 4 semaines*</p>
+                        <p>Peau visiblement plus saine, unifiée et lumineuse.</p>
                     </div>
-                    <div class="testimonial-item">
-                        <p>"Le design est superbe et la qualité est au rendez-vous. J'adore la sensation de froid sous les yeux. C'est mon nouveau rituel beauté !"</p>
-                        <h4>- Chloé V.</h4>
+                </div>
+                <p class="results-disclaimer">*Résultats basés sur une utilisation régulière. Peuvent varier selon les individus.</p>
+            </div>
+        </section>
+        
+        <section class="product-page-section" id="product-reviews">
+            <div class="container">
+                <h2 class="section-title-centered">Nos Clientes Adorent CryoGlow</h2>
+                <div class="testimonials-v2-grid">
+                     <div class="testimonial-v2-item">
+                        <p class="testimonial-v2-quote">"Incroyable ! J'ai vu une différence sur mes ridules en moins de deux semaines. Le mode cryo est un vrai plus pour mes yeux fatigués. Je recommande à 100% !"</p>
+                        <p class="testimonial-v2-author">- Léa M., Bordeaux</p>
+                    </div>
+                    <div class="testimonial-v2-item">
+                        <p class="testimonial-v2-quote">"Enfin un masque LED qui tient ses promesses. Mon acné hormonale a nettement diminué et ma peau est beaucoup plus lumineuse. Facile à utiliser et très relaxant."</p>
+                        <p class="testimonial-v2-author">- Julien R., Lille</p>
+                    </div>
+                    <div class="testimonial-v2-item">
+                        <p class="testimonial-v2-quote">"Le design est superbe et la qualité est au rendez-vous. J'adore la sensation de froid sous les yeux après une longue journée. C'est mon nouveau rituel beauté indispensable !"</p>
+                        <p class="testimonial-v2-author">- Chloé V., Strasbourg</p>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; <script>document.write(new Date().getFullYear());</script> Éclaria. Tous droits réservés.</p>
-            <p>
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-links">
                 <a href="politique-de-confidentialite.html">Politique de Confidentialité</a> |
-                <a href="conditions-utilisation.html">Conditions d'Utilisation</a>
-            </p>
+                <a href="conditions-utilisation.html">Conditions d'Utilisation</a> |
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-media-footer">
+                <a href="https://instagram.com/eclaria_officiel" target="_blank" aria-label="Instagram Éclaria"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
+            </div>
+            <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> Éclaria SAS. Tous droits réservés.</p>
         </div>
     </footer>
+
     <script>
-        // Main JavaScript file for Éclaria
-
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Éclaria website loaded successfully!');
+            // Menu Off-canvas (copied from index.html)
+            const menuToggle = document.querySelector('.menu-toggle');
+            const closeMenuBtn = document.querySelector('.close-menu-btn');
+            const offcanvasMenu = document.getElementById('offcanvasMenu');
+            const overlayScreen = document.getElementById('overlayScreen');
+            
+            function openMenu() {
+                if(offcanvasMenu) offcanvasMenu.classList.add('open');
+                if(overlayScreen) overlayScreen.classList.add('active');
+                if(menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
 
+            function closeMenu() {
+                if(offcanvasMenu) offcanvasMenu.classList.remove('open');
+                if(overlayScreen) overlayScreen.classList.remove('active');
+                if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+
+            if (menuToggle) menuToggle.addEventListener('click', openMenu);
+            if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+            if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
+
+            // Gestion responsive du header (copied from index.html)
+            const desktopNav = document.getElementById('desktop-nav');
+            const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
+            function handleResize() {
+                const isDesktop = window.innerWidth > 992;
+                if(desktopNav) desktopNav.style.display = isDesktop ? 'flex' : 'none';
+                if(desktopLangSwitcher) desktopLangSwitcher.style.display = isDesktop ? 'flex' : 'none';
+                if(menuToggle) menuToggle.style.display = isDesktop ? 'none' : 'flex';
+                if (isDesktop && offcanvasMenu && offcanvasMenu.classList.contains('open')) { 
+                    closeMenu();
+                }
+            }
+            window.addEventListener('resize', handleResize);
+            handleResize(); 
+
+            // Active link styling (copied from index.html)
+            const currentPath = window.location.pathname.split("/").pop() || "index.html"; // Default to index if path is empty
+            const navLinks = document.querySelectorAll('#desktop-nav ul li a, .offcanvas-menu nav ul li a');
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split("/").pop() || "index.html";
+                if (linkPath === currentPath) {
+                    link.classList.add('active-lang'); 
+                } else {
+                    link.classList.remove('active-lang');
+                }
+            });
+            
             // Product Image Gallery Changer
             const mainProductImage = document.getElementById('mainProductImage');
             const thumbnails = document.querySelectorAll('.thumbnail-images .thumbnail');
@@ -1192,33 +437,40 @@
             if (mainProductImage && thumbnails.length > 0) {
                 thumbnails.forEach(thumbnail => {
                     thumbnail.addEventListener('click', function() {
-                        // Change main image src
-                        mainProductImage.src = this.src;
-                        mainProductImage.alt = this.alt.replace('Thumbnail', 'Vue'); // Update alt text
-
-                        // Update active thumbnail
-                        thumbnails.forEach(t => t.classList.remove('active-thumbnail'));
-                        this.classList.add('active-thumbnail');
+                        const newImageSrc = this.dataset.imageSrc;
+                        if (newImageSrc) {
+                            mainProductImage.src = newImageSrc;
+                            mainProductImage.alt = this.alt; 
+                            thumbnails.forEach(t => t.classList.remove('active-thumbnail'));
+                            this.classList.add('active-thumbnail');
+                        }
                     });
                 });
             }
+            
+            // Simuler ajout au panier
+            const addToCartButton = document.querySelector('.btn-add-to-cart');
+            if (addToCartButton) {
+                addToCartButton.addEventListener('click', function(e) {
+                    // e.preventDefault(); // Prévenir la redirection si on voulait faire plus (ex: ouvrir un mini-panier)
+                    // Pour l'instant, on laisse le lien <a> fonctionner normalement vers livraison.html
+                    console.log('Produit ajouté au panier (simulation)');
+                });
+            }
 
-            // You can add more JS functionalities here:
-            // - Mobile menu toggle
-            // - Smooth scroll for anchor links
-            // - Form validation for contact/newsletter
-            // - etc.
+            console.log('Éclaria Page Produit (FR) v2 chargée avec succès!');
         });
 
-        // Global function for onclick attribute in HTML (if preferred for simplicity in this case)
-        function changeImage(imageSrc) {
+        // Fonction globale pour changer l'image (utilisée par onclick dans l'ancienne version, maintenant via data-attributes)
+        // On la garde au cas où, mais elle n'est plus appelée directement par le HTML
+        function changeImage(imageSrcPath) {
             const mainProductImage = document.getElementById('mainProductImage');
             const thumbnails = document.querySelectorAll('.thumbnail-images .thumbnail');
             if (mainProductImage) {
-                mainProductImage.src = imageSrc;
+                mainProductImage.src = imageSrcPath;
                 
                 thumbnails.forEach(thumbnail => {
-                    if (thumbnail.src.includes(imageSrc.substring(imageSrc.lastIndexOf('/') + 1))) { // Check filename match
+                    if (thumbnail.dataset.imageSrc === imageSrcPath) {
                         thumbnail.classList.add('active-thumbnail');
                     } else {
                         thumbnail.classList.remove('active-thumbnail');
@@ -1226,100 +478,6 @@
                 });
             }
         }
-
-        // Payment Page Logic
-        document.addEventListener('DOMContentLoaded', function() {
-            // ... (other existingDOMContentLoaded code)
-
-            const paymentForm = document.getElementById('payment-form');
-            if (paymentForm) {
-                const paymentMethodRadios = document.querySelectorAll('input[name="payment_method"]');
-                const stripeFields = document.getElementById('stripe-fields');
-                const paypalFields = document.getElementById('paypal-fields');
-
-                paymentMethodRadios.forEach(radio => {
-                    radio.addEventListener('change', function() {
-                        if (this.value === 'stripe') {
-                            stripeFields.style.display = 'block';
-                            paypalFields.style.display = 'none';
-                        } else if (this.value === 'paypal') {
-                            stripeFields.style.display = 'none';
-                            paypalFields.style.display = 'block';
-                        }
-                    });
-                });
-
-                // Simulate populating shipping summary (in a real app, this data would come from server or state management)
-                const summaryAdresse = document.getElementById('summary-adresse');
-                const summaryVille = document.getElementById('summary-ville');
-                const summaryPays = document.getElementById('summary-pays');
-                const summaryEmail = document.getElementById('summary-email');
-
-                // Attempt to get data from URL parameters (if coming from livraison.html via GET)
-                const urlParams = new URLSearchParams(window.location.search);
-                if (summaryAdresse) summaryAdresse.textContent = urlParams.get('adresse1') || 'Non spécifiée';
-                if (summaryVille) summaryVille.textContent = `${urlParams.get('ville') || ''}, ${urlParams.get('code_postal') || ''}`;
-                if (summaryPays) summaryPays.textContent = urlParams.get('pays') === 'BE' ? 'Belgique' : 'France'; // Basic mapping
-                if (summaryEmail) summaryEmail.textContent = urlParams.get('email') || 'Non spécifié';
-
-
-                paymentForm.addEventListener('submit', function(event) {
-                    event.preventDefault(); // Prevent actual submission for demo
-                    const selectedPaymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
-                    
-                    if (selectedPaymentMethod === 'stripe') {
-                        // Basic validation for demo
-                        const cardNumber = document.getElementById('card-number').value;
-                        const expiryDate = document.getElementById('expiry-date').value;
-                        const cvc = document.getElementById('cvc').value;
-                        if (cardNumber && expiryDate && cvc) {
-                            alert('Paiement par Stripe simulé avec succès ! Merci pour votre achat.');
-                            // Redirect to a thank you page or clear cart
-                            window.location.href = "index.html"; // Placeholder redirect
-                        } else {
-                            alert('Veuillez remplir tous les champs de la carte.');
-                        }
-                    } else if (selectedPaymentMethod === 'paypal') {
-                        alert('Redirection vers PayPal simulée... Paiement complété ! Merci pour votre achat.');
-                        // In a real scenario, this would redirect to PayPal
-                         window.location.href = "index.html"; // Placeholder redirect
-                    }
-                });
-            }
-
-            // If on livraison.html, save form data to localStorage to simulate data persistence for paiement.html
-            const shippingForm = document.getElementById('shipping-form');
-            if (shippingForm) {
-                shippingForm.addEventListener('submit', function() {
-                    localStorage.setItem('shipping_prenom', document.getElementById('prenom').value);
-                    localStorage.setItem('shipping_nom', document.getElementById('nom').value);
-                    localStorage.setItem('shipping_email', document.getElementById('email').value);
-                    localStorage.setItem('shipping_adresse1', document.getElementById('adresse1').value);
-                    localStorage.setItem('shipping_adresse2', document.getElementById('adresse2').value);
-                    localStorage.setItem('shipping_ville', document.getElementById('ville').value);
-                    localStorage.setItem('shipping_code_postal', document.getElementById('code_postal').value);
-                    localStorage.setItem('shipping_pays', document.getElementById('pays').value);
-                });
-            }
-             // If on paiement.html, try to load data from localStorage if URL params are not available
-            const urlParams = new URLSearchParams(window.location.search); // Re-declare for this scope if not accessible
-            const paymentFormForLocalStorage = document.getElementById('payment-form'); // Use a different variable name to avoid conflict
-            if (paymentFormForLocalStorage && !urlParams.has('email')) { // Check if URL params were not set
-                const summaryAdresse = document.getElementById('summary-adresse'); // Re-declare for this scope
-                const summaryVille = document.getElementById('summary-ville'); // Re-declare for this scope
-                const summaryPays = document.getElementById('summary-pays'); // Re-declare for this scope
-                const summaryEmail = document.getElementById('summary-email'); // Re-declare for this scope
-
-                if (summaryAdresse) summaryAdresse.textContent = `${localStorage.getItem('shipping_adresse1') || ''} ${localStorage.getItem('shipping_adresse2') || ''}`.trim() || 'Non spécifiée';
-                if (summaryVille) summaryVille.textContent = `${localStorage.getItem('shipping_ville') || ''}, ${localStorage.getItem('shipping_code_postal') || ''}`.trim() || 'Non spécifiée';
-                if (summaryPays) {
-                    const paysCode = localStorage.getItem('shipping_pays');
-                    summaryPays.textContent = paysCode === 'BE' ? 'Belgique' : (paysCode === 'FR' ? 'France' : 'Non spécifié');
-                }
-                if (summaryEmail) summaryEmail.textContent = localStorage.getItem('shipping_email') || 'Non spécifié';
-            }
-
-        });
     </script>
 </body>
 </html>
