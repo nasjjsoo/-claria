@@ -4,131 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éclaria - Accueil</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
-        :root {
-            --lilac-primary: #E1D5F0; --lilac-accent: #A076C9; --white-pure: #FFFFFF; --silver-light: #F8F9FA; --silver-medium: #E9ECEF; --text-dark: #212529; --text-light: #6c757d;
-            --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif; --font-logo: 'Great Vibes', cursive;
-        }
-        *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: var(--font-primary); margin: 0; padding: 0; padding-top: 70px; background-color: var(--white-pure); color: var(--text-dark); line-height: 1.7; font-weight: 300; }
-        .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
-        .site-header-new { background-color: var(--white-pure); padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08); height: 70px; display: flex; align-items: center; }
-        .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .site-logo-new a { font-family: var(--font-logo); font-size: 2.5em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
-        .header-actions { display: flex; align-items: center; }
-        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
-        .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
-        .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
-        .language-switcher { margin-left: 20px; display:flex; align-items:center; }
-        .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 5px 8px; margin: 0 3px; border-radius: 4px; transition: background-color 0.3s, color 0.3s; }
-        .language-switcher .lang-link.active-lang { color: var(--lilac-accent); font-weight: 600; background-color: var(--lilac-primary); }
-        .language-switcher .lang-link:hover:not(.active-lang) { background-color: var(--silver-medium); color: var(--text-dark); }
-        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 60px 20px 20px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
-        .offcanvas-menu.open { right: 0; }
-        .close-menu-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; cursor: pointer; color: var(--text-light); }
-        .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
-        .offcanvas-menu nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
-        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--silver-light); }
-        /* Supprimer la navigation bureau pour l'instant, sera recréée en français */
-        /* .main-navigation { display: none !important; } */
-        .offcanvas-menu nav li:last-child a { border-bottom: none; }
-        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); z-index: 1050; }
-        .overlay-screen.active { display: block; }
-        main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 70px - 160px); }
-        h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.75em; }
-        h1 { font-size: 2.8em; line-height: 1.2; } 
-        h2 { font-size: 2.2em; line-height: 1.3; } 
-        h3 { font-size: 1.6em; line-height: 1.4; }
-        p { margin-bottom: 1.5em; font-size: 1em; color:var(--text-light); }
-        .btn { display: inline-block; padding: 12px 30px; font-family: var(--font-headings); font-weight: 500; font-size: 1em; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; }
-        .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); }
-        .btn-primary:hover { background-color: #8a6aaf; border-color: #8a6aaf; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.4); }
-        .site-footer { background-color: var(--silver-light); color: var(--text-light); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top:auto; }
-        .footer-links { margin-bottom: 15px; }
-        .footer-links a { color: var(--text-light); text-decoration: none; margin: 0 10px; transition: color 0.3s ease; }
-        .footer-links a:hover { color: var(--lilac-accent); }
-        .social-media-footer a { margin: 0 8px; }
-        .social-media-footer svg { width: 22px; height: 22px; fill: var(--text-light); transition: fill 0.3s ease; }
-        .social-media-footer a:hover svg { fill: var(--lilac-accent); }
-        .copyright { margin-top: 15px; font-size: 0.85em; }
-        .hero-v2 { background: var(--white-pure); padding: 60px 0; overflow: hidden; }
-        .hero-v2-container { display: flex; align-items: center; gap: 40px; }
-        .hero-v2-content { flex: 1; padding-right: 40px; animation: slideInFromLeft 0.8s ease-out; }
-        .hero-v2-image-container { flex: 1; display: flex; justify-content: center; align-items: center; animation: fadeInScale 0.8s ease-out 0.2s backwards; }
-        .hero-v2-image { max-width: 100%; height: auto; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
-        .hero-v2-title { font-size: 2.8em; font-weight: 700; color: var(--text-dark); line-height: 1.25; margin-bottom: 15px; }
-        .hero-v2-description { font-size: 1.1em; color: var(--text-light); margin-bottom: 25px; max-width: 520px; }
-        .hero-v2-price { font-size: 1.7em; font-weight: 600; color: var(--lilac-accent); margin-bottom: 25px; }
-        .original-price-hero { font-size: 0.7em; text-decoration: line-through; color: var(--text-light); margin-left: 8px; font-weight: 400; }
-        .btn-hero-v2 { font-size: 1.05em; padding: 15px 35px; text-transform: none; letter-spacing: 0.3px; }
-        .hero-v2-guarantee { font-size: 0.9em; color: var(--text-light); margin-top: 20px; display: inline-flex; align-items: center; }
-        .hero-v2-guarantee svg { width: 18px; height: 18px; vertical-align: -3px; margin-right: 6px; fill: var(--lilac-accent); }
-        .section-title-centered { text-align: center; font-size: 2.3em; font-weight: 600; color: var(--text-dark); margin-bottom: 50px; margin-top: 60px; }
-        .key-features-section { padding: 60px 0; background-color: var(--white-pure); }
-        .key-features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
-        .key-feature-item { text-align: center; padding: 25px 20px; background-color: var(--white-pure); border-radius: 12px; border: 1px solid var(--silver-medium); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .key-feature-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(160, 118, 201, 0.1); }
-        .key-feature-icon { width: 50px; height: 50px; margin-bottom: 18px; }
-        .key-feature-item h3 { font-size: 1.2em; color: var(--text-dark); margin-bottom: 10px; font-weight: 600; }
-        .key-feature-item p { font-size: 0.9em; color: var(--text-light); line-height: 1.6; }
-        .before-after-visual-section { padding: 60px 0; background-color: var(--silver-light); }
-        .before-after-visual-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
-        .before-after-visual-item { flex-basis: calc(50% - 25px); max-width: 420px; text-align: center; background: var(--white-pure); padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
-        .before-after-visual-item img { width: 100%; max-width: 320px; height: auto; border-radius: 10px; margin-bottom: 15px; border: 1px solid var(--silver-medium); }
-        .before-after-label { font-family: var(--font-headings); font-weight: 500; font-size: 1.05em; color: var(--text-dark); margin-bottom: 8px; }
-        .before-after-visual-item p { font-size: 0.9em; color: var(--text-light); line-height: 1.5; margin-bottom: 0; }
-        .results-disclaimer { text-align: center; font-size: 0.85em; color: var(--text-light); margin-top: 25px; }
-        .testimonials-v2-section { padding: 60px 0; background-color: var(--white-pure); }
-        .testimonials-v2-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .testimonial-v2-item { background-color: var(--silver-light); padding: 30px; border-radius: 15px; border-left: 5px solid var(--lilac-primary); position: relative; }
-        .testimonial-v2-item::before { content: '“'; font-family: 'Georgia', serif; font-size: 3em; color: var(--lilac-primary); position: absolute; top: 10px; left: 15px; opacity: 0.7; }
-        .testimonial-v2-quote { font-size: 0.95em; font-style: italic; color: var(--text-dark); line-height: 1.7; margin-bottom: 15px; padding-left: 25px; }
-        .testimonial-v2-author { font-size: 0.9em; font-weight: 500; color: var(--lilac-accent); text-align: right; }
-        .final-cta-trust-section { padding: 70px 0; background: var(--lilac-primary); text-align: center; }
-        .final-cta-trust-section .section-title-centered { color: var(--text-dark); }
-        .final-cta-subtitle { font-size: 1.1em; color: var(--text-dark); opacity:0.9; max-width: 600px; margin: 0 auto 30px auto; }
-        .btn-final-cta { font-size: 1.1em; padding: 16px 40px; text-transform: none; letter-spacing: 0.3px; margin-bottom: 40px; background-color:var(--lilac-accent); color:var(--white-pure);}
-        .btn-final-cta:hover { background-color: #8a6aaf; box-shadow: 0 4px 15px rgba(0,0,0, 0.15); }
-        .trust-elements-final { display: flex; justify-content: space-around; align-items: flex-start; flex-wrap: wrap; gap: 20px; max-width: 850px; margin: 0 auto; }
-        .trust-element { display: flex; flex-direction: column; align-items: center; text-align: center; flex-basis: 180px; }
-        .trust-element img { width: 40px; height: 40px; margin-bottom: 10px; opacity: 0.8; }
-        .trust-element span { font-size: 0.85em; color: var(--text-dark); font-weight: 500; }
-        @keyframes slideInFromLeft { 0% { transform: translateX(-40px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
-        @keyframes fadeInScale { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        @media (max-width: 992px) {
-            .hero-v2-container { flex-direction: column-reverse; text-align: center; }
-            .hero-v2-content { padding-right: 0; text-align: center; }
-            .hero-v2-title { font-size: 2.5em; }
-            .hero-v2-description { max-width: 100%; }
-            .hero-v2-image-container { margin-bottom: 30px; }
-            .section-title-centered { font-size: 2em; }
-            .header-actions { margin-left: auto; }
-             .main-navigation { display: none !important; }
-        }
-        @media (max-width: 768px) {
-            .hero-v2 { padding: 40px 0; }
-            .hero-v2-title { font-size: 2em; }
-            .hero-v2-description { font-size: 0.95em; }
-            .btn-hero-v2, .btn-final-cta { font-size: 1em; padding: 12px 28px; }
-            .key-features-grid, .testimonials-v2-grid { grid-template-columns: 1fr; }
-            .before-after-visual-grid { flex-direction: column; align-items: center; }
-            .before-after-visual-item { flex-basis: 100%; margin-bottom: 20px; }
-            .final-cta-trust-section { padding: 50px 0; }
-            .trust-elements-final { flex-direction:column; align-items:center; gap:25px;}
-            h1 {font-size: 2.2em;}
-            .site-logo-new a { font-size: 2.2em; } 
-            body { padding-top: 70px; } 
-            .site-header-new { height: 70px; }
-            .language-switcher { display: none; }
-            .menu-toggle { display: flex !important; }
-        }
-         @media (min-width: 769px) {
-            .menu-toggle { display: none !important; } 
-            #desktop-nav { display: flex !important; }
-            #desktop-lang-switcher { display: flex !important;}
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="site-header-new">
@@ -193,7 +69,7 @@
         <section class="hero-v2">
             <div class="container hero-v2-container">
                 <div class="hero-v2-image-container">
-                    <img src="710E7veA9BL._SL1500_.jpg" alt="Masque facial LED Éclaria CryoGlow en utilisation" class="hero-v2-image">
+                    <img src="img/710E7veA9BL._SL1500_.jpg" alt="Masque facial LED Éclaria CryoGlow en utilisation" class="hero-v2-image">
                 </div>
                 <div class="hero-v2-content">
                     <h1 class="hero-v2-title">Éclaria CryoGlow : Révélez une Peau d'Exception.</h1>
@@ -214,22 +90,22 @@
                 <h2 class="section-title-centered">Technologie Avancée, Résultats Visibles</h2>
                 <div class="key-features-grid">
                     <div class="key-feature-item">
-                        <img src="71gR8lEe5uL._SL1500_.jpg" alt="Thérapie LED" class="key-feature-icon">
+                        <img src="img/icon-led-therapy.svg" alt="Thérapie LED" class="key-feature-icon">
                         <h3>Thérapie LED Ciblée</h3>
                         <p>Lumière rouge (anti-âge) et bleue (anti-acné) pour une action précise et efficace.</p>
                     </div>
                     <div class="key-feature-item">
-                        <img src="81WKaSgNSNL._SL1500_.jpg" alt="Cryothérapie" class="key-feature-icon">
+                        <img src="img/icon-cryo-technology.svg" alt="Cryothérapie" class="key-feature-icon">
                         <h3>Cryothérapie Revitalisante</h3>
                         <p>Technologie de refroidissement pour apaiser, raffermir et réduire les poches sous les yeux.</p>
                     </div>
                     <div class="key-feature-item">
-                        <img src="8108jNqNHYL._SL1500_.jpg" alt="Contrôle facile" class="key-feature-icon">
+                        <img src="img/icon-remote-control.svg" alt="Contrôle facile" class="key-feature-icon">
                         <h3>Contrôle Intuitif</h3>
                         <p>Télécommande ergonomique et chargement USB-C pour une utilisation simplifiée.</p>
                     </div>
                     <div class="key-feature-item">
-                        <img src="91rWlj7BMTL._SL1500_.jpg" alt="Résultats rapides" class="key-feature-icon">
+                        <img src="img/icon-fast-results.svg" alt="Résultats rapides" class="key-feature-icon">
                         <h3>Résultats en 7 Jours</h3>
                         <p>Commencez à voir une amélioration de votre peau en seulement une semaine d'utilisation.</p>
                     </div>
