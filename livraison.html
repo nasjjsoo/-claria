@@ -3,124 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Éclaria - Adresse de Livraison</title>
+    <title>Éclaria - Livraison et Coordonnées</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
         :root {
-            --lilac-primary: #E1D5F0; --lilac-accent: #A076C9; --white-pure: #FFFFFF; --silver-light: #F8F9FA; --silver-medium: #E9ECEF; --text-dark: #212529; --text-light: #6c757d;
-            --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif; --font-logo: 'Great Vibes', cursive;
+            --lilac-primary: #E8E0F3; --lilac-secondary: #D1C4E9; --lilac-accent: #A076C9; --lilac-dark: #7E57C2;
+            --white-pure: #FFFFFF; --silver-light: #F9F9F9; --silver-medium: #E9ECEF; --text-dark: #2C3E50;
+            --text-light: #566573; --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif;
+            --font-logo: 'Great Vibes', cursive; --success-color: #28a745; --error-color: #dc3545;
         }
         *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: var(--font-primary); margin: 0; padding: 0; color: var(--text-dark); background-color: var(--silver-light); line-height: 1.7; font-weight: 300; padding-top: 70px; } /* Adjusted padding-top */
-        .container { width: 90%; max-width: 1180px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
+        body { 
+            font-family: var(--font-primary); margin: 0; padding: 0; padding-top: 70px; 
+            background-color: var(--silver-light); /* Fond général pour les pages de checkout */
+            color: var(--text-dark); 
+            line-height: 1.7; font-weight: 400;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+        }
+        .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
         
-        /* New Header Styles (copied from index.html for consistency) */
-        .site-header-new { background-color: var(--white-pure); padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08); height: 70px; display: flex; align-items: center; }
+        /* Header (Copied from index.html for consistency) */
+        .site-header-new { 
+            background-color: rgba(255, 255, 255, 0.97); backdrop-filter: blur(8px); 
+            padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; 
+            z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.07); height: 70px; 
+            display: flex; align-items: center; 
+        }
         .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .site-logo-new a { font-family: var(--font-logo); font-size: 2.5em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        .site-logo-new a { font-family: var(--font-logo); font-size: 2.6em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        #desktop-nav ul { list-style: none; margin: 0; padding: 0; display: flex; }
+        #desktop-nav li { margin-left: 28px; }
+        #desktop-nav a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1em; padding-bottom: 5px; position: relative; transition: color 0.3s ease; }
+        #desktop-nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: var(--lilac-accent); transition: width 0.3s ease; }
+        #desktop-nav a:hover, #desktop-nav a.active-lang { color: var(--lilac-accent); }
+        #desktop-nav a:hover::after, #desktop-nav a.active-lang::after { width: 100%; }
         .header-actions { display: flex; align-items: center; }
-        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 15px; }
+        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
         .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
         .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
-        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 60px 20px 20px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
+        .language-switcher { margin-left: 20px; display:flex; align-items:center; }
+        .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 6px 10px; margin: 0 3px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
+        .language-switcher .lang-link.active-lang { color: var(--lilac-dark); font-weight: 600; background-color: var(--lilac-primary); }
+        .language-switcher .lang-link:hover:not(.active-lang) { background-color: var(--silver-medium); color: var(--text-dark); }
+        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 20px rgba(0,0,0,0.1); padding: 70px 25px 25px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
         .offcanvas-menu.open { right: 0; }
-        .close-menu-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; cursor: pointer; color: var(--text-light); }
+        .close-menu-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 2.2em; cursor: pointer; color: var(--text-light); transition: color 0.3s ease;}
+        .close-menu-btn:hover { color: var(--lilac-accent); }
         .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
-        .offcanvas-menu nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
-        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--silver-light); }
-        .offcanvas-menu nav li a.active { color: var(--lilac-accent); font-weight: 600; }
+        .offcanvas-menu nav li a { display: block; padding: 14px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
+        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--lilac-primary); }
         .offcanvas-menu nav li:last-child a { border-bottom: none; }
-        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); z-index: 1050; }
+        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 62, 80, 0.5); z-index: 1050; }
         .overlay-screen.active { display: block; }
-        /* End of New Header Styles */
+        
+        /* Main content and typography (Copied from index.html) */
+        main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 70px - 180px); }
+        h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.8em; }
+        p { margin-bottom: 1.6em; font-size: 1.05em; color:var(--text-light); }
+        .btn { display: inline-block; padding: 14px 35px; font-family: var(--font-headings); font-weight: 500; font-size: 1.05em; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; letter-spacing: 0.5px; }
+        .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.2); }
+        .btn-primary:hover { background-color: var(--lilac-dark); border-color: var(--lilac-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(126, 87, 194, 0.3); }
 
-        main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 70px - 160px); } /* Adjusted min-height */
-        h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.75em; }
-        /* h1 { font-size: 2.8em; line-height: 1.2; }  h2 { font-size: 2.2em; line-height: 1.3; } h3 { font-size: 1.6em; line-height: 1.4; } */ /* Commented out as they might conflict with specific page h tags */
-        p { margin-bottom: 1.5em; font-size: 1em; }
-        .btn { display: inline-block; padding: 12px 30px; font-family: var(--font-headings); font-weight: 500; font-size: 1em; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; }
-        .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); }
-        .btn-primary:hover { background-color: #8a6aaf; border-color: #8a6aaf; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.4); }
-        .site-footer { background-color: var(--silver-light); color: var(--text-light); padding: 40px 0; text-align: center; font-size: 0.9em; }
-        .footer-links { margin-bottom: 15px; }
-        .footer-links a { color: var(--text-light); text-decoration: none; margin: 0 10px; transition: color 0.3s ease; }
-        .footer-links a:hover { color: var(--lilac-accent); }
-        .social-media-footer a { margin: 0 8px; }
-        .social-media-footer svg { width: 22px; height: 22px; fill: var(--text-light); transition: fill 0.3s ease; }
-        .social-media-footer a:hover svg { fill: var(--lilac-accent); }
-        .copyright { margin-top: 15px; font-size: 0.85em; }
-        
-        .checkout-header { text-align: center; margin-bottom: 40px; }
-        .checkout-header h1 { font-size: 2.4em; color: var(--text-dark); margin-bottom: 0.2em;}
-        .checkout-steps { display: flex; justify-content: center; margin-bottom: 30px; padding: 0; list-style: none;}
-        .checkout-step { color: var(--text-light); margin: 0 15px; font-family: var(--font-headings); font-weight: 500; position: relative; font-size: 0.95em;}
-        .checkout-step { color: var(--text-light); margin: 0 15px; font-family: var(--font-headings); font-weight: 500; position: relative; font-size: 0.95em; padding-bottom: 10px; }
-        .checkout-step.active { color: var(--lilac-accent); font-weight: 700; border-bottom: 3px solid var(--lilac-accent); }
-        .checkout-step.completed { color: var(--text-dark); font-weight: 600; }
-        .checkout-step:not(:last-child)::after { content: '>'; color: var(--silver-medium); margin-left: 15px; position: absolute; right: -25px; top: 2px; font-weight:300; font-size: 1.2em;}
+        /* Footer (Copied from index.html) */
+        .site-footer { background-color: var(--text-dark); color: var(--silver-light); padding: 50px 0; text-align: center; font-size: 0.95em; margin-top:auto; }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { color: var(--silver-light); text-decoration: none; margin: 0 12px; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--lilac-primary); }
+        .social-media-footer a { margin: 0 10px; }
+        .social-media-footer svg { width: 24px; height: 24px; fill: var(--silver-light); transition: fill 0.3s ease; }
+        .social-media-footer a:hover svg { fill: var(--lilac-primary); }
+        .copyright { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
 
-        .checkout-layout-new { display: flex; gap: 40px; align-items: flex-start; }
-        .checkout-form-main { flex: 1.7; background-color: var(--white-pure); padding: 40px; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-        .checkout-form-main h2 { font-size: 1.8em; margin-bottom: 30px; color: var(--text-dark); border-bottom: 1px solid var(--silver-medium); padding-bottom: 20px;}
+        /* Checkout Specific Styles */
+        .checkout-header { text-align: center; margin-bottom: 35px; }
+        .checkout-header h1 { font-size: 2.5em; color: var(--text-dark); margin-bottom: 0.3em;}
         
-        .form-row-new { display: flex; gap: 25px; margin-bottom: 25px; }
-        .form-group-new { flex: 1; margin-bottom: 0; } 
-        .form-group-new.full-width { flex-basis: 100%; margin-bottom: 22px; } 
-        
-        .form-group-new label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9em; color: var(--text-dark); }
-        .form-group-new input[type="text"],
-        .form-group-new input[type="email"],
-        .form-group-new input[type="tel"],
-        .form-group-new select {
-            width: 100%; padding: 15px 20px; border: 1px solid var(--silver-medium); border-radius: 10px; 
-            font-family: var(--font-primary); font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; background-color: var(--white-pure);
-            -webkit-appearance: none; /* Removes default Safari/Chrome styling for select */
-            -moz-appearance: none; /* Removes default Firefox styling for select */
-            appearance: none; /* Removes default styling for select */
+        .checkout-steps { display: flex; justify-content: center; align-items: center; margin-bottom: 40px; padding: 0; list-style: none; }
+        .checkout-step { color: var(--text-light); margin: 0 10px; font-family: var(--font-headings); font-weight: 500; position: relative; font-size: 0.9em; padding: 10px 15px; border-radius: 8px; background-color: var(--silver-medium); transition: all 0.3s ease; }
+        .checkout-step.active { color: var(--white-pure); background-color: var(--lilac-accent); font-weight: 600; box-shadow: 0 4px 10px rgba(160, 118, 201, 0.3); }
+        .checkout-step.completed { color: var(--text-dark); background-color: var(--lilac-secondary); font-weight: 500; }
+        .checkout-step:not(:last-child)::after { 
+            content: '→'; color: var(--text-light); 
+            margin-left: 15px; position: absolute; right: -20px; top: 50%; 
+            transform: translateY(-50%); font-weight:300; font-size: 1.3em;
         }
-        .form-group-new select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 20px;
-            padding-right: 45px; /* Make space for the arrow */
-        }
-        .form-group-new input:focus, .form-group-new select:focus {
-            border-color: var(--lilac-accent); outline: none; box-shadow: 0 0 0 4px rgba(160, 118, 201, 0.25);
-        }
-        .form-actions-new { margin-top: 35px; }
-        .btn-checkout { width: 100%; padding: 18px; font-size: 1.15em; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+        .checkout-step.active:not(:last-child)::after, .checkout-step.completed:not(:last-child)::after { color: var(--lilac-accent); }
 
-        .order-summary-sidebar { flex: 1; background-color: var(--white-pure); padding: 35px; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); position: sticky; top: 110px; } /* Adjusted top for new header */
-        .order-summary-sidebar h2 { font-size: 1.6em; margin-bottom: 25px; color: var(--text-dark); border-bottom: 1px solid var(--silver-medium); padding-bottom: 20px;}
-        .summary-item-new { display: flex; align-items: center; margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--silver-light); }
-        .summary-item-new:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
-        .summary-image-new img { width: 70px; height: 70px; object-fit: cover; border-radius: 10px; margin-right: 18px; border: 1px solid var(--silver-medium); }
-        .summary-details-new { flex-grow: 1;}
-        .summary-details-new p { margin: 0; line-height: 1.4; }
-        .summary-item-name-new { font-weight: 500; color: var(--text-dark); margin-bottom: 5px; font-size: 0.95em; }
-        .summary-item-qty-new { font-size: 0.85em; color: var(--text-light); }
-        .summary-item-price-new { margin-left: auto; font-weight: 500; color: var(--text-dark); font-size: 1em; }
+
+        .checkout-layout { display: flex; gap: 35px; align-items: flex-start; }
+        .checkout-form-container { flex: 1.8; background-color: var(--white-pure); padding: 35px; border-radius: 12px; box-shadow: 0 8px 25px rgba(44,62,80,0.08); }
+        .checkout-form-container h2 { font-size: 1.9em; margin-bottom: 25px; color: var(--text-dark); border-bottom: 1px solid var(--silver-medium); padding-bottom: 15px;}
         
-        .summary-totals-new { margin-top: 20px; padding-top:20px; border-top: 1px solid var(--silver-medium); }
-        .summary-totals-new p { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1em; }
-        .summary-totals-new .total-label { color: var(--text-light); }
-        .summary-totals-new .total-value { font-weight: 500; color: var(--text-dark); }
-        .summary-totals-new .grand-total .total-label, .summary-totals-new .grand-total .total-value { font-size: 1.2em; font-weight: 600; color: var(--lilac-accent); }
+        .form-row { display: flex; gap: 20px; margin-bottom: 22px; }
+        .form-group { flex: 1; } 
+        .form-group.full-width { flex-basis: 100%; } 
+        
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.95em; color: var(--text-dark); }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group select {
+            width: 100%; padding: 14px 18px; border: 1px solid var(--silver-medium); border-radius: 8px; 
+            font-family: var(--font-primary); font-size: 1em; color: var(--text-dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; background-color: var(--white-pure);
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+        }
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23566573'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 15px center; background-size: 20px; padding-right: 45px;
+        }
+        .form-group input::placeholder { color: var(--text-light); opacity: 0.7; }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--lilac-accent); outline: none; 
+            box-shadow: 0 0 0 3px rgba(160, 118, 201, 0.2);
+        }
+        .form-group input.error, .form-group select.error { border-color: var(--error-color); }
+        .error-message { color: var(--error-color); font-size: 0.85em; margin-top: 5px; display: block; }
+
+        .form-actions { margin-top: 30px; }
+        .btn-checkout { width: 100%; padding: 16px; font-size: 1.1em; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+
+        .order-summary { flex: 1; background-color: var(--white-pure); padding: 30px; border-radius: 12px; box-shadow: 0 8px 25px rgba(44,62,80,0.08); position: sticky; top: 90px; /* header height + شويه مسافه */ }
+        .order-summary h2 { font-size: 1.7em; margin-bottom: 20px; color: var(--text-dark); border-bottom: 1px solid var(--silver-medium); padding-bottom: 15px;}
+        .summary-item { display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--silver-light); }
+        .summary-item:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+        .summary-item-image img { width: 75px; height: 75px; object-fit: cover; border-radius: 8px; margin-right: 18px; border: 1px solid var(--silver-medium); }
+        .summary-item-details { flex-grow: 1;}
+        .summary-item-details p { margin: 0; line-height: 1.45; }
+        .summary-item-name { font-weight: 500; color: var(--text-dark); margin-bottom: 4px; font-size: 1em; }
+        .summary-item-qty { font-size: 0.9em; color: var(--text-light); }
+        .summary-item-price { margin-left: auto; font-weight: 600; color: var(--text-dark); font-size: 1.05em; }
+        
+        .summary-totals { margin-top: 25px; padding-top:25px; border-top: 1px solid var(--silver-medium); }
+        .summary-totals p { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 1.05em; }
+        .summary-totals .total-label { color: var(--text-light); }
+        .summary-totals .total-value { font-weight: 500; color: var(--text-dark); }
+        .summary-totals .grand-total .total-label, .summary-totals .grand-total .total-value { font-size: 1.3em; font-weight: 600; color: var(--lilac-dark); }
+        .summary-totals hr { border: none; border-top: 1px dashed var(--silver-medium); margin: 15px 0; }
+
 
         @media (max-width: 992px) {
-            .checkout-layout-new { flex-direction: column-reverse; }
-            .order-summary-sidebar { position: static; width: 100%; margin-bottom: 30px; }
+            .checkout-layout { flex-direction: column-reverse; }
+            .order-summary { position: static; width: 100%; margin-bottom: 30px; }
+            .checkout-header h1 { font-size: 2.2em;}
         }
         @media (max-width: 768px) {
-            /* body { padding-top: 70px; } .site-header { height: 70px; } .site-logo a { font-size: 2.2em; } */ /* Old header responsive rules */
-            .site-logo-new a { font-size: 2.2em; } /* Responsive for new logo */
-            /* .main-navigation { display: none; } .header-container { justify-content: space-between; } */ /* Old header responsive rules */
-            .form-row-new { flex-direction: column; gap: 0; margin-bottom:0; }
-            .form-group-new.full-width, .form-group-new { margin-bottom: 22px; }
+            .site-logo-new a { font-size: 2.3em; } 
+            #desktop-nav, #desktop-lang-switcher { display: none !important; } 
+            .menu-toggle { display: flex !important; } 
+            .language-switcher:not(.offcanvas-lang-switcher) { display: none; }
+            .form-row { flex-direction: column; gap: 0; margin-bottom:0; }
+            .form-group { margin-bottom: 22px; }
             .checkout-header h1 { font-size: 2em;}
-            .checkout-form-main { padding: 20px; }
-            .order-summary-sidebar { padding: 20px; }
+            .checkout-form-container, .order-summary { padding: 25px; }
+            .checkout-steps { flex-wrap: wrap; gap: 5px; }
+            .checkout-step { font-size: 0.85em; padding: 8px 12px; margin: 0 5px;}
+            .checkout-step:not(:last-child)::after { display: none; } /* Hide arrows on mobile for cleaner look */
+        }
+         @media (min-width: 993px) { 
+            .menu-toggle { display: none !important; } 
+            #desktop-nav { display: flex !important; }
+            #desktop-lang-switcher { display: flex !important;}
         }
     </style>
 </head>
@@ -130,9 +173,23 @@
             <div class="site-logo-new">
                 <a href="index.html">Éclaria</a>
             </div>
+             <nav class="main-navigation" id="desktop-nav">
+                 <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="produit.html">Produit</a></li>
+                    <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
             <div class="header-actions">
-                <button class="cart-icon-new" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
-                <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+                 <div class="language-switcher" id="desktop-lang-switcher">
+                    <a href="livraison.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
+                </div>
+                <a href="livraison.html" class="cart-icon-new" aria-label="Panier">
+                    <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                </a>
+                <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="offcanvasMenu">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
                 </button>
             </div>
@@ -140,17 +197,24 @@
     </header>
 
     <div class="offcanvas-menu" id="offcanvasMenu">
-        <button class="close-menu-btn" aria-label="Fermer le menu">&times;</button>
+        <button class="close-menu-btn" aria-label="Fermer le menu" aria-controls="offcanvasMenu">&times;</button>
         <nav>
             <ul>
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="livraison.html" class="active">Livraison</a></li>
+                <li><a href="produit.html">Produit</a></li>
+                <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="livraison.html" class="active-lang">Livraison</a></li>
                 <li><a href="paiement.html">Paiement</a></li>
-                <li><a href="politique-de-confidentialite.html">Politique de confidentialité</a></li>
-                <li><a href="livraison-et-retours.html">Politique de retour</a></li>
+                <li><a href="politique-de-confidentialite.html">Politique de Confidentialité</a></li>
+                <li><a href="conditions-utilisation.html">Conditions d'Utilisation</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
+        <div class="language-switcher offcanvas-lang-switcher" style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--silver-light);">
+            <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Langue :</p>
+            <a href="livraison.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0; padding: 8px 10px;">Français</a>
+        </div>
     </div>
     <div class="overlay-screen" id="overlayScreen"></div>
 
@@ -159,82 +223,91 @@
             <div class="checkout-header">
                 <h1>Finaliser Votre Commande</h1>
                 <ul class="checkout-steps">
-                    <li class="checkout-step active">Livraison</li>
-                    <li class="checkout-step">Paiement</li>
-                    <li class="checkout-step">Confirmation</li>
+                    <li class="checkout-step active" id="step-livraison">Livraison</li>
+                    <li class="checkout-step" id="step-paiement">Paiement</li>
+                    <li class="checkout-step" id="step-confirmation">Confirmation</li>
                 </ul>
             </div>
 
-            <div class="checkout-layout-new">
-                <div class="checkout-form-main">
-                    <h2>Adresse de Livraison</h2>
-                    <form id="shipping-form" action="paiement.html" method="GET">
-                        <div class="form-row-new">
-                            <div class="form-group-new">
+            <div class="checkout-layout">
+                <div class="checkout-form-container">
+                    <h2>Vos Coordonnées de Livraison</h2>
+                    <form id="shipping-form" action="paiement.html" method="POST"> <!-- Changed to POST for better practice, though JS will handle it -->
+                        <div class="form-row">
+                            <div class="form-group">
                                 <label for="prenom">Prénom *</label>
                                 <input type="text" id="prenom" name="prenom" required autocomplete="given-name">
+                                <span class="error-message" aria-live="polite"></span>
                             </div>
-                            <div class="form-group-new">
+                            <div class="form-group">
                                 <label for="nom">Nom *</label>
                                 <input type="text" id="nom" name="nom" required autocomplete="family-name">
+                                <span class="error-message" aria-live="polite"></span>
                             </div>
                         </div>
-                        <div class="form-group-new full-width">
+                        <div class="form-group full-width">
                             <label for="email">Adresse e-mail *</label>
                             <input type="email" id="email" name="email" required autocomplete="email">
+                            <span class="error-message" aria-live="polite"></span>
                         </div>
-                        <div class="form-group-new full-width">
+                        <div class="form-group full-width">
                             <label for="telephone">Numéro de téléphone</label>
-                            <input type="tel" id="telephone" name="telephone" placeholder="Optionnel" autocomplete="tel">
+                            <input type="tel" id="telephone" name="telephone" placeholder="Optionnel pour le suivi de colis" autocomplete="tel">
+                            <span class="error-message" aria-live="polite"></span>
                         </div>
-                        <div class="form-group-new full-width">
+                        <div class="form-group full-width">
                             <label for="adresse1">Adresse (Ligne 1) *</label>
-                            <input type="text" id="adresse1" name="adresse1" required autocomplete="address-line1">
+                            <input type="text" id="adresse1" name="adresse1" placeholder="Numéro et nom de rue" required autocomplete="address-line1">
+                            <span class="error-message" aria-live="polite"></span>
                         </div>
-                        <div class="form-group-new full-width">
-                            <label for="adresse2">Complément d'adresse (Appartement, bâtiment, etc.)</label>
-                            <input type="text" id="adresse2" name="adresse2" autocomplete="address-line2">
+                        <div class="form-group full-width">
+                            <label for="adresse2">Complément d'adresse</label>
+                            <input type="text" id="adresse2" name="adresse2" placeholder="Appartement, bâtiment, étage, etc." autocomplete="address-line2">
                         </div>
-                        <div class="form-row-new">
-                            <div class="form-group-new">
+                        <div class="form-row">
+                            <div class="form-group">
                                 <label for="code_postal">Code Postal *</label>
                                 <input type="text" id="code_postal" name="code_postal" required autocomplete="postal-code">
+                                <span class="error-message" aria-live="polite"></span>
                             </div>
-                            <div class="form-group-new">
+                            <div class="form-group">
                                 <label for="ville">Ville *</label>
                                 <input type="text" id="ville" name="ville" required autocomplete="address-level2">
+                                <span class="error-message" aria-live="polite"></span>
                             </div>
                         </div>
-                        <div class="form-group-new full-width">
+                        <div class="form-group full-width">
                             <label for="pays">Pays *</label>
                             <select id="pays" name="pays" required autocomplete="country-name">
                                 <option value="FR" selected>France</option>
                                 <option value="BE">Belgique</option>
+                                <!-- Ajouter d'autres pays si nécessaire -->
                             </select>
+                            <span class="error-message" aria-live="polite"></span>
                         </div>
-                        <div class="form-actions-new">
+                        <div class="form-actions">
                             <button type="submit" class="btn btn-primary btn-checkout">Continuer vers le paiement</button>
                         </div>
                     </form>
                 </div>
 
-                <aside class="order-summary-sidebar">
+                <aside class="order-summary">
                     <h2>Votre Commande</h2>
-                    <div class="summary-item-new">
-                        <div class="summary-image-new">
-                            <img src="img/710E7veA9BL._SL1500_.jpg" alt="CryoGlow LED Face Mask">
+                    <div class="summary-item">
+                        <div class="summary-item-image">
+                            <img src="710E7veA9BL._SL1500_.jpg" alt="Masque CryoGlow LED">
                         </div>
-                        <div class="summary-details-new">
-                            <p class="summary-item-name-new">CryoGlow LED Face Mask</p>
-                            <p class="summary-item-qty-new">Quantité: 1</p>
+                        <div class="summary-item-details">
+                            <p class="summary-item-name">Masque Facial CryoGlow LED</p>
+                            <p class="summary-item-qty">Quantité: 1</p>
                         </div>
-                        <p class="summary-item-price-new">149€</p>
+                        <p class="summary-item-price">149€</p>
                     </div>
-                    <div class="summary-totals-new">
+                    <div class="summary-totals">
                         <p><span class="total-label">Sous-total :</span> <span class="total-value">149€</span></p>
                         <p><span class="total-label">Livraison :</span> <span class="total-value">Offerte</span></p>
                         <hr>
-                        <p class="grand-total"><span class="total-label">Total :</span> <span class="total-value">149€</span></p>
+                        <p class="grand-total"><span class="total-label">Total (TTC) :</span> <span class="total-value">149€</span></p>
                     </div>
                 </aside>
             </div>
@@ -245,7 +318,7 @@
             <div class="footer-links">
                 <a href="politique-de-confidentialite.html">Politique de Confidentialité</a> |
                 <a href="conditions-utilisation.html">Conditions d'Utilisation</a> |
-                <a href="contact.html">Contactez-nous</a>
+                <a href="contact.html">Contact</a>
             </div>
             <div class="social-media-footer">
                 <a href="https://instagram.com/eclaria_officiel" target="_blank" aria-label="Instagram Éclaria"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
@@ -255,65 +328,129 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Éclaria Livraison (re-designed) loaded successfully!');
-            const shippingForm = document.getElementById('shipping-form');
-            if (shippingForm) {
-                shippingForm.addEventListener('submit', function(event) {
-                    // Basic client-side validation example (can be enhanced)
-                    let isValid = true;
-                    const requiredInputs = shippingForm.querySelectorAll('input[required], select[required]');
-                    requiredInputs.forEach(input => {
-                        if (!input.value.trim()) {
-                            isValid = false;
-                            // Optionally, add some visual feedback for empty required fields
-                            input.style.borderColor = 'red'; 
-                        } else {
-                            input.style.borderColor = 'var(--silver-medium)'; // Reset border
-                        }
-                    });
-
-                    if (!isValid) {
-                        event.preventDefault(); // Stop form submission
-                        alert('Veuillez remplir tous les champs obligatoires (*).');
-                        return;
-                    }
-
-                    // Save to localStorage for paiement.html
-                    localStorage.setItem('eclaria_shipping_prenom', document.getElementById('prenom').value);
-                    localStorage.setItem('eclaria_shipping_nom', document.getElementById('nom').value);
-                    localStorage.setItem('eclaria_shipping_email', document.getElementById('email').value);
-                    localStorage.setItem('eclaria_shipping_telephone', document.getElementById('telephone').value);
-                    localStorage.setItem('eclaria_shipping_adresse1', document.getElementById('adresse1').value);
-                    localStorage.setItem('eclaria_shipping_adresse2', document.getElementById('adresse2').value);
-                    localStorage.setItem('eclaria_shipping_ville', document.getElementById('ville').value);
-                    localStorage.setItem('eclaria_shipping_code_postal', document.getElementById('code_postal').value);
-                    localStorage.setItem('eclaria_shipping_pays', document.getElementById('pays').value);
-                });
-            }
-        });
-
-        // Script for Offcanvas Menu (copied from index.html)
-        document.addEventListener('DOMContentLoaded', function() {
+            // Menu Off-canvas (copied from index.html)
             const menuToggle = document.querySelector('.menu-toggle');
             const closeMenuBtn = document.querySelector('.close-menu-btn');
             const offcanvasMenu = document.getElementById('offcanvasMenu');
             const overlayScreen = document.getElementById('overlayScreen');
-
+            
             function openMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.add('open');
                 if(overlayScreen) overlayScreen.classList.add('active');
                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
             }
 
             function closeMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.remove('open');
                 if(overlayScreen) overlayScreen.classList.remove('active');
                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
             }
 
             if (menuToggle) menuToggle.addEventListener('click', openMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
             if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
+
+            // Gestion responsive du header (copied from index.html)
+            const desktopNav = document.getElementById('desktop-nav');
+            const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
+            function handleResize() {
+                const isDesktop = window.innerWidth > 992;
+                if(desktopNav) desktopNav.style.display = isDesktop ? 'flex' : 'none';
+                if(desktopLangSwitcher) desktopLangSwitcher.style.display = isDesktop ? 'flex' : 'none';
+                if(menuToggle) menuToggle.style.display = isDesktop ? 'none' : 'flex';
+                if (isDesktop && offcanvasMenu && offcanvasMenu.classList.contains('open')) { 
+                    closeMenu();
+                }
+            }
+            window.addEventListener('resize', handleResize);
+            handleResize(); 
+
+            // Active link styling (copied from index.html)
+            const currentPath = window.location.pathname.split("/").pop() || "index.html";
+            const navLinks = document.querySelectorAll('#desktop-nav ul li a, .offcanvas-menu nav ul li a');
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split("/").pop() || "index.html";
+                if (linkPath === currentPath || (currentPath === "livraison.html" && linkPath === "livraison.html")) { // specific for livraison.html
+                    link.classList.add('active-lang'); 
+                } else {
+                    link.classList.remove('active-lang');
+                }
+            });
+            
+            // Shipping Form Validation and Data Handling
+            const shippingForm = document.getElementById('shipping-form');
+            if (shippingForm) {
+                const inputs = shippingForm.querySelectorAll('input[required], select[required]');
+
+                function validateField(field) {
+                    let isValid = true;
+                    let errorMessage = "";
+                    const errorSpan = field.nextElementSibling && field.nextElementSibling.classList.contains('error-message') ? field.nextElementSibling : null;
+
+                    if (field.value.trim() === "") {
+                        isValid = false;
+                        errorMessage = "Ce champ est obligatoire.";
+                    } else if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {
+                        isValid = false;
+                        errorMessage = "Veuillez saisir une adresse e-mail valide.";
+                    } else if (field.id === "code_postal" && !/^\d{5}$/.test(field.value) && field.value.trim() !== "") { // Validate only if not empty
+                        isValid = false;
+                        errorMessage = "Code postal invalide (doit contenir 5 chiffres).";
+                    }
+                    // Add more specific validations if needed (e.g., phone format)
+
+                    if (errorSpan) {
+                        errorSpan.textContent = errorMessage;
+                        field.classList.toggle('error', !isValid);
+                    }
+                    return isValid;
+                }
+
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => validateField(input));
+                    input.addEventListener('input', () => { // Clear error on input
+                         const errorSpan = input.nextElementSibling && input.nextElementSibling.classList.contains('error-message') ? input.nextElementSibling : null;
+                         if (errorSpan && errorSpan.textContent !== "") {
+                            validateField(input); // Re-validate to clear if now valid
+                         }
+                    });
+                });
+
+                shippingForm.addEventListener('submit', function(event) {
+                    event.preventDefault(); 
+                    let isFormValid = true;
+                    inputs.forEach(input => {
+                        if (!validateField(input)) {
+                            isFormValid = false;
+                        }
+                    });
+
+                    if (isFormValid) {
+                        // Save to localStorage for paiement.html
+                        localStorage.setItem('eclaria_shipping_prenom', document.getElementById('prenom').value);
+                        localStorage.setItem('eclaria_shipping_nom', document.getElementById('nom').value);
+                        localStorage.setItem('eclaria_shipping_email', document.getElementById('email').value);
+                        localStorage.setItem('eclaria_shipping_telephone', document.getElementById('telephone').value);
+                        localStorage.setItem('eclaria_shipping_adresse1', document.getElementById('adresse1').value);
+                        localStorage.setItem('eclaria_shipping_adresse2', document.getElementById('adresse2').value);
+                        localStorage.setItem('eclaria_shipping_ville', document.getElementById('ville').value);
+                        localStorage.setItem('eclaria_shipping_code_postal', document.getElementById('code_postal').value);
+                        localStorage.setItem('eclaria_shipping_pays', document.getElementById('pays').value);
+                        
+                        console.log('Données de livraison sauvegardées. Redirection vers paiement.html...');
+                        window.location.href = shippingForm.action; // Redirect to paiement.html
+                    } else {
+                        alert('Veuillez corriger les erreurs dans le formulaire avant de continuer.');
+                        const firstErrorField = shippingForm.querySelector('.error');
+                        if (firstErrorField) {
+                            firstErrorField.focus();
+                        }
+                    }
+                });
+            }
+            console.log('Éclaria Page Livraison (FR) v2 chargée avec succès!');
         });
     </script>
 </body>
