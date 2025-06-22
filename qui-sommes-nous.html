@@ -4,63 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éclaria - Notre Histoire</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap');
-        :root {
-            --lilac-primary: #E1D5F0; --lilac-accent: #A076C9; --white-pure: #FFFFFF; --silver-light: #F8F9FA; --silver-medium: #E9ECEF; --text-dark: #212529; --text-light: #6c757d;
-            --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif; --font-logo: 'Great Vibes', cursive;
-        }
-        *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: var(--font-primary); margin: 0; padding: 0; color: var(--text-dark); background-color: var(--white-pure); line-height: 1.7; font-weight: 300; padding-top: 70px; }
-        .container { width: 90%; max-width: 1180px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
-        .site-header-new { background-color: var(--white-pure); padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08); height: 70px; display: flex; align-items: center; }
-        .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .site-logo-new a { font-family: var(--font-logo); font-size: 2.5em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
-
-        /* Styles de navigation bureau (identiques à index.html et produit.html) */
-        .main-navigation { display: none; align-items: center; margin-left: 30px; }
-        .main-navigation ul { list-style: none; margin: 0; padding: 0; display: flex; }
-        .main-navigation li { margin-left: 25px; }
-        .main-navigation a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1em; transition: color 0.3s ease; }
-        .main-navigation a:hover, .main-navigation a.active-lang { color: var(--lilac-accent); }
-
-        .header-actions { display: flex; align-items: center; }
-        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 15px; }
-        .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
-        .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
-
-        /* Styles du sélecteur de langue bureau (identiques à index.html et produit.html) */
-        .language-switcher { margin-left: 20px; display:none; align-items:center; }
-        .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 5px 8px; margin: 0 3px; border-radius: 4px; transition: background-color 0.3s, color 0.3s; }
-        .language-switcher .lang-link.active-lang { color: var(--lilac-accent); font-weight: 600; background-color: var(--lilac-primary); }
-        .language-switcher .lang-link:hover:not(.active-lang) { background-color: var(--silver-medium); color: var(--text-dark); }
-        
-        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 60px 20px 20px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
-        .offcanvas-menu.open { right: 0; }
-        .close-menu-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; cursor: pointer; color: var(--text-light); }
-        .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
-        .offcanvas-menu nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
-        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--silver-light); }
-        .offcanvas-menu nav li a.active-lang { color: var(--lilac-accent); font-weight: 600; } /* remplacé .active par .active-lang */
-        .offcanvas-menu nav li:last-child a { border-bottom: none; }
-        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); z-index: 1050; }
-        .overlay-screen.active { display: block; }
-        main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 70px - 160px); }
-        h1 {font-size: 2.4em;}
-        .site-footer { background-color: var(--silver-light); color: var(--text-light); padding: 40px 0; text-align: center; font-size: 0.9em; margin-top:auto; }
-        .footer-links { margin-bottom: 15px; }
-        .footer-links a { color: var(--text-light); text-decoration: none; margin: 0 10px; transition: color 0.3s ease; }
-        .footer-links a:hover { color: var(--lilac-accent); }
-        .social-media-footer a { margin: 0 8px; }
-        .social-media-footer svg { width: 22px; height: 22px; fill: var(--text-light); transition: fill 0.3s ease; }
-        .social-media-footer a:hover svg { fill: var(--lilac-accent); }
-        .copyright { margin-top: 15px; font-size: 0.85em; }
-        @media (max-width: 768px) { .site-logo-new a { font-size: 2.2em; } }
-        .page-content h2 { font-size: 1.8em; color: var(--lilac-accent); margin-top: 1.5em; margin-bottom: 0.8em; }
-        .page-content p, .page-content ul li, .page-content ol li { line-height: 1.8; margin-bottom: 1em; }
-        .page-content ul, .page-content ol { list-style-position: outside; padding-left: 20px; }
-        .page-content strong { font-weight: 600; } .page-content em { font-style: italic; color: var(--text-light); }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="site-header-new">
