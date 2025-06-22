@@ -11,7 +11,7 @@
             --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif; --font-logo: 'Great Vibes', cursive;
         }
         *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: var(--font-primary); margin: 0; padding: 0; color: var(--text-dark); background-color: var(--white-pure); line-height: 1.7; font-weight: 300; padding-top: 70px; }
+        body { font-family: var(--font-primary); margin: 0; padding: 0; color: var(--text-dark); background-color: var(--silver-light); line-height: 1.7; font-weight: 300; padding-top: 70px; } /* Changed background */
         .container { width: 90%; max-width: 1180px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
         .site-header-new { background-color: var(--white-pure); padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08); height: 70px; display: flex; align-items: center; }
         .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
@@ -41,10 +41,27 @@
         .social-media-footer a:hover svg { fill: var(--lilac-accent); }
         .copyright { margin-top: 15px; font-size: 0.85em; }
         @media (max-width: 768px) { .site-logo-new a { font-size: 2.2em; } }
-        .page-content h2 { font-size: 1.8em; color: var(--lilac-accent); margin-top: 1.5em; margin-bottom: 0.8em; }
-        .page-content p, .page-content ul li, .page-content ol li { line-height: 1.8; margin-bottom: 1em; }
-        .page-content ul, .page-content ol { list-style-position: outside; padding-left: 20px; }
-        .page-content strong { font-weight: 600; } .page-content em { font-style: italic; color: var(--text-light); }
+        
+        .page-content-wrapper { 
+            background-color: var(--white-pure);
+            padding: 30px 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-top: 20px; 
+            margin-bottom: 30px;
+        }
+        .page-content h1 { 
+            font-size: 2.2em; 
+            margin-bottom: 1em;
+            color: var(--text-dark);
+        }
+        .page-content h2 { font-size: 1.7em; color: var(--lilac-accent); margin-top: 2em; margin-bottom: 1em; }
+        .page-content p, .page-content ul li, .page-content ol li { line-height: 1.8; margin-bottom: 1.2em; font-size: 1em; color: var(--text-light); }
+        .page-content ul, .page-content ol { list-style-position: outside; padding-left: 25px; margin-bottom: 1.5em; }
+        .page-content strong { font-weight: 600; color: var(--text-dark); } 
+        .page-content em { font-style: italic; color: var(--text-dark); opacity: 0.85; }
+        .page-content a { color: var(--lilac-accent); text-decoration: underline; }
+        .page-content a:hover { text-decoration: none; }
     </style>
 </head>
 <body>
@@ -78,9 +95,13 @@
     <div class="overlay-screen" id="overlayScreen"></div>
     
     <main>
-        <div class="container page-content">
-            <h1>Conditions d'Utilisation</h1>
-            <p>Contenu de la page Conditions d'Utilisation à venir...</p>
+        <div class="container">
+            <div class="page-content-wrapper">
+                <div class="page-content">
+                    <h1>Conditions d'Utilisation</h1>
+                    <p>Contenu de la page Conditions d'Utilisation à venir...</p>
+                </div>
+            </div>
         </div>
     </main>
 
