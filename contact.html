@@ -16,16 +16,32 @@
         .site-header-new { background-color: var(--white-pure); padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08); height: 70px; display: flex; align-items: center; }
         .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .site-logo-new a { font-family: var(--font-logo); font-size: 2.5em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        
+        /* Styles de navigation bureau (identiques à index.html et produit.html) */
+        .main-navigation { display: none; align-items: center; margin-left: 30px; }
+        .main-navigation ul { list-style: none; margin: 0; padding: 0; display: flex; }
+        .main-navigation li { margin-left: 25px; }
+        .main-navigation a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1em; transition: color 0.3s ease; }
+        .main-navigation a:hover, .main-navigation a.active-lang { color: var(--lilac-accent); }
+
         .header-actions { display: flex; align-items: center; }
         .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 15px; }
         .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
         .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        
+        /* Styles du sélecteur de langue bureau (identiques à index.html et produit.html) */
+        .language-switcher { margin-left: 20px; display:none; align-items:center; }
+        .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 5px 8px; margin: 0 3px; border-radius: 4px; transition: background-color 0.3s, color 0.3s; }
+        .language-switcher .lang-link.active-lang { color: var(--lilac-accent); font-weight: 600; background-color: var(--lilac-primary); }
+        .language-switcher .lang-link:hover:not(.active-lang) { background-color: var(--silver-medium); color: var(--text-dark); }
+
         .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 15px rgba(0,0,0,0.1); padding: 60px 20px 20px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
         .offcanvas-menu.open { right: 0; }
         .close-menu-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; cursor: pointer; color: var(--text-light); }
         .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
         .offcanvas-menu nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
         .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--silver-light); }
+        .offcanvas-menu nav li a.active-lang { color: var(--lilac-accent); font-weight: 600; }
         .offcanvas-menu nav li:last-child a { border-bottom: none; }
         .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); z-index: 1050; }
         .overlay-screen.active { display: block; }
@@ -69,7 +85,19 @@
             <div class="site-logo-new">
                 <a href="index.html">Éclaria</a>
             </div>
+            <nav class="main-navigation" id="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="produit.html">Produit</a></li>
+                    <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html" class="active-lang">Contact</a></li>
+                </ul>
+            </nav>
             <div class="header-actions">
+                <div class="language-switcher" id="desktop-lang-switcher">
+                    <a href="index.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
+                </div>
                 <button class="cart-icon-new" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
                 <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
@@ -83,13 +111,20 @@
         <nav>
             <ul>
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="livraison.html">Livraison</a></li>
+                <li><a href="produit.html">Produit</a></li>
+                <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="livraison.html">Livraison & Retours</a></li>
                 <li><a href="paiement.html">Paiement</a></li>
-                <li><a href="politique-de-confidentialite.html">Politique de confidentialité</a></li>
-                <li><a href="livraison-et-retours.html">Politique de retour</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="politique-de-confidentialite.html">Politique de Confidentialité</a></li>
+                <li><a href="conditions-utilisation.html">Conditions d'Utilisation</a></li>
+                <li><a href="contact.html" class="active-lang">Contact</a></li>
             </ul>
         </nav>
+        <div class="language-switcher" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--silver-medium);">
+            <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Langue :</p>
+            <a href="index.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0;">Français</a>
+        </div>
     </div>
     <div class="overlay-screen" id="overlayScreen"></div>
     
@@ -124,6 +159,9 @@
             const closeMenuBtn = document.querySelector('.close-menu-btn');
             const offcanvasMenu = document.getElementById('offcanvasMenu');
             const overlayScreen = document.getElementById('overlayScreen');
+            const desktopNav = document.getElementById('desktop-nav');
+            const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
+            const cartButton = document.querySelector('.cart-icon-new');
 
             function openMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.add('open');
@@ -140,8 +178,38 @@
             if (menuToggle) menuToggle.addEventListener('click', openMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
             if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
+
+            if (cartButton) {
+                cartButton.addEventListener('click', function() {
+                    alert('Panier cliqué ! Fonctionnalité à venir.\n(Cart clicked! Feature coming soon.)');
+                });
+            }
             
-            console.log('Éclaria Contact (re-designed foundation) loaded successfully!');
+            function handleResize() {
+                const isDesktop = window.innerWidth > 768;
+                if(desktopNav) desktopNav.style.display = isDesktop ? 'flex' : 'none';
+                if(desktopLangSwitcher) desktopLangSwitcher.style.display = isDesktop ? 'flex' : 'none';
+                if(menuToggle) menuToggle.style.display = isDesktop ? 'none' : 'flex';
+                if (isDesktop) {
+                    closeMenu();
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize();
+
+            const currentPath = window.location.pathname.split("/").pop();
+            const navLinks = document.querySelectorAll('#desktop-nav ul li a, .offcanvas-menu nav ul li a');
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split("/").pop();
+                if (linkPath === currentPath || (currentPath === '' && (linkPath === 'index.html' || linkPath === 'contact.html'))) { // Adjusted for contact.html as current
+                    link.classList.add('active-lang');
+                } else {
+                    link.classList.remove('active-lang');
+                }
+            });
+            
+            console.log('Page Contact Éclaria (FR) chargée avec succès !');
         });
     </script>
     <!-- Google Analytics / Facebook Pixel scripts go here -->
