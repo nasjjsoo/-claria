@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éclaria - Votre Panier</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
+        :root {
+            --lilac-primary: #E8E0F3; --lilac-secondary: #D1C4E9; --lilac-accent: #A076C9; --lilac-dark: #7E57C2;
+            --white-pure: #FFFFFF; --silver-light: #F9F9F9; --silver-medium: #E9ECEF; --text-dark: #2C3E50;
+            --text-light: #566573; --font-primary: 'Poppins', sans-serif; --font-headings: 'Montserrat', sans-serif;
+            --font-logo: 'Great Vibes', cursive; --success-color: #28a745; --error-color: #dc3545;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        body { 
+            font-family: var(--font-primary); margin: 0; padding: 0; padding-top: 70px; 
+            background-color: var(--silver-light); 
+            color: var(--text-dark); 
+            line-height: 1.7; font-weight: 400;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
+        
+        .site-header-new { 
+            background-color: rgba(255, 255, 255, 0.97); backdrop-filter: blur(8px); 
+            padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; 
+            z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.07); height: 70px; 
+            display: flex; align-items: center; 
+        }
+        .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .site-logo-new a { font-family: var(--font-logo); font-size: 2.6em; color: var(--lilac-accent); text-decoration: none; font-weight: normal; }
+        #desktop-nav ul { list-style: none; margin: 0; padding: 0; display: flex; }
+        #desktop-nav li { margin-left: 28px; }
+        #desktop-nav a { text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1em; padding-bottom: 5px; position: relative; transition: color 0.3s ease; }
+        #desktop-nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background-color: var(--lilac-accent); transition: width 0.3s ease; }
+        #desktop-nav a:hover, #desktop-nav a.active-lang { color: var(--lilac-accent); }
+        #desktop-nav a:hover::after, #desktop-nav a.active-lang::after { width: 100%; }
+        .header-actions { display: flex; align-items: center; }
+        .menu-toggle { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .cart-icon-new { position: relative; background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; text-decoration: none;}
+        .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
+        .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        .cart-counter {
+            position: absolute; top: -5px; right: -5px; background-color: var(--error-color); color: var(--white-pure);
+            border-radius: 50%; width: 18px; height: 18px; font-size: 0.7em; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; line-height: 1; pointer-events: none;
+        }
+        .language-switcher { margin-left: 20px; display:flex; align-items:center; }
+        .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 6px 10px; margin: 0 3px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
+        .language-switcher .lang-link.active-lang { color: var(--lilac-dark); font-weight: 600; background-color: var(--lilac-primary); }
+        .language-switcher .lang-link:hover:not(.active-lang) { background-color: var(--silver-medium); color: var(--text-dark); }
+        .offcanvas-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background-color: var(--white-pure); box-shadow: -5px 0 20px rgba(0,0,0,0.1); padding: 70px 25px 25px; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1100; display: flex; flex-direction: column; }
+        .offcanvas-menu.open { right: 0; }
+        .close-menu-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 2.2em; cursor: pointer; color: var(--text-light); transition: color 0.3s ease;}
+        .close-menu-btn:hover { color: var(--lilac-accent); }
+        .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
+        .offcanvas-menu nav li a { display: block; padding: 14px 0; text-decoration: none; color: var(--text-dark); font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; border-bottom: 1px solid var(--silver-light); transition: color 0.3s ease, background-color 0.3s ease; }
+        .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--lilac-primary); }
+        .offcanvas-menu nav li:last-child a { border-bottom: none; }
+        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 62, 80, 0.5); z-index: 1050; }
+        .overlay-screen.active { display: block; }
+        
+        main { 
+            padding-top: 40px; padding-bottom: 60px; 
+            flex-grow: 1; display: flex; flex-direction: column;
+        }
+        h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.8em; }
+        h1 { font-size: 2.6em; text-align: center; margin-bottom: 40px;}
+        p { margin-bottom: 1.6em; font-size: 1.05em; color:var(--text-light); }
+        .btn { display: inline-block; padding: 14px 35px; font-family: var(--font-headings); font-weight: 500; font-size: 1.05em; text-decoration: none; border-radius: 50px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; letter-spacing: 0.5px; }
+        .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.2); }
+        .btn-primary:hover { background-color: var(--lilac-dark); border-color: var(--lilac-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(126, 87, 194, 0.3); }
+        .btn-secondary { background-color: var(--silver-medium); color: var(--text-dark); border-color: var(--silver-medium); }
+        .btn-secondary:hover { background-color: var(--lilac-secondary); border-color: var(--lilac-secondary); color: var(--text-dark); }
+        .btn-danger { background-color: var(--error-color); color: var(--white-pure); border-color: var(--error-color); }
+        .btn-danger:hover { background-color: #c82333; border-color: #bd2130;}
+
+        .site-footer { background-color: var(--text-dark); color: var(--silver-light); padding: 50px 0; text-align: center; font-size: 0.95em; margin-top:auto; }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { color: var(--silver-light); text-decoration: none; margin: 0 12px; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--lilac-primary); }
+        .social-media-footer a { margin: 0 10px; }
+        .social-media-footer svg { width: 24px; height: 24px; fill: var(--silver-light); transition: fill 0.3s ease; }
+        .social-media-footer a:hover svg { fill: var(--lilac-primary); }
+        .copyright { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
+
+        /* Cart Page Specific Styles */
+        .cart-page-container { display: flex; flex-direction: column; gap: 30px; }
+        .cart-items-list { flex-grow: 1; }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--white-pure);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+            margin-bottom: 20px;
+        }
+        .cart-item-image img {
+            width: 100px; height: 100px;
+            object-fit: cover; border-radius: 8px;
+            margin-right: 20px; border: 1px solid var(--silver-medium);
+        }
+        .cart-item-details { flex-grow: 1; }
+        .cart-item-details h3 { font-size: 1.2em; margin: 0 0 5px 0; color: var(--text-dark); }
+        .cart-item-details h3 a { text-decoration: none; color: inherit; }
+        .cart-item-details h3 a:hover { color: var(--lilac-accent); }
+        .cart-item-price-single { font-size: 0.9em; color: var(--text-light); margin-bottom: 10px; }
+        
+        .cart-item-quantity { display: flex; align-items: center; gap: 8px; margin-bottom: 10px;}
+        .cart-item-quantity label { font-size: 0.9em; margin-right: 5px; }
+        .cart-item-quantity input[type="number"] {
+            width: 60px; padding: 8px; text-align: center;
+            border: 1px solid var(--silver-medium); border-radius: 5px; font-size: 1em;
+            -moz-appearance: textfield; /* Firefox */
+        }
+        .cart-item-quantity input[type="number"]::-webkit-outer-spin-button,
+        .cart-item-quantity input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none; margin: 0; /* Safari and Chrome */
+        }
+         .cart-item-actions { display: flex; flex-direction: column; align-items: flex-end; margin-left: 20px; text-align: right; }
+        .cart-item-total-price { font-size: 1.2em; font-weight: 600; color: var(--lilac-dark); margin-bottom: 10px; }
+        .cart-item-remove button { font-size: 0.85em; padding: 6px 12px; }
+
+        .cart-summary {
+            background-color: var(--white-pure);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+        }
+        .cart-summary h2 { font-size: 1.6em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--silver-medium); }
+        .cart-summary p { display: flex; justify-content: space-between; font-size: 1.05em; margin-bottom: 12px; }
+        .cart-summary strong { font-weight: 600; }
+        .cart-summary .grand-total strong { font-size: 1.3em; color: var(--lilac-dark); }
+        .cart-summary .btn-checkout { width: 100%; margin-top: 20px; font-size: 1.15em; text-transform: uppercase; }
+        
+        .cart-empty-message { text-align: center; padding: 50px 20px; background-color: var(--white-pure); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.07); }
+        .cart-empty-message h2 { font-size: 1.8em; color: var(--text-dark); margin-bottom: 15px; }
+        .cart-empty-message p { font-size: 1.1em; color: var(--text-light); margin-bottom: 25px; }
+
+        @media (min-width: 993px) {
+            .cart-page-container { flex-direction: row; align-items: flex-start; }
+            .cart-items-list { flex: 2.5; margin-right: 30px; }
+            .cart-summary { flex: 1; position: sticky; top: 90px; /* Header height + margin */ }
+        }
+        @media (max-width: 768px) {
+            .site-logo-new a { font-size: 2.3em; } 
+            #desktop-nav, #desktop-lang-switcher { display: none !important; } 
+            .menu-toggle { display: flex !important; } 
+            .language-switcher:not(.offcanvas-lang-switcher) { display: none; }
+            h1 { font-size: 2.2em; }
+            .cart-item { flex-direction: column; align-items: flex-start; }
+            .cart-item-image { margin-bottom: 15px; margin-right: 0; align-self: center;}
+            .cart-item-actions { align-items: flex-start; margin-left: 0; margin-top: 10px; width: 100%;}
+            .cart-item-total-price { align-self: flex-end;}
+            .cart-item-remove button { width: 100%; }
+        }
+         @media (min-width: 993px) { 
+            .menu-toggle { display: none !important; } 
+            #desktop-nav { display: flex !important; }
+            #desktop-lang-switcher { display: flex !important;}
+        }
+
+    </style>
+</head>
+<body>
+    <header class="site-header-new">
+        <div class="container header-container-new">
+            <div class="site-logo-new">
+                <a href="index.html">Éclaria</a>
+            </div>
+            <nav class="main-navigation" id="desktop-nav">
+                 <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="produit.html">Produit</a></li>
+                    <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                 <div class="language-switcher" id="desktop-lang-switcher">
+                    <a href="panier.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
+                </div>
+                <a href="panier.html" class="cart-icon-new" aria-label="Panier">
+                    <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <span class="cart-counter" style="display: none;">0</span>
+                </a>
+                <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="offcanvasMenu">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="offcanvas-menu" id="offcanvasMenu">
+        <button class="close-menu-btn" aria-label="Fermer le menu" aria-controls="offcanvasMenu">&times;</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="produit.html">Produit</a></li>
+                <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="livraison-et-retours.html">Livraison & Retours</a></li>
+                <li><a href="paiement.html">Paiement</a></li>
+                <li><a href="politique-de-confidentialite.html">Politique de Confidentialité</a></li>
+                <li><a href="conditions-utilisation.html">Conditions d'Utilisation</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="language-switcher offcanvas-lang-switcher" style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--silver-light);">
+            <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Langue :</p>
+            <a href="panier.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0; padding: 8px 10px;">Français</a>
+        </div>
+    </div>
+    <div class="overlay-screen" id="overlayScreen"></div>
+    
+    <main>
+        <div class="container">
+            <h1>Votre Panier</h1>
+            <div id="cart-container" class="cart-page-container">
+                <!-- Les articles du panier seront injectés ici par JavaScript -->
+                <div class="cart-items-list" id="cart-items-list-container">
+                    <!-- Exemple d'un article (sera généré par JS) -->
+                    <!-- 
+                    <div class="cart-item" data-idproduit="cryoglow01">
+                        <div class="cart-item-image">
+                            <img src="710E7veA9BL._SL1500_.jpg" alt="Masque Facial CryoGlow LED">
+                        </div>
+                        <div class="cart-item-details">
+                            <h3><a href="produit.html">Masque Facial CryoGlow LED</a></h3>
+                            <p class="cart-item-price-single">Prix unitaire: 149€</p>
+                            <div class="cart-item-quantity">
+                                <label for="qty-cryoglow01">Qté:</label>
+                                <input type="number" id="qty-cryoglow01" value="1" min="1" max="10" class="item-quantity-input">
+                            </div>
+                        </div>
+                        <div class="cart-item-actions">
+                            <p class="cart-item-total-price">149€</p>
+                            <button class="btn btn-danger btn-sm item-remove-button">Supprimer</button>
+                        </div>
+                    </div>
+                    -->
+                </div>
+
+                <div class="cart-summary" id="cart-summary-container" style="display: none;">
+                    <h2>Récapitulatif</h2>
+                    <p><span>Sous-total :</span> <strong id="cart-subtotal">0€</strong></p>
+                    <p><span>Livraison :</span> <strong>Offerte</strong></p>
+                    <hr style="border: none; border-top: 1px dashed var(--silver-medium); margin: 15px 0;">
+                    <p class="grand-total"><span>Total :</span> <strong id="cart-grandtotal">0€</strong></p>
+                    <a href="livraison.html" class="btn btn-primary btn-checkout">Valider mon panier</a>
+                    <a href="produit.html" class="btn btn-secondary" style="width: 100%; margin-top: 15px; text-align:center;">Continuer mes achats</a>
+                </div>
+            </div>
+             <div id="cart-empty-message-container" class="cart-empty-message" style="display: none;">
+                <h2>Votre panier est actuellement vide.</h2>
+                <p>Parcourez nos produits pour trouver votre bonheur !</p>
+                <a href="produit.html" class="btn btn-primary">Découvrir nos produits</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-links">
+                <a href="politique-de-confidentialite.html">Politique de Confidentialité</a> |
+                <a href="conditions-utilisation.html">Conditions d'Utilisation</a> |
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-media-footer">
+                <a href="https://instagram.com/eclaria_officiel" target="_blank" aria-label="Instagram Éclaria"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
+            </div>
+            <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> Éclaria SAS. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu Off-canvas (copied from index.html)
+            const menuToggle = document.querySelector('.menu-toggle');
+            const closeMenuBtn = document.querySelector('.close-menu-btn');
+            const offcanvasMenu = document.getElementById('offcanvasMenu');
+            const overlayScreen = document.getElementById('overlayScreen');
+            
+            function openMenu() { /* ... */ }
+            function closeMenu() { /* ... */ }
+            if (menuToggle) menuToggle.addEventListener('click', openMenu);
+            if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+            if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
+
+            const desktopNav = document.getElementById('desktop-nav');
+            const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
+            function handleResize() {
+                const isDesktop = window.innerWidth > 992;
+                if(desktopNav) desktopNav.style.display = isDesktop ? 'flex' : 'none';
+                if(desktopLangSwitcher) desktopLangSwitcher.style.display = isDesktop ? 'flex' : 'none';
+                if(menuToggle) menuToggle.style.display = isDesktop ? 'none' : 'flex';
+                if (isDesktop && offcanvasMenu && offcanvasMenu.classList.contains('open')) { 
+                    closeMenu();
+                }
+            }
+            window.addEventListener('resize', handleResize);
+            handleResize(); 
+
+            const currentPath = window.location.pathname.split("/").pop() || "index.html";
+            const navLinks = document.querySelectorAll('#desktop-nav ul li a, .offcanvas-menu nav ul li a');
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split("/").pop() || "index.html";
+                if (linkPath === currentPath || (currentPath === "panier.html" && linkPath === "panier.html")) { 
+                    link.classList.add('active-lang'); 
+                } else {
+                    link.classList.remove('active-lang');
+                }
+            });
+            
+            // --- Fonctions de gestion du Panier ---
+            function getPanier() {
+                const panier = localStorage.getItem('eclaria_panier');
+                return panier ? JSON.parse(panier) : [];
+            }
+
+            function savePanier(panier) {
+                localStorage.setItem('eclaria_panier', JSON.stringify(panier));
+                mettreAJourCompteurPanier();
+                afficherPanier(); // Re-render cart on save
+            }
+            
+            function getNombreTotalArticles() {
+                const panier = getPanier();
+                return panier.reduce((total, item) => total + item.quantite, 0);
+            }
+
+            function mettreAJourCompteurPanier() {
+                const nombreArticles = getNombreTotalArticles();
+                const compteursPanier = document.querySelectorAll('.cart-counter');
+                compteursPanier.forEach(compteur => {
+                    if (compteur) {
+                        if (nombreArticles > 0) {
+                            compteur.textContent = nombreArticles;
+                            compteur.style.display = 'flex';
+                        } else {
+                            compteur.style.display = 'none';
+                        }
+                    }
+                });
+            }
+
+            function modifierQuantite(idProduit, nouvelleQuantite) {
+                let panier = getPanier();
+                const itemIndex = panier.findIndex(item => item.idProduit === idProduit);
+                if (itemIndex > -1) {
+                    nouvelleQuantite = parseInt(nouvelleQuantite);
+                    if (nouvelleQuantite > 0 && nouvelleQuantite <= 10) { // Max 10
+                        panier[itemIndex].quantite = nouvelleQuantite;
+                    } else if (nouvelleQuantite <= 0) {
+                        panier.splice(itemIndex, 1); // Supprimer si quantité <= 0
+                    }
+                }
+                savePanier(panier);
+            }
+
+            function supprimerArticle(idProduit) {
+                let panier = getPanier();
+                panier = panier.filter(item => item.idProduit !== idProduit);
+                savePanier(panier);
+            }
+
+            function afficherPanier() {
+                const panier = getPanier();
+                const containerArticles = document.getElementById('cart-items-list-container');
+                const resumePanierContainer = document.getElementById('cart-summary-container');
+                const messagePanierVideContainer = document.getElementById('cart-empty-message-container');
+                
+                if (!containerArticles || !resumePanierContainer || !messagePanierVideContainer) return;
+
+                containerArticles.innerHTML = ''; // Vider la liste actuelle
+
+                if (panier.length === 0) {
+                    messagePanierVideContainer.style.display = 'block';
+                    resumePanierContainer.style.display = 'none';
+                    containerArticles.style.display = 'none';
+                } else {
+                    messagePanierVideContainer.style.display = 'none';
+                    resumePanierContainer.style.display = 'block';
+                    containerArticles.style.display = 'block';
+                    let sousTotal = 0;
+
+                    panier.forEach(item => {
+                        const prixTotalItem = item.prixUnitaire * item.quantite;
+                        sousTotal += prixTotalItem;
+
+                        const itemHtml = `
+                            <div class="cart-item" data-idproduit="${item.idProduit}">
+                                <div class="cart-item-image">
+                                    <img src="${item.imageSrc}" alt="${item.nomProduit}">
+                                </div>
+                                <div class="cart-item-details">
+                                    <h3><a href="produit.html?id=${item.idProduit}">${item.nomProduit}</a></h3>
+                                    <p class="cart-item-price-single">Prix unitaire: ${item.prixUnitaire.toFixed(2)}€</p>
+                                    <div class="cart-item-quantity">
+                                        <label for="qty-${item.idProduit}">Qté:</label>
+                                        <input type="number" id="qty-${item.idProduit}" value="${item.quantite}" min="1" max="10" class="item-quantity-input" data-idproduit="${item.idProduit}">
+                                    </div>
+                                </div>
+                                <div class="cart-item-actions">
+                                    <p class="cart-item-total-price">${prixTotalItem.toFixed(2)}€</p>
+                                    <button class="btn btn-danger btn-sm item-remove-button" data-idproduit="${item.idProduit}">Supprimer</button>
+                                </div>
+                            </div>
+                        `;
+                        containerArticles.insertAdjacentHTML('beforeend', itemHtml);
+                    });
+
+                    document.getElementById('cart-subtotal').textContent = `${sousTotal.toFixed(2)}€`;
+                    document.getElementById('cart-grandtotal').textContent = `${sousTotal.toFixed(2)}€`; // Livraison offerte
+
+                    // Attacher les écouteurs d'événements pour la quantité et la suppression
+                    document.querySelectorAll('.item-quantity-input').forEach(input => {
+                        input.addEventListener('change', function() {
+                            modifierQuantite(this.dataset.idproduit, this.value);
+                        });
+                         input.addEventListener('keyup', function(e) { // Aussi sur keyup pour une meilleure réactivité
+                            if (e.key >=0 && e.key <=9 || e.key === "Backspace" || e.key === "Delete") {
+                                modifierQuantite(this.dataset.idproduit, this.value);
+                            }
+                        });
+                    });
+                    document.querySelectorAll('.item-remove-button').forEach(button => {
+                        button.addEventListener('click', function() {
+                            supprimerArticle(this.dataset.idproduit);
+                        });
+                    });
+                }
+                mettreAJourCompteurPanier();
+            }
+            
+            // Afficher le panier au chargement de la page
+            afficherPanier();
+
+            console.log('Éclaria Page Panier (FR) v1 chargée avec succès!');
+        });
+    </script>
+</body>
+</html>
