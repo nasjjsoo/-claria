@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éclaria - Masque CryoGlow LED : Rajeunissement et Éclat</title>
+    <script src="js/panier-logic.js" defer></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
         :root {
@@ -443,59 +444,6 @@
                 }
             });
             
-            // --- Fonctions de gestion du Panier ---
-            function getPanier() {
-                const panier = localStorage.getItem('eclaria_panier');
-                return panier ? JSON.parse(panier) : [];
-            }
-
-            function savePanier(panier) {
-                localStorage.setItem('eclaria_panier', JSON.stringify(panier));
-                mettreAJourCompteurPanier(); // Mettre à jour le compteur à chaque sauvegarde
-            }
-            
-            function mettreAJourCompteurPanier() {
-                // Cette fonction sera pleinement implémentée à l'étape 3,
-                // mais nous pouvons déjà préparer son appel.
-                // Pour l'instant, un simple log pour vérifier.
-                const nombreArticles = getNombreTotalArticles();
-                console.log("Nombre d'articles dans le panier :", nombreArticles);
-                // Mettre à jour l'icône du panier dans le header (sera fait à l'étape 3)
-                const cartIconCounter = document.querySelector('.cart-icon-new .cart-counter'); // Sélecteur à affiner
-                if(cartIconCounter) {
-                    cartIconCounter.textContent = nombreArticles;
-                    cartIconCounter.style.display = nombreArticles > 0 ? 'flex' : 'none';
-                }
-            }
-
-
-            function ajouterAuPanier(idProduit, nomProduit, prixUnitaire, imageSrc, quantiteAjoutee = 1) {
-                let panier = getPanier();
-                const itemExistant = panier.find(item => item.idProduit === idProduit);
-
-                if (itemExistant) {
-                    itemExistant.quantite = parseInt(itemExistant.quantite) + parseInt(quantiteAjoutee);
-                } else {
-                    panier.push({ idProduit, nomProduit, prixUnitaire: parseFloat(prixUnitaire), imageSrc, quantite: parseInt(quantiteAjoutee) });
-                }
-                savePanier(panier);
-                
-                // Afficher notification
-                const notification = document.getElementById('cart-notification');
-                if(notification) {
-                    notification.textContent = `${quantiteAjoutee} x ${nomProduit} ajouté(s) au panier !`;
-                    notification.style.display = 'block';
-                    setTimeout(() => { notification.style.display = 'none'; }, 3000);
-                }
-            }
-
-            function getNombreTotalArticles() {
-                const panier = getPanier();
-                return panier.reduce((total, item) => total + item.quantite, 0);
-            }
-            // --- Fin Fonctions de gestion du Panier ---
-
-
             // Product Image Gallery Changer
             const mainProductImage = document.getElementById('mainProductImage');
             const thumbnails = document.querySelectorAll('.thumbnail-images .thumbnail');
