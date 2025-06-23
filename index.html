@@ -7,15 +7,15 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
         :root {
-            --lilac-primary: #E8E0F3; /* Lilas plus doux pour fond */
-            --lilac-secondary: #D1C4E9; /* Lilas moyen pour accents doux */
-            --lilac-accent: #A076C9; /* Accent Lilas principal */
-            --lilac-dark: #7E57C2; /* Lilas plus foncé pour hover et textes importants */
+            --lilac-primary: #E8E0F3;
+            --lilac-secondary: #D1C4E9;
+            --lilac-accent: #A076C9;
+            --lilac-dark: #7E57C2;
             --white-pure: #FFFFFF;
-            --silver-light: #F9F9F9; /* Gris très clair pour sections alternatives */
+            --silver-light: #F9F9F9;
             --silver-medium: #E9ECEF;
-            --text-dark: #2C3E50; /* Bleu marine foncé pour textes principaux */
-            --text-light: #566573; /* Gris bleuté pour textes secondaires */
+            --text-dark: #2C3E50;
+            --text-light: #566573;
             --font-primary: 'Poppins', sans-serif;
             --font-headings: 'Montserrat', sans-serif;
             --font-logo: 'Great Vibes', cursive;
@@ -27,20 +27,20 @@
             font-family: var(--font-primary); 
             margin: 0; 
             padding: 0; 
-            padding-top: 70px; /* Hauteur du header */
+            padding-top: 70px;
             background-color: var(--white-pure); 
             color: var(--text-dark); 
             line-height: 1.7; 
-            font-weight: 400; /* Augmenté pour meilleure lisibilité */
-            -webkit-font-smoothing: antialiased; /* Pour des polices plus nettes */
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
         .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
         
-        /* Header */
+        /* Header amélioré */
         .site-header-new { 
-            background-color: rgba(255, 255, 255, 0.97); /* Fond légèrement transparent */
-            backdrop-filter: blur(8px); /* Effet de flou pour le header */
+            background-color: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(8px);
             padding: 0 20px; 
             position: fixed; 
             top: 0; left: 0; width: 100%; 
@@ -53,14 +53,15 @@
         .header-container-new { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .site-logo-new a { 
             font-family: var(--font-logo); 
-            font-size: 2.6em; /* Légèrement plus grand */
+            font-size: 2.6em;
             color: var(--lilac-accent); 
             text-decoration: none; 
             font-weight: normal; 
         }
+        
         /* Navigation Bureau */
         #desktop-nav ul { list-style: none; margin: 0; padding: 0; display: flex; }
-        #desktop-nav li { margin-left: 28px; } /* Espacement ajusté */
+        #desktop-nav li { margin-left: 28px; }
         #desktop-nav a { 
             text-decoration: none; 
             color: var(--text-dark); 
@@ -84,52 +85,212 @@
         #desktop-nav a:hover, #desktop-nav a.active-lang { color: var(--lilac-accent); }
         #desktop-nav a:hover::after, #desktop-nav a.active-lang::after { width: 100%; }
 
-        .header-actions { display: flex; align-items: center; }
-        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
-        .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
-        .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        .header-actions { display: flex; align-items: center; position: relative; }
         
-        /* Sélecteur de langue (Bureau) */
-        .language-switcher { margin-left: 20px; display:flex; align-items:center; }
-        .language-switcher .lang-link { 
-            font-family: var(--font-headings); 
-            font-weight: 500; font-size: 0.85em; 
-            color: var(--text-light); 
-            text-decoration: none; 
-            padding: 6px 10px; /* Padding ajusté */
-            margin: 0 3px; 
-            border-radius: 5px; /* Bordures plus arrondies */
-            transition: background-color 0.3s, color 0.3s; 
+        /* Bouton Panier amélioré */
+        .cart-icon-new { 
+            position: relative;
+            background: none; 
+            border: none; 
+            cursor: pointer; 
+            padding: 10px; 
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
         }
-        .language-switcher .lang-link.active-lang { 
-            color: var(--lilac-dark); /* Couleur plus affirmée pour le lien actif */
-            font-weight: 600; 
-            background-color: var(--lilac-primary); 
+        .cart-icon-new svg { 
+            width: 26px; 
+            height: 26px; 
+            fill: var(--text-dark); 
+            transition: fill 0.3s ease; 
         }
-        .language-switcher .lang-link:hover:not(.active-lang) { 
-            background-color: var(--silver-medium); 
-            color: var(--text-dark); 
+        .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        
+        .cart-counter {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: var(--lilac-accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        
+        /* Mini panier flottant */
+        .mini-cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 20px;
+            z-index: 1000;
+            display: none;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .mini-cart-dropdown.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .mini-cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--silver-medium);
+        }
+        .mini-cart-title {
+            font-family: var(--font-headings);
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.2em;
+        }
+        .close-mini-cart {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .mini-cart-items {
+            margin-bottom: 15px;
+        }
+        .mini-cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--silver-light);
+        }
+        .mini-cart-item-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+        .mini-cart-item-details {
+            flex: 1;
+        }
+        .mini-cart-item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+        .mini-cart-item-price {
+            color: var(--lilac-dark);
+            font-weight: 600;
+        }
+        .mini-cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            background: var(--lilac-primary);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid var(--silver-medium);
+            border-radius: 4px;
+            padding: 2px;
+        }
+        .remove-item {
+            color: var(--error-color);
+            font-size: 0.8em;
+            cursor: pointer;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        .mini-cart-summary {
+            border-top: 1px solid var(--silver-medium);
+            padding-top: 15px;
+        }
+        .mini-cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .mini-cart-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn-view-cart, .btn-checkout {
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-view-cart {
+            background: var(--silver-medium);
+            color: var(--text-dark);
+            border: 1px solid var(--silver-medium);
+        }
+        .btn-view-cart:hover {
+            background: var(--silver-light);
+        }
+        .btn-checkout {
+            background: var(--lilac-accent);
+            color: white;
+            border: 1px solid var(--lilac-accent);
+        }
+        .btn-checkout:hover {
+            background: var(--lilac-dark);
+        }
+        .mini-cart-empty {
+            text-align: center;
+            padding: 20px 0;
+            color: var(--text-light);
+        }
+        .mini-cart-empty svg {
+            width: 50px;
+            height: 50px;
+            fill: var(--silver-medium);
+            margin-bottom: 10px;
         }
         
         /* Menu Off-canvas */
         .offcanvas-menu { 
             position: fixed; top: 0; right: -300px; width: 280px; height: 100%; 
             background-color: var(--white-pure); 
-            box-shadow: -5px 0 20px rgba(0,0,0,0.1); /* Ombre plus douce */
-            padding: 70px 25px 25px; /* Padding ajusté */
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            padding: 70px 25px 25px;
             transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
             z-index: 1100; display: flex; flex-direction: column; 
         }
         .offcanvas-menu.open { right: 0; }
         .close-menu-btn { 
-            position: absolute; top: 20px; right: 20px; /* Position ajustée */
+            position: absolute; top: 20px; right: 20px;
             background: none; border: none; font-size: 2.2em; cursor: pointer; 
             color: var(--text-light); transition: color 0.3s ease;
         }
         .close-menu-btn:hover { color: var(--lilac-accent); }
         .offcanvas-menu nav ul { list-style: none; padding: 0; margin: 0; }
         .offcanvas-menu nav li a { 
-            display: block; padding: 14px 0; /* Padding augmenté */
+            display: block; padding: 14px 0;
             text-decoration: none; color: var(--text-dark); 
             font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; 
             border-bottom: 1px solid var(--silver-light); 
@@ -138,69 +299,95 @@
         .offcanvas-menu nav li a:hover { color: var(--lilac-accent); background-color: var(--lilac-primary); }
         .offcanvas-menu nav li:last-child a { border-bottom: none; }
         
-        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 62, 80, 0.5); z-index: 1050; } /* Couleur de fond plus foncée */
+        .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 62, 80, 0.5); z-index: 1050; }
         .overlay-screen.active { display: block; }
         
         /* Contenu Principal */
-        main { padding-top: 50px; padding-bottom: 70px; min-height: calc(100vh - 70px - 180px); } /* Padding ajusté */
+        main { padding-top: 50px; padding-bottom: 70px; min-height: calc(100vh - 70px - 180px); }
         
         /* Typographie */
         h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.8em; }
         h1 { font-size: 2.8em; line-height: 1.25; } 
         h2 { font-size: 2.3em; line-height: 1.3; } 
         h3 { font-size: 1.5em; line-height: 1.4; }
-        p { margin-bottom: 1.6em; font-size: 1.05em; color:var(--text-light); } /* Taille de police et espacement ajustés */
+        p { margin-bottom: 1.6em; font-size: 1.05em; color:var(--text-light); }
         
         /* Boutons */
         .btn { 
-            display: inline-block; padding: 14px 35px; /* Padding augmenté */
-            font-family: var(--font-headings); font-weight: 500; font-size: 1.05em; /* Taille de police augmentée */
+            display: inline-block; padding: 14px 35px;
+            font-family: var(--font-headings); font-weight: 500; font-size: 1.05em;
             text-decoration: none; border-radius: 50px; 
             transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; 
-            letter-spacing: 0.5px; /* Espacement des lettres */
+            letter-spacing: 0.5px;
         }
         .btn-primary { 
             background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); 
-            box-shadow: 0 4px 15px rgba(160, 118, 201, 0.2); /* Ombre plus subtile */
+            box-shadow: 0 4px 15px rgba(160, 118, 201, 0.2);
         }
         .btn-primary:hover { 
             background-color: var(--lilac-dark); border-color: var(--lilac-dark); 
-            transform: translateY(-3px); box-shadow: 0 6px 20px rgba(126, 87, 194, 0.3); /* Effet de surélévation amélioré */
+            transform: translateY(-3px); box-shadow: 0 6px 20px rgba(126, 87, 194, 0.3);
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: var(--success-color);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2000;
+            transform: translateX(200%);
+            transition: transform 0.3s ease-out;
+            display: flex;
+            align-items: center;
+        }
+        .notification.show {
+            transform: translateX(0);
+        }
+        .notification.error {
+            background: var(--error-color);
+        }
+        .notification svg {
+            margin-right: 10px;
         }
         
         /* Footer */
         .site-footer { 
-            background-color: var(--text-dark); /* Footer plus contrasté */
-            color: var(--silver-light); /* Texte plus clair sur fond foncé */
+            background-color: var(--text-dark);
+            color: var(--silver-light);
             padding: 50px 0; text-align: center; font-size: 0.95em; margin-top:auto; 
         }
         .footer-links { margin-bottom: 20px; }
         .footer-links a { color: var(--silver-light); text-decoration: none; margin: 0 12px; transition: color 0.3s ease; }
-        .footer-links a:hover { color: var(--lilac-primary); } /* Hover plus contrasté */
+        .footer-links a:hover { color: var(--lilac-primary); }
         .social-media-footer a { margin: 0 10px; }
         .social-media-footer svg { width: 24px; height: 24px; fill: var(--silver-light); transition: fill 0.3s ease; }
         .social-media-footer a:hover svg { fill: var(--lilac-primary); }
         .copyright { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
         
         /* Hero Section v2 */
-        .hero-v2 { background: linear-gradient(135deg, var(--lilac-primary) 0%, var(--lilac-secondary) 100%); padding: 80px 0; overflow: hidden; } /* Dégradé subtil */
+        .hero-v2 { background: linear-gradient(135deg, var(--lilac-primary) 0%, var(--lilac-secondary) 100%); padding: 80px 0; overflow: hidden; }
         .hero-v2-container { display: flex; align-items: center; gap: 50px; }
         .hero-v2-content { flex: 1.1; padding-right: 50px; animation: slideInFromLeft 0.9s ease-out; }
         .hero-v2-image-container { flex: 0.9; display: flex; justify-content: center; align-items: center; animation: fadeInScale 0.9s ease-out 0.2s backwards; }
         .hero-v2-image { 
-            max-width: 100%; height: auto; border-radius: 25px; /* Rayon de bordure augmenté */
-            box-shadow: 0 20px 40px rgba(44, 62, 80, 0.15); /* Ombre plus prononcée */
+            max-width: 100%; height: auto; border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(44, 62, 80, 0.15);
         }
         .hero-v2-title { 
-            font-size: 3em; /* Taille augmentée */
+            font-size: 3em;
             font-weight: 700; color: var(--text-dark); line-height: 1.2; margin-bottom: 20px; 
         }
         .hero-v2-description { 
-            font-size: 1.15em; /* Taille augmentée */
+            font-size: 1.15em;
             color: var(--text-light); margin-bottom: 30px; max-width: 550px; 
         }
         .hero-v2-price { 
-            font-size: 1.9em; /* Taille augmentée */
+            font-size: 1.9em;
             font-weight: 600; color: var(--lilac-dark); margin-bottom: 30px; 
         }
         .original-price-hero { 
@@ -215,7 +402,7 @@
             display: inline-flex; align-items: center; 
         }
         .hero-v2-guarantee svg { 
-            width: 20px; height: 20px; /* Icône légèrement plus grande */
+            width: 20px; height: 20px;
             vertical-align: -4px; margin-right: 8px; fill: var(--lilac-accent); 
         }
         
@@ -227,17 +414,17 @@
         
         /* Section Caractéristiques Clés */
         .key-features-section { padding: 70px 0; background-color: var(--white-pure); }
-        .key-features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 35px; } /* Espacement et minmax ajustés */
+        .key-features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 35px; }
         .key-feature-item { 
             text-align: center; padding: 30px 25px; background-color: var(--white-pure); 
             border-radius: 15px; border: 1px solid var(--silver-medium); 
             transition: transform 0.3s ease, box-shadow 0.3s ease; 
         }
         .key-feature-item:hover { 
-            transform: translateY(-8px); /* Effet de surélévation plus prononcé */
+            transform: translateY(-8px);
             box-shadow: 0 12px 25px rgba(160, 118, 201, 0.15); 
         }
-        .key-feature-icon { width: 55px; height: 55px; margin-bottom: 20px; object-fit: contain; } /* Icône plus grande */
+        .key-feature-icon { width: 55px; height: 55px; margin-bottom: 20px; object-fit: contain; }
         .key-feature-item h3 { font-size: 1.25em; color: var(--text-dark); margin-bottom: 12px; font-weight: 600; }
         .key-feature-item p { font-size: 0.95em; color: var(--text-light); line-height: 1.65; }
         
@@ -245,17 +432,16 @@
         .before-after-visual-section { padding: 70px 0; background-color: var(--silver-light); }
         .before-after-visual-grid { display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; }
         .before-after-visual-item { 
-            flex-basis: calc(50% - 30px); max-width: 450px; /* Taille max augmentée */
+            flex-basis: calc(50% - 30px); max-width: 450px;
             text-align: center; background: var(--white-pure); padding: 25px; 
             border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.07); 
         }
         .before-after-visual-item img { 
             width: 100%; max-width: 350px; height: auto; border-radius: 12px; 
             margin-bottom: 18px; border: 1px solid var(--silver-medium); 
-            /* Aspect ratio pour placeholder si les images ne se chargent pas */
             aspect-ratio: 1 / 1; 
             object-fit: cover;
-            background-color: var(--silver-medium); /* Couleur de fond pour placeholder */
+            background-color: var(--silver-medium);
         }
         .before-after-label { 
             font-family: var(--font-headings); font-weight: 500; font-size: 1.1em; 
@@ -268,13 +454,13 @@
         .testimonials-v2-section { padding: 70px 0; background-color: var(--white-pure); }
         .testimonials-v2-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
         .testimonial-v2-item { 
-            background-color: var(--lilac-primary); /* Fond plus coloré */
+            background-color: var(--lilac-primary);
             padding: 35px; border-radius: 18px; 
             border-left: 6px solid var(--lilac-accent); position: relative; 
             box-shadow: 0 8px 20px rgba(160, 118, 201, 0.1);
         }
         .testimonial-v2-item::before { 
-            content: '“'; font-family: 'Georgia', serif; font-size: 3.5em; /* Guillemet plus grand */
+            content: '“'; font-family: 'Georgia', serif; font-size: 3.5em;
             color: var(--lilac-accent); position: absolute; top: 15px; left: 20px; opacity: 0.6; 
         }
         .testimonial-v2-quote { 
@@ -302,7 +488,7 @@
         }
         .trust-element { 
             display: flex; flex-direction: column; align-items: center; 
-            text-align: center; flex-basis: 200px; /* Base plus large */
+            text-align: center; flex-basis: 200px;
         }
         .trust-element img { width: 45px; height: 45px; margin-bottom: 12px; opacity: 0.85; object-fit: contain; }
         .trust-element span { font-size: 0.9em; color: var(--text-dark); font-weight: 500; }
@@ -310,6 +496,7 @@
         /* Animations */
         @keyframes slideInFromLeft { 0% { transform: translateX(-50px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
         @keyframes fadeInScale { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
         
         /* Responsive */
         @media (max-width: 992px) {
@@ -319,9 +506,13 @@
             .hero-v2-title { font-size: 2.6em; }
             .hero-v2-description { max-width: 100%; }
             .section-title-centered { font-size: 2.1em; }
-            .header-actions { margin-left: auto; } /* Assure que les actions restent à droite */
-            #desktop-nav, #desktop-lang-switcher { display: none !important; } /* Cache la nav bureau et le sélecteur de langue */
-            .menu-toggle { display: flex !important; } /* Affiche le burger menu */
+            .header-actions { margin-left: auto; }
+            #desktop-nav, #desktop-lang-switcher { display: none !important; }
+            .menu-toggle { display: flex !important; }
+            .mini-cart-dropdown {
+                width: 300px;
+                right: -20px;
+            }
         }
         @media (max-width: 768px) {
             body { padding-top: 70px; } 
@@ -329,7 +520,7 @@
             .site-logo-new a { font-size: 2.3em; } 
             .hero-v2 { padding: 50px 0; }
             .hero-v2-title { font-size: 2.2em; }
-            h1 {font-size: 2.2em;} /* Titre principal H1 pour mobile */
+            h1 {font-size: 2.2em;}
             .hero-v2-description { font-size: 1em; }
             .btn-hero-v2, .btn-final-cta { font-size: 1em; padding: 14px 30px; }
             .key-features-grid, .testimonials-v2-grid { grid-template-columns: 1fr; gap: 25px; }
@@ -337,9 +528,13 @@
             .before-after-visual-item { flex-basis: 100%; margin-bottom: 25px; max-width: 350px; }
             .final-cta-trust-section { padding: 60px 0; }
             .trust-elements-final { flex-direction:column; align-items:center; gap:30px;}
-            .language-switcher { display: none; } /* Cache le sélecteur de langue sur mobile */
+            .language-switcher { display: none; }
+            .mini-cart-dropdown {
+                width: 280px;
+                right: -30px;
+            }
         }
-        @media (min-width: 993px) { /* Assure que sur grand écran, la nav bureau est visible et burger masqué */
+        @media (min-width: 993px) {
             .menu-toggle { display: none !important; } 
             #desktop-nav { display: flex !important; }
             #desktop-lang-switcher { display: flex !important;}
@@ -364,15 +559,34 @@
             <div class="header-actions">
                 <div class="language-switcher" id="desktop-lang-switcher">
                     <a href="index.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
-                    <!-- Autres langues désactivées pour l'instant, car le site doit être uniquement en français par défaut -->
-                    <!-- <a href="en/index.html" class="lang-link" lang="en" hreflang="en">EN</a> -->
-                    <!-- <a href="de/index.html" class="lang-link" lang="de" hreflang="de">DE</a> -->
-                    <!-- <a href="nl/index.html" class="lang-link" lang="nl" hreflang="nl">NL</a> -->
                 </div>
-                <a href="panier.html" class="cart-icon-new" aria-label="Panier">  <!-- Lien vers panier.html -->
+                <button class="cart-icon-new" id="cartButton" aria-label="Panier">
                     <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                    <span class="cart-counter" style="display: none;">0</span>
-                </a>
+                    <span class="cart-counter" id="cartCounter">0</span>
+                </button>
+                <div class="mini-cart-dropdown" id="miniCart">
+                    <div class="mini-cart-header">
+                        <h3 class="mini-cart-title">Votre Panier</h3>
+                        <button class="close-mini-cart" id="closeMiniCart">&times;</button>
+                    </div>
+                    <div class="mini-cart-items" id="miniCartItems">
+                        <!-- Les éléments du panier seront ajoutés ici dynamiquement -->
+                        <div class="mini-cart-empty">
+                            <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                            <p>Votre panier est vide</p>
+                        </div>
+                    </div>
+                    <div class="mini-cart-summary" id="miniCartSummary" style="display: none;">
+                        <div class="mini-cart-total">
+                            <span>Total:</span>
+                            <span id="cartTotal">0.00€</span>
+                        </div>
+                        <div class="mini-cart-actions">
+                            <a href="panier.html" class="btn-view-cart">Voir le panier</a>
+                            <a href="checkout.html" class="btn-checkout">Passer la commande</a>
+                        </div>
+                    </div>
+                </div>
                 <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="offcanvasMenu">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
                 </button>
@@ -398,12 +612,15 @@
          <div class="language-switcher offcanvas-lang-switcher" style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--silver-light);">
             <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Langue :</p>
             <a href="index.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0; padding: 8px 10px;">Français</a>
-            <!-- Autres langues désactivées 
-            <a href="en/index.html" class="lang-link" lang="en" hreflang="en" style="display:block; margin: 5px 0;">English</a>
-            -->
         </div>
     </div>
     <div class="overlay-screen" id="overlayScreen"></div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span id="notificationMessage">Produit ajouté au panier</span>
+    </div>
 
     <main>
         <section class="hero-v2">
@@ -417,7 +634,7 @@
                         Fusion unique de thérapie LED avancée et cryotechnologie apaisante. Combattez les signes de l'âge, l'acné, et ravivez l'éclat du contour des yeux. L'expérience spa de luxe, réinventée pour votre quotidien.
                     </p>
                     <p class="hero-v2-price">149€ <span class="original-price-hero">349.99€</span></p>
-                    <a href="livraison.html" class="btn btn-primary btn-hero-v2">Commander Maintenant</a>
+                    <button class="btn btn-primary btn-hero-v2" id="addToCartHero">Commander Maintenant</button>
                     <p class="hero-v2-guarantee">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path></svg>
                         Garantie Satisfait ou Remboursé 30 Jours
@@ -477,7 +694,7 @@
             <div class="container">
                 <h2 class="section-title-centered">Prête à Révéler Votre Meilleure Peau ?</h2>
                 <p class="final-cta-subtitle">Rejoignez des milliers de femmes qui ont transformé leur peau avec Éclaria CryoGlow.</p>
-                <a href="livraison.html" class="btn btn-primary btn-final-cta">Commandez le Vôtre Aujourd'hui</a>
+                <button class="btn btn-primary btn-final-cta" id="addToCartFinal">Commandez le Vôtre Aujourd'hui</button>
                 <div class="trust-elements-final">
                     <div class="trust-element">
                         <img src="https://via.placeholder.com/60x60/A076C9/FFFFFF?text=SECURE" alt="Icône Paiement sécurisé">
@@ -532,6 +749,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Gestion du menu mobile
             const menuToggle = document.querySelector('.menu-toggle');
             const closeMenuBtn = document.querySelector('.close-menu-btn');
             const offcanvasMenu = document.getElementById('offcanvasMenu');
@@ -539,9 +757,127 @@
             const desktopNav = document.getElementById('desktop-nav');
             const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
             
-            // Les fonctions getPanier, getNombreTotalArticles, mettreAJourCompteurPanier 
-            // sont maintenant dans js/panier-logic.js et appelées automatiquement.
-
+            // Gestion du panier
+            const cartButton = document.getElementById('cartButton');
+            const closeMiniCart = document.getElementById('closeMiniCart');
+            const miniCart = document.getElementById('miniCart');
+            const miniCartItems = document.getElementById('miniCartItems');
+            const miniCartSummary = document.getElementById('miniCartSummary');
+            const cartCounter = document.getElementById('cartCounter');
+            const cartTotal = document.getElementById('cartTotal');
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notificationMessage');
+            
+            // Boutons d'ajout au panier
+            const addToCartHero = document.getElementById('addToCartHero');
+            const addToCartFinal = document.getElementById('addToCartFinal');
+            
+            // Produit
+            const product = {
+                id: 'eclaria-cryoglow',
+                name: 'Masque Éclaria CryoGlow',
+                price: 149.00,
+                image: '710E7veA9BL._SL1500_.jpg',
+                originalPrice: 349.99
+            };
+            
+            // Initialiser le panier
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Fonctions du panier
+            function updateCart() {
+                // Mettre à jour le compteur
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                cartCounter.textContent = totalItems;
+                cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+                
+                // Mettre à jour le mini panier
+                if (cart.length > 0) {
+                    miniCartItems.innerHTML = '';
+                    let total = 0;
+                    
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+                        
+                        const cartItem = document.createElement('div');
+                        cartItem.className = 'mini-cart-item';
+                        cartItem.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}" class="mini-cart-item-img">
+                            <div class="mini-cart-item-details">
+                                <h4 class="mini-cart-item-name">${item.name}</h4>
+                                <p class="mini-cart-item-price">${item.price.toFixed(2)}€</p>
+                                <div class="mini-cart-item-quantity">
+                                    <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                                    <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                                </div>
+                                <button class="remove-item" data-id="${item.id}">Supprimer</button>
+                            </div>
+                        `;
+                        miniCartItems.appendChild(cartItem);
+                    });
+                    
+                    cartTotal.textContent = total.toFixed(2) + '€';
+                    miniCartSummary.style.display = 'block';
+                    
+                    // Supprimer le message panier vide s'il existe
+                    const emptyCart = miniCartItems.querySelector('.mini-cart-empty');
+                    if (emptyCart) emptyCart.remove();
+                } else {
+                    miniCartItems.innerHTML = `
+                        <div class="mini-cart-empty">
+                            <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                            <p>Votre panier est vide</p>
+                        </div>
+                    `;
+                    miniCartSummary.style.display = 'none';
+                }
+                
+                // Sauvegarder dans le localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+            
+            function addToCart(product) {
+                const existingItem = cart.find(item => item.id === product.id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        ...product,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                showNotification('Produit ajouté au panier');
+            }
+            
+            function removeFromCart(productId) {
+                cart = cart.filter(item => item.id !== productId);
+                updateCart();
+                showNotification('Produit retiré du panier');
+            }
+            
+            function updateQuantity(productId, newQuantity) {
+                const item = cart.find(item => item.id === productId);
+                if (item) {
+                    item.quantity = parseInt(newQuantity) || 1;
+                    updateCart();
+                }
+            }
+            
+            function showNotification(message, isError = false) {
+                notificationMessage.textContent = message;
+                notification.className = isError ? 'notification error show' : 'notification show';
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Événements
             function openMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.add('open');
                 if(overlayScreen) overlayScreen.classList.add('active');
@@ -555,10 +891,61 @@
                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = ''; 
             }
+            
+            function toggleCart() {
+                miniCart.classList.toggle('active');
+                overlayScreen.classList.toggle('active');
+            }
 
             if (menuToggle) menuToggle.addEventListener('click', openMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
-            if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
+            if (overlayScreen) overlayScreen.addEventListener('click', function() {
+                closeMenu();
+                miniCart.classList.remove('active');
+            });
+            
+            cartButton.addEventListener('click', toggleCart);
+            closeMiniCart.addEventListener('click', toggleCart);
+            
+            addToCartHero.addEventListener('click', () => addToCart(product));
+            addToCartFinal.addEventListener('click', () => addToCart(product));
+            
+            // Déléguation des événements pour les boutons dans le mini panier
+            miniCartItems.addEventListener('click', (e) => {
+                if (e.target.classList.contains('decrease')) {
+                    const productId = e.target.getAttribute('data-id');
+                    const item = cart.find(item => item.id === productId);
+                    if (item && item.quantity > 1) {
+                        item.quantity -= 1;
+                        updateCart();
+                    } else {
+                        removeFromCart(productId);
+                    }
+                }
+                
+                if (e.target.classList.contains('increase')) {
+                    const productId = e.target.getAttribute('data-id');
+                    const item = cart.find(item => item.id === productId);
+                    if (item) {
+                        item.quantity += 1;
+                        updateCart();
+                    }
+                }
+                
+                if (e.target.classList.contains('remove-item')) {
+                    const productId = e.target.getAttribute('data-id');
+                    removeFromCart(productId);
+                }
+            });
+            
+            // Gestion des changements de quantité via l'input
+            miniCartItems.addEventListener('change', (e) => {
+                if (e.target.classList.contains('quantity-input')) {
+                    const productId = e.target.getAttribute('data-id');
+                    const newQuantity = e.target.value;
+                    updateQuantity(productId, newQuantity);
+                }
+            });
             
             function handleResize() {
                 const isDesktop = window.innerWidth > 992; 
@@ -585,10 +972,11 @@
                 }
             });
             
-            mettreAJourCompteurPanier(); // Mettre à jour le compteur au chargement de la page
-            console.log('Éclaria Accueil (FR) v2 avec compteur panier chargée !');
+            // Initialiser le panier au chargement
+            updateCart();
+            
+            console.log('Éclaria Accueil (FR) v3 avec panier avancé chargée !');
         });
     </script>
-    <!-- Emplacements pour Google Analytics / Facebook Pixel etc. -->
 </body>
 </html>
