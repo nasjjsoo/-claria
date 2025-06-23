@@ -261,8 +261,21 @@
                             Transformez votre routine de soins avec le CryoGlow, le masque LED multi-fonctions. Thérapie lumineuse ciblée et cryotechnologie pour une peau visiblement rajeunie, apaisée et éclatante.
                         </p>
                         
+                        <div class="product-quantity" style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                            <label for="quantity" style="font-weight: 500; font-size: 1em; color: var(--text-dark);">Quantité :</label>
+                            <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" style="width: 70px; padding: 8px 10px; border-radius: 5px; border: 1px solid var(--silver-medium); text-align: center; font-size: 1em;">
+                        </div>
+                        <div id="product-data" style="display:none;"
+                             data-id="cryoglow01"
+                             data-name="Masque Facial CryoGlow LED"
+                             data-price="149"
+                             data-image="710E7veA9BL._SL1500_.jpg">
+                        </div>
                         <div class="product-actions">
-                            <a href="livraison.html" class="btn btn-primary btn-add-to-cart">Ajouter au Panier</a>
+                            <button type="button" class="btn btn-primary btn-add-to-cart" id="add-to-cart-button">Ajouter au Panier</button>
+                        </div>
+                        <div id="cart-notification" style="display: none; margin-top: 15px; padding: 10px; background-color: var(--success-color); color: var(--white-pure); border-radius: 5px; text-align:center;">
+                            Produit ajouté au panier !
                         </div>
 
                         <div class="trust-badges-product">
@@ -421,15 +434,68 @@
             // Active link styling (copied from index.html)
             const currentPath = window.location.pathname.split("/").pop() || "index.html"; // Default to index if path is empty
             const navLinks = document.querySelectorAll('#desktop-nav ul li a, .offcanvas-menu nav ul li a');
-            navLinks.forEach(link => {
+            navLinks.forEach(link => { // Assurez-vous que 'produit.html' est bien le lien actif
                 const linkPath = link.getAttribute('href').split("/").pop() || "index.html";
-                if (linkPath === currentPath) {
+                if (linkPath === currentPath || (currentPath === "produit.html" && linkPath === "produit.html")) { 
                     link.classList.add('active-lang'); 
                 } else {
                     link.classList.remove('active-lang');
                 }
             });
             
+            // --- Fonctions de gestion du Panier ---
+            function getPanier() {
+                const panier = localStorage.getItem('eclaria_panier');
+                return panier ? JSON.parse(panier) : [];
+            }
+
+            function savePanier(panier) {
+                localStorage.setItem('eclaria_panier', JSON.stringify(panier));
+                mettreAJourCompteurPanier(); // Mettre à jour le compteur à chaque sauvegarde
+            }
+            
+            function mettreAJourCompteurPanier() {
+                // Cette fonction sera pleinement implémentée à l'étape 3,
+                // mais nous pouvons déjà préparer son appel.
+                // Pour l'instant, un simple log pour vérifier.
+                const nombreArticles = getNombreTotalArticles();
+                console.log("Nombre d'articles dans le panier :", nombreArticles);
+                // Mettre à jour l'icône du panier dans le header (sera fait à l'étape 3)
+                const cartIconCounter = document.querySelector('.cart-icon-new .cart-counter'); // Sélecteur à affiner
+                if(cartIconCounter) {
+                    cartIconCounter.textContent = nombreArticles;
+                    cartIconCounter.style.display = nombreArticles > 0 ? 'flex' : 'none';
+                }
+            }
+
+
+            function ajouterAuPanier(idProduit, nomProduit, prixUnitaire, imageSrc, quantiteAjoutee = 1) {
+                let panier = getPanier();
+                const itemExistant = panier.find(item => item.idProduit === idProduit);
+
+                if (itemExistant) {
+                    itemExistant.quantite = parseInt(itemExistant.quantite) + parseInt(quantiteAjoutee);
+                } else {
+                    panier.push({ idProduit, nomProduit, prixUnitaire: parseFloat(prixUnitaire), imageSrc, quantite: parseInt(quantiteAjoutee) });
+                }
+                savePanier(panier);
+                
+                // Afficher notification
+                const notification = document.getElementById('cart-notification');
+                if(notification) {
+                    notification.textContent = `${quantiteAjoutee} x ${nomProduit} ajouté(s) au panier !`;
+                    notification.style.display = 'block';
+                    setTimeout(() => { notification.style.display = 'none'; }, 3000);
+                }
+            }
+
+            function getNombreTotalArticles() {
+                const panier = getPanier();
+                return panier.reduce((total, item) => total + item.quantite, 0);
+            }
+            // --- Fin Fonctions de gestion du Panier ---
+
+
             // Product Image Gallery Changer
             const mainProductImage = document.getElementById('mainProductImage');
             const thumbnails = document.querySelectorAll('.thumbnail-images .thumbnail');
@@ -448,36 +514,30 @@
                 });
             }
             
-            // Simuler ajout au panier
-            const addToCartButton = document.querySelector('.btn-add-to-cart');
-            if (addToCartButton) {
-                addToCartButton.addEventListener('click', function(e) {
-                    // e.preventDefault(); // Prévenir la redirection si on voulait faire plus (ex: ouvrir un mini-panier)
-                    // Pour l'instant, on laisse le lien <a> fonctionner normalement vers livraison.html
-                    console.log('Produit ajouté au panier (simulation)');
-                });
-            }
+            // Logique d'ajout au panier
+            const addToCartButton = document.getElementById('add-to-cart-button');
+            const quantityInput = document.getElementById('quantity');
+            const productDataElement = document.getElementById('product-data');
 
-            console.log('Éclaria Page Produit (FR) v2 chargée avec succès!');
-        });
+            if (addToCartButton && quantityInput && productDataElement) {
+                addToCartButton.addEventListener('click', function() {
+                    const idProduit = productDataElement.dataset.id;
+                    const nomProduit = productDataElement.dataset.name;
+                    const prixUnitaire = parseFloat(productDataElement.dataset.price);
+                    const imageSrc = productDataElement.dataset.image;
+                    const quantite = parseInt(quantityInput.value);
 
-        // Fonction globale pour changer l'image (utilisée par onclick dans l'ancienne version, maintenant via data-attributes)
-        // On la garde au cas où, mais elle n'est plus appelée directement par le HTML
-        function changeImage(imageSrcPath) {
-            const mainProductImage = document.getElementById('mainProductImage');
-            const thumbnails = document.querySelectorAll('.thumbnail-images .thumbnail');
-            if (mainProductImage) {
-                mainProductImage.src = imageSrcPath;
-                
-                thumbnails.forEach(thumbnail => {
-                    if (thumbnail.dataset.imageSrc === imageSrcPath) {
-                        thumbnail.classList.add('active-thumbnail');
+                    if (quantite > 0) {
+                        ajouterAuPanier(idProduit, nomProduit, prixUnitaire, imageSrc, quantite);
                     } else {
-                        thumbnail.classList.remove('active-thumbnail');
+                        alert("Veuillez sélectionner une quantité valide.");
                     }
                 });
             }
-        }
+            
+            mettreAJourCompteurPanier(); // Appel initial pour afficher le compteur
+            console.log('Éclaria Page Produit (FR) v2 avec gestion panier chargée !');
+        });
     </script>
 </body>
 </html>
