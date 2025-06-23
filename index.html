@@ -369,8 +369,9 @@
                     <!-- <a href="de/index.html" class="lang-link" lang="de" hreflang="de">DE</a> -->
                     <!-- <a href="nl/index.html" class="lang-link" lang="nl" hreflang="nl">NL</a> -->
                 </div>
-                <a href="livraison.html" class="cart-icon-new" aria-label="Panier">  <!-- Modifié pour être un lien -->
+                <a href="panier.html" class="cart-icon-new" aria-label="Panier">  <!-- Lien vers panier.html -->
                     <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <span class="cart-counter" style="display: none;">0</span>
                 </a>
                 <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="offcanvasMenu">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
@@ -537,31 +538,67 @@
             const overlayScreen = document.getElementById('overlayScreen');
             const desktopNav = document.getElementById('desktop-nav');
             const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
-            // const cartButton = document.querySelector('.cart-icon-new'); // cartButton est maintenant un lien <a>
+            
+            // --- Fonctions de gestion du Panier (copiées de produit.html et adaptées) ---
+            function getPanier() {
+                const panier = localStorage.getItem('eclaria_panier');
+                return panier ? JSON.parse(panier) : [];
+            }
+
+            function getNombreTotalArticles() {
+                const panier = getPanier();
+                return panier.reduce((total, item) => total + item.quantite, 0);
+            }
+
+            function mettreAJourCompteurPanier() {
+                const nombreArticles = getNombreTotalArticles();
+                const compteursPanier = document.querySelectorAll('.cart-counter'); 
+
+                compteursPanier.forEach(compteur => {
+                    if (compteur) {
+                        if (nombreArticles > 0) {
+                            compteur.textContent = nombreArticles;
+                            compteur.style.display = 'flex'; 
+                        } else {
+                            compteur.style.display = 'none';
+                        }
+                    }
+                });
+                 // Mettre à jour le lien du panier en fonction de son contenu
+                const cartLink = document.querySelector('.cart-icon-new');
+                if (cartLink) {
+                    if (nombreArticles > 0) {
+                        cartLink.href = 'panier.html';
+                    } else {
+                        // Optionnel: rediriger vers la page produit ou accueil si panier vide
+                        // Pour l'instant, on le laisse pointer vers panier.html qui affichera "panier vide"
+                        cartLink.href = 'panier.html'; 
+                    }
+                }
+            }
+            // --- Fin Fonctions de gestion du Panier ---
+
 
             function openMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.add('open');
                 if(overlayScreen) overlayScreen.classList.add('active');
                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
-                document.body.style.overflow = 'hidden'; // Empêche le scroll du body
+                document.body.style.overflow = 'hidden'; 
             }
 
             function closeMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.remove('open');
                 if(overlayScreen) overlayScreen.classList.remove('active');
                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = ''; // Réactive le scroll du body
+                document.body.style.overflow = ''; 
             }
 
             if (menuToggle) menuToggle.addEventListener('click', openMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
             if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
             
-            // Le cartButton est maintenant un <a>, donc pas d'alerte JS nécessaire ici.
-            // Il redirige directement vers livraison.html
-
             function handleResize() {
-                const isDesktop = window.innerWidth > 992; // Point de rupture ajusté
+                const isDesktop = window.innerWidth > 992; 
                 if(desktopNav) desktopNav.style.display = isDesktop ? 'flex' : 'none';
                 if(desktopLangSwitcher) desktopLangSwitcher.style.display = isDesktop ? 'flex' : 'none';
                 if(menuToggle) menuToggle.style.display = isDesktop ? 'none' : 'flex';
@@ -574,7 +611,6 @@
             window.addEventListener('resize', handleResize);
             handleResize(); 
 
-            // Active link styling (inchangé)
             const currentPath = window.location.pathname.split("/").pop() || "index.html";
             const navLinks = document.querySelectorAll('#desktop-nav ul li a, .offcanvas-menu nav ul li a');
             navLinks.forEach(link => {
@@ -585,8 +621,9 @@
                     link.classList.remove('active-lang');
                 }
             });
-
-            console.log('Éclaria Accueil (FR) v2 chargée avec succès!');
+            
+            mettreAJourCompteurPanier(); // Mettre à jour le compteur au chargement de la page
+            console.log('Éclaria Accueil (FR) v2 avec compteur panier chargée !');
         });
     </script>
     <!-- Emplacements pour Google Analytics / Facebook Pixel etc. -->
