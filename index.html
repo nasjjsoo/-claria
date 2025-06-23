@@ -539,45 +539,8 @@
             const desktopNav = document.getElementById('desktop-nav');
             const desktopLangSwitcher = document.getElementById('desktop-lang-switcher');
             
-            // --- Fonctions de gestion du Panier (copiées de produit.html et adaptées) ---
-            function getPanier() {
-                const panier = localStorage.getItem('eclaria_panier');
-                return panier ? JSON.parse(panier) : [];
-            }
-
-            function getNombreTotalArticles() {
-                const panier = getPanier();
-                return panier.reduce((total, item) => total + item.quantite, 0);
-            }
-
-            function mettreAJourCompteurPanier() {
-                const nombreArticles = getNombreTotalArticles();
-                const compteursPanier = document.querySelectorAll('.cart-counter'); 
-
-                compteursPanier.forEach(compteur => {
-                    if (compteur) {
-                        if (nombreArticles > 0) {
-                            compteur.textContent = nombreArticles;
-                            compteur.style.display = 'flex'; 
-                        } else {
-                            compteur.style.display = 'none';
-                        }
-                    }
-                });
-                 // Mettre à jour le lien du panier en fonction de son contenu
-                const cartLink = document.querySelector('.cart-icon-new');
-                if (cartLink) {
-                    if (nombreArticles > 0) {
-                        cartLink.href = 'panier.html';
-                    } else {
-                        // Optionnel: rediriger vers la page produit ou accueil si panier vide
-                        // Pour l'instant, on le laisse pointer vers panier.html qui affichera "panier vide"
-                        cartLink.href = 'panier.html'; 
-                    }
-                }
-            }
-            // --- Fin Fonctions de gestion du Panier ---
-
+            // Les fonctions getPanier, getNombreTotalArticles, mettreAJourCompteurPanier 
+            // sont maintenant dans js/panier-logic.js et appelées automatiquement.
 
             function openMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.add('open');
