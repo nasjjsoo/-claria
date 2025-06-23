@@ -23,7 +23,6 @@
         }
         .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
         
-        /* Header (Copied from index.html for consistency) */
         .site-header-new { 
             background-color: rgba(255, 255, 255, 0.97); backdrop-filter: blur(8px); 
             padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; 
@@ -39,9 +38,15 @@
         #desktop-nav a:hover, #desktop-nav a.active-lang { color: var(--lilac-accent); }
         #desktop-nav a:hover::after, #desktop-nav a.active-lang::after { width: 100%; }
         .header-actions { display: flex; align-items: center; }
-        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .menu-toggle { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .cart-icon-new { position: relative; background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; text-decoration: none;}
         .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
         .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        .cart-counter {
+            position: absolute; top: -5px; right: -5px; background-color: var(--error-color); color: var(--white-pure);
+            border-radius: 50%; width: 18px; height: 18px; font-size: 0.7em; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; line-height: 1; pointer-events: none;
+        }
         .language-switcher { margin-left: 20px; display:flex; align-items:center; }
         .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 6px 10px; margin: 0 3px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
         .language-switcher .lang-link.active-lang { color: var(--lilac-dark); font-weight: 600; background-color: var(--lilac-primary); }
@@ -71,17 +76,16 @@
         .social-media-footer a:hover svg { fill: var(--lilac-primary); }
         .copyright { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
 
-        /* Page Content Wrapper (for static pages) */
         .page-content-wrapper { 
             background-color: var(--white-pure);
-            padding: 40px 50px; /* Increased padding */
+            padding: 40px 50px;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(44,62,80,0.08); /* Softer shadow */
-            margin: 20px auto; /* Centered with auto margins */
-            max-width: 900px; /* Max width for readability */
+            box-shadow: 0 10px 30px rgba(44,62,80,0.08);
+            margin: 20px auto; 
+            max-width: 900px;
         }
         .page-content-wrapper h1 { 
-            font-size: 2.6em; /* Larger title */
+            font-size: 2.6em; 
             margin-bottom: 0.8em;
             color: var(--text-dark);
             text-align: center;
@@ -117,7 +121,6 @@
             margin-bottom: 30px;
             display: block;
         }
-
 
         @media (max-width: 768px) {
             .site-logo-new a { font-size: 2.3em; } 
@@ -155,8 +158,9 @@
                  <div class="language-switcher" id="desktop-lang-switcher">
                     <a href="conditions-utilisation.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
                 </div>
-                <a href="livraison.html" class="cart-icon-new" aria-label="Panier">
+                <a href="panier.html" class="cart-icon-new" aria-label="Panier">
                     <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <span class="cart-counter" style="display:none;">0</span>
                 </a>
                 <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="offcanvasMenu">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
@@ -322,6 +326,12 @@
                 }
             });
             
+            // Mettre à jour le compteur de panier au chargement (la logique du panier sera dans panier-logic.js)
+            // Pour l'instant, on s'assure juste que la fonction est appelée si elle existe.
+            if (typeof mettreAJourCompteurPanier === 'function') {
+                mettreAJourCompteurPanier();
+            }
+
             console.log('Page Conditions d\'Utilisation Éclaria (FR) v2 chargée avec succès !');
         });
     </script>    
