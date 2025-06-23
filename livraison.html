@@ -15,14 +15,13 @@
         *, *::before, *::after { box-sizing: border-box; }
         body { 
             font-family: var(--font-primary); margin: 0; padding: 0; padding-top: 70px; 
-            background-color: var(--silver-light); /* Fond général pour les pages de checkout */
+            background-color: var(--silver-light); 
             color: var(--text-dark); 
             line-height: 1.7; font-weight: 400;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
         .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
         
-        /* Header (Copied from index.html for consistency) */
         .site-header-new { 
             background-color: rgba(255, 255, 255, 0.97); backdrop-filter: blur(8px); 
             padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; 
@@ -38,9 +37,15 @@
         #desktop-nav a:hover, #desktop-nav a.active-lang { color: var(--lilac-accent); }
         #desktop-nav a:hover::after, #desktop-nav a.active-lang::after { width: 100%; }
         .header-actions { display: flex; align-items: center; }
-        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .menu-toggle { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .cart-icon-new { position: relative; background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; text-decoration: none;}
         .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
         .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        .cart-counter {
+            position: absolute; top: -5px; right: -5px; background-color: var(--error-color); color: var(--white-pure);
+            border-radius: 50%; width: 18px; height: 18px; font-size: 0.7em; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; line-height: 1; pointer-events: none;
+        }
         .language-switcher { margin-left: 20px; display:flex; align-items:center; }
         .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 6px 10px; margin: 0 3px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
         .language-switcher .lang-link.active-lang { color: var(--lilac-dark); font-weight: 600; background-color: var(--lilac-primary); }
@@ -56,7 +61,6 @@
         .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 62, 80, 0.5); z-index: 1050; }
         .overlay-screen.active { display: block; }
         
-        /* Main content and typography (Copied from index.html) */
         main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 70px - 180px); }
         h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.8em; }
         p { margin-bottom: 1.6em; font-size: 1.05em; color:var(--text-light); }
@@ -64,7 +68,6 @@
         .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.2); }
         .btn-primary:hover { background-color: var(--lilac-dark); border-color: var(--lilac-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(126, 87, 194, 0.3); }
 
-        /* Footer (Copied from index.html) */
         .site-footer { background-color: var(--text-dark); color: var(--silver-light); padding: 50px 0; text-align: center; font-size: 0.95em; margin-top:auto; }
         .footer-links { margin-bottom: 20px; }
         .footer-links a { color: var(--silver-light); text-decoration: none; margin: 0 12px; transition: color 0.3s ease; }
@@ -74,7 +77,6 @@
         .social-media-footer a:hover svg { fill: var(--lilac-primary); }
         .copyright { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
 
-        /* Checkout Specific Styles */
         .checkout-header { text-align: center; margin-bottom: 35px; }
         .checkout-header h1 { font-size: 2.5em; color: var(--text-dark); margin-bottom: 0.3em;}
         
@@ -88,7 +90,6 @@
             transform: translateY(-50%); font-weight:300; font-size: 1.3em;
         }
         .checkout-step.active:not(:last-child)::after, .checkout-step.completed:not(:last-child)::after { color: var(--lilac-accent); }
-
 
         .checkout-layout { display: flex; gap: 35px; align-items: flex-start; }
         .checkout-form-container { flex: 1.8; background-color: var(--white-pure); padding: 35px; border-radius: 12px; box-shadow: 0 8px 25px rgba(44,62,80,0.08); }
@@ -118,15 +119,15 @@
             box-shadow: 0 0 0 3px rgba(160, 118, 201, 0.2);
         }
         .form-group input.error, .form-group select.error { border-color: var(--error-color); }
-        .error-message { color: var(--error-color); font-size: 0.85em; margin-top: 5px; display: block; }
+        .error-message { color: var(--error-color); font-size: 0.85em; margin-top: 5px; display: block; min-height:1em; }
 
         .form-actions { margin-top: 30px; }
         .btn-checkout { width: 100%; padding: 16px; font-size: 1.1em; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
 
-        .order-summary { flex: 1; background-color: var(--white-pure); padding: 30px; border-radius: 12px; box-shadow: 0 8px 25px rgba(44,62,80,0.08); position: sticky; top: 90px; /* header height + شويه مسافه */ }
+        .order-summary { flex: 1; background-color: var(--white-pure); padding: 30px; border-radius: 12px; box-shadow: 0 8px 25px rgba(44,62,80,0.08); position: sticky; top: 90px; }
         .order-summary h2 { font-size: 1.7em; margin-bottom: 20px; color: var(--text-dark); border-bottom: 1px solid var(--silver-medium); padding-bottom: 15px;}
         .summary-item { display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--silver-light); }
-        .summary-item:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+        .summary-item:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0;} /* S'assurer que le dernier item n'a pas de bordure */
         .summary-item-image img { width: 75px; height: 75px; object-fit: cover; border-radius: 8px; margin-right: 18px; border: 1px solid var(--silver-medium); }
         .summary-item-details { flex-grow: 1;}
         .summary-item-details p { margin: 0; line-height: 1.45; }
@@ -140,7 +141,6 @@
         .summary-totals .total-value { font-weight: 500; color: var(--text-dark); }
         .summary-totals .grand-total .total-label, .summary-totals .grand-total .total-value { font-size: 1.3em; font-weight: 600; color: var(--lilac-dark); }
         .summary-totals hr { border: none; border-top: 1px dashed var(--silver-medium); margin: 15px 0; }
-
 
         @media (max-width: 992px) {
             .checkout-layout { flex-direction: column-reverse; }
@@ -158,7 +158,7 @@
             .checkout-form-container, .order-summary { padding: 25px; }
             .checkout-steps { flex-wrap: wrap; gap: 5px; }
             .checkout-step { font-size: 0.85em; padding: 8px 12px; margin: 0 5px;}
-            .checkout-step:not(:last-child)::after { display: none; } /* Hide arrows on mobile for cleaner look */
+            .checkout-step:not(:last-child)::after { display: none; } 
         }
          @media (min-width: 993px) { 
             .menu-toggle { display: none !important; } 
@@ -186,8 +186,9 @@
                  <div class="language-switcher" id="desktop-lang-switcher">
                     <a href="livraison.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
                 </div>
-                <a href="livraison.html" class="cart-icon-new" aria-label="Panier">
+                <a href="panier.html" class="cart-icon-new" aria-label="Panier">
                     <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <span class="cart-counter" style="display:none;">0</span>
                 </a>
                 <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="offcanvasMenu">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
@@ -232,7 +233,7 @@
             <div class="checkout-layout">
                 <div class="checkout-form-container">
                     <h2>Vos Coordonnées de Livraison</h2>
-                    <form id="shipping-form" action="paiement.html" method="POST"> <!-- Changed to POST for better practice, though JS will handle it -->
+                    <form id="shipping-form" action="paiement.html" method="POST"> 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="prenom">Prénom *</label>
@@ -281,7 +282,6 @@
                             <select id="pays" name="pays" required autocomplete="country-name">
                                 <option value="FR" selected>France</option>
                                 <option value="BE">Belgique</option>
-                                <!-- Ajouter d'autres pays si nécessaire -->
                             </select>
                             <span class="error-message" aria-live="polite"></span>
                         </div>
@@ -291,23 +291,16 @@
                     </form>
                 </div>
 
-                <aside class="order-summary">
+                <aside class="order-summary" id="order-summary-container">
                     <h2>Votre Commande</h2>
-                    <div class="summary-item">
-                        <div class="summary-item-image">
-                            <img src="710E7veA9BL._SL1500_.jpg" alt="Masque CryoGlow LED">
-                        </div>
-                        <div class="summary-item-details">
-                            <p class="summary-item-name">Masque Facial CryoGlow LED</p>
-                            <p class="summary-item-qty">Quantité: 1</p>
-                        </div>
-                        <p class="summary-item-price">149€</p>
+                    <div id="summary-items-list">
+                        <!-- Les articles du panier seront injectés ici -->
                     </div>
                     <div class="summary-totals">
-                        <p><span class="total-label">Sous-total :</span> <span class="total-value">149€</span></p>
-                        <p><span class="total-label">Livraison :</span> <span class="total-value">Offerte</span></p>
+                        <p><span class="total-label">Sous-total :</span> <strong id="summary-subtotal">0.00€</strong></p>
+                        <p><span class="total-label">Livraison :</span> <strong id="summary-shipping">Offerte</strong></p>
                         <hr>
-                        <p class="grand-total"><span class="total-label">Total (TTC) :</span> <span class="total-value">149€</span></p>
+                        <p class="grand-total"><span class="total-label">Total (TTC) :</span> <strong id="summary-grandtotal">0.00€</strong></p>
                     </div>
                 </aside>
             </div>
@@ -379,6 +372,78 @@
                 }
             });
             
+            // --- Fonctions de gestion du Panier ---
+            function getPanier() {
+                const panier = localStorage.getItem('eclaria_panier');
+                return panier ? JSON.parse(panier) : [];
+            }
+
+            function getNombreTotalArticles() {
+                const panier = getPanier();
+                return panier.reduce((total, item) => total + item.quantite, 0);
+            }
+
+            function mettreAJourCompteurPanier() {
+                const nombreArticles = getNombreTotalArticles();
+                const compteursPanier = document.querySelectorAll('.cart-counter'); 
+                compteursPanier.forEach(compteur => {
+                    if (compteur) {
+                        if (nombreArticles > 0) {
+                            compteur.textContent = nombreArticles;
+                            compteur.style.display = 'flex'; 
+                        } else {
+                            compteur.style.display = 'none';
+                        }
+                    }
+                });
+                 const cartLink = document.querySelector('.cart-icon-new');
+                if (cartLink) {
+                    cartLink.href = nombreArticles > 0 ? 'panier.html' : 'panier.html'; 
+                }
+            }
+            
+            function afficherRecapitulatifCommande() {
+                const panier = getPanier();
+                const summaryItemsList = document.getElementById('summary-items-list');
+                const summarySubtotalEl = document.getElementById('summary-subtotal');
+                const summaryGrandtotalEl = document.getElementById('summary-grandtotal');
+                const orderSummaryContainer = document.getElementById('order-summary-container');
+
+
+                if (panier.length === 0) {
+                    // Rediriger si le panier est vide, car l'utilisateur ne devrait pas être ici
+                    window.location.href = 'panier.html';
+                    return;
+                }
+
+                if (!summaryItemsList || !summarySubtotalEl || !summaryGrandtotalEl) return;
+
+                summaryItemsList.innerHTML = ''; // Vider la liste
+                let sousTotal = 0;
+
+                panier.forEach(item => {
+                    const prixTotalItem = item.prixUnitaire * item.quantite;
+                    sousTotal += prixTotalItem;
+                    const itemHtml = `
+                        <div class="summary-item">
+                            <div class="summary-item-image">
+                                <img src="${item.imageSrc}" alt="${item.nomProduit}">
+                            </div>
+                            <div class="summary-item-details">
+                                <p class="summary-item-name">${item.nomProduit}</p>
+                                <p class="summary-item-qty">Quantité: ${item.quantite}</p>
+                            </div>
+                            <p class="summary-item-price">${prixTotalItem.toFixed(2)}€</p>
+                        </div>
+                    `;
+                    summaryItemsList.insertAdjacentHTML('beforeend', itemHtml);
+                });
+
+                summarySubtotalEl.textContent = `${sousTotal.toFixed(2)}€`;
+                summaryGrandtotalEl.textContent = `${sousTotal.toFixed(2)}€`; // Livraison offerte
+            }
+
+
             // Shipping Form Validation and Data Handling
             const shippingForm = document.getElementById('shipping-form');
             if (shippingForm) {
@@ -395,12 +460,11 @@
                     } else if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {
                         isValid = false;
                         errorMessage = "Veuillez saisir une adresse e-mail valide.";
-                    } else if (field.id === "code_postal" && !/^\d{5}$/.test(field.value) && field.value.trim() !== "") { // Validate only if not empty
+                    } else if (field.id === "code_postal" && !/^\d{5}$/.test(field.value) && field.value.trim() !== "") { 
                         isValid = false;
                         errorMessage = "Code postal invalide (doit contenir 5 chiffres).";
                     }
-                    // Add more specific validations if needed (e.g., phone format)
-
+                    
                     if (errorSpan) {
                         errorSpan.textContent = errorMessage;
                         field.classList.toggle('error', !isValid);
@@ -410,10 +474,10 @@
 
                 inputs.forEach(input => {
                     input.addEventListener('blur', () => validateField(input));
-                    input.addEventListener('input', () => { // Clear error on input
+                    input.addEventListener('input', () => { 
                          const errorSpan = input.nextElementSibling && input.nextElementSibling.classList.contains('error-message') ? input.nextElementSibling : null;
                          if (errorSpan && errorSpan.textContent !== "") {
-                            validateField(input); // Re-validate to clear if now valid
+                            validateField(input); 
                          }
                     });
                 });
@@ -428,7 +492,6 @@
                     });
 
                     if (isFormValid) {
-                        // Save to localStorage for paiement.html
                         localStorage.setItem('eclaria_shipping_prenom', document.getElementById('prenom').value);
                         localStorage.setItem('eclaria_shipping_nom', document.getElementById('nom').value);
                         localStorage.setItem('eclaria_shipping_email', document.getElementById('email').value);
@@ -440,7 +503,7 @@
                         localStorage.setItem('eclaria_shipping_pays', document.getElementById('pays').value);
                         
                         console.log('Données de livraison sauvegardées. Redirection vers paiement.html...');
-                        window.location.href = shippingForm.action; // Redirect to paiement.html
+                        window.location.href = shippingForm.action; 
                     } else {
                         alert('Veuillez corriger les erreurs dans le formulaire avant de continuer.');
                         const firstErrorField = shippingForm.querySelector('.error');
@@ -450,6 +513,10 @@
                     }
                 });
             }
+            
+            // Initialiser l'affichage
+            mettreAJourCompteurPanier();
+            afficherRecapitulatifCommande();
             console.log('Éclaria Page Livraison (FR) v2 chargée avec succès!');
         });
     </script>
