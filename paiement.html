@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Éclaria - Paiement Sécurisé</title>
+    <title>Éclaria - Livraison et Coordonnées</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
         :root {
@@ -15,14 +15,13 @@
         *, *::before, *::after { box-sizing: border-box; }
         body { 
             font-family: var(--font-primary); margin: 0; padding: 0; padding-top: 70px; 
-            background-color: var(--silver-light); /* Fond général pour les pages de checkout */
+            background-color: var(--silver-light); 
             color: var(--text-dark); 
             line-height: 1.7; font-weight: 400;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
         .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
         
-        /* Header (Copied from index.html for consistency) */
         .site-header-new { 
             background-color: rgba(255, 255, 255, 0.97); backdrop-filter: blur(8px); 
             padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; 
@@ -38,9 +37,15 @@
         #desktop-nav a:hover, #desktop-nav a.active-lang { color: var(--lilac-accent); }
         #desktop-nav a:hover::after, #desktop-nav a.active-lang::after { width: 100%; }
         .header-actions { display: flex; align-items: center; }
-        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .menu-toggle { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .cart-icon-new { position: relative; background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; text-decoration: none;}
         .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
         .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        .cart-counter {
+            position: absolute; top: -5px; right: -5px; background-color: var(--error-color); color: var(--white-pure);
+            border-radius: 50%; width: 18px; height: 18px; font-size: 0.7em; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; line-height: 1; pointer-events: none;
+        }
         .language-switcher { margin-left: 20px; display:flex; align-items:center; }
         .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 6px 10px; margin: 0 3px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
         .language-switcher .lang-link.active-lang { color: var(--lilac-dark); font-weight: 600; background-color: var(--lilac-primary); }
@@ -56,7 +61,6 @@
         .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 62, 80, 0.5); z-index: 1050; }
         .overlay-screen.active { display: block; }
         
-        /* Main content and typography (Copied from index.html) */
         main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 70px - 180px); }
         h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.8em; }
         p { margin-bottom: 1.6em; font-size: 1.05em; color:var(--text-light); }
@@ -64,7 +68,6 @@
         .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.2); }
         .btn-primary:hover { background-color: var(--lilac-dark); border-color: var(--lilac-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(126, 87, 194, 0.3); }
 
-        /* Footer (Copied from index.html) */
         .site-footer { background-color: var(--text-dark); color: var(--silver-light); padding: 50px 0; text-align: center; font-size: 0.95em; margin-top:auto; }
         .footer-links { margin-bottom: 20px; }
         .footer-links a { color: var(--silver-light); text-decoration: none; margin: 0 12px; transition: color 0.3s ease; }
@@ -74,13 +77,11 @@
         .social-media-footer a:hover svg { fill: var(--lilac-primary); }
         .copyright { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
 
-        /* Checkout Specific Styles (from livraison.html, adapted for paiement.html) */
         .checkout-header { text-align: center; margin-bottom: 35px; }
         .checkout-header h1 { font-size: 2.5em; color: var(--text-dark); margin-bottom: 0.3em;}
         
         .checkout-steps { display: flex; justify-content: center; align-items: center; margin-bottom: 40px; padding: 0; list-style: none; }
         .checkout-step { color: var(--text-light); margin: 0 10px; font-family: var(--font-headings); font-weight: 500; position: relative; font-size: 0.9em; padding: 10px 15px; border-radius: 8px; background-color: var(--silver-medium); transition: all 0.3s ease; }
-        .checkout-step a { text-decoration: none; color: inherit; }
         .checkout-step.active { color: var(--white-pure); background-color: var(--lilac-accent); font-weight: 600; box-shadow: 0 4px 10px rgba(160, 118, 201, 0.3); }
         .checkout-step.completed { color: var(--text-dark); background-color: var(--lilac-secondary); font-weight: 500; }
         .checkout-step:not(:last-child)::after { 
@@ -100,25 +101,33 @@
         
         .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.95em; color: var(--text-dark); }
         .form-group input[type="text"],
-        .form-group input[type="email"], /* Though not used directly on this page, good to have */
-        .form-group input[type="tel"] { /* For things like cardholder phone */
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group select {
             width: 100%; padding: 14px 18px; border: 1px solid var(--silver-medium); border-radius: 8px; 
             font-family: var(--font-primary); font-size: 1em; color: var(--text-dark);
             transition: border-color 0.3s ease, box-shadow 0.3s ease; background-color: var(--white-pure);
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+        }
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23566573'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 15px center; background-size: 20px; padding-right: 45px;
         }
         .form-group input::placeholder { color: var(--text-light); opacity: 0.7; }
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             border-color: var(--lilac-accent); outline: none; 
             box-shadow: 0 0 0 3px rgba(160, 118, 201, 0.2);
         }
-         .form-group input.error { border-color: var(--error-color); }
-        .error-message { color: var(--error-color); font-size: 0.85em; margin-top: 5px; display: block; min-height: 1em; /* Reserve space */}
+        .form-group input.error, .form-group select.error { border-color: var(--error-color); }
+        .error-message { color: var(--error-color); font-size: 0.85em; margin-top: 5px; display: block; min-height:1em; }
 
+        .form-actions { margin-top: 30px; }
+        .btn-checkout { width: 100%; padding: 16px; font-size: 1.1em; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
 
         .order-summary { flex: 1; background-color: var(--white-pure); padding: 30px; border-radius: 12px; box-shadow: 0 8px 25px rgba(44,62,80,0.08); position: sticky; top: 90px; }
         .order-summary h2 { font-size: 1.7em; margin-bottom: 20px; color: var(--text-dark); border-bottom: 1px solid var(--silver-medium); padding-bottom: 15px;}
         .summary-item { display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--silver-light); }
-        .summary-item:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+        .summary-item:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0;} /* S'assurer que le dernier item n'a pas de bordure */
         .summary-item-image img { width: 75px; height: 75px; object-fit: cover; border-radius: 8px; margin-right: 18px; border: 1px solid var(--silver-medium); }
         .summary-item-details { flex-grow: 1;}
         .summary-item-details p { margin: 0; line-height: 1.45; }
@@ -133,45 +142,10 @@
         .summary-totals .grand-total .total-label, .summary-totals .grand-total .total-value { font-size: 1.3em; font-weight: 600; color: var(--lilac-dark); }
         .summary-totals hr { border: none; border-top: 1px dashed var(--silver-medium); margin: 15px 0; }
 
-        /* Payment Page Specific Styles */
-        .shipping-summary { background-color: var(--lilac-primary); padding: 20px 25px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--lilac-secondary); }
-        .shipping-summary h3 { font-size: 1.3em; color: var(--text-dark); margin-top: 0; margin-bottom: 15px; padding-bottom:10px; border-bottom:1px solid var(--lilac-secondary);}
-        .shipping-summary-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.95em; }
-        .shipping-summary-item strong { color: var(--text-dark); font-weight: 500; margin-right: 5px;}
-        .shipping-summary-item span { color: var(--text-light); text-align: right; }
-        .shipping-summary-item .edit-link { font-size: 0.9em; color: var(--lilac-dark); text-decoration: none; font-weight: 500; }
-        .shipping-summary-item .edit-link:hover { text-decoration: underline; }
-
-        .payment-options { margin-top: 15px; }
-        .payment-option { background-color: var(--white-pure); padding: 20px; border: 2px solid var(--silver-medium); border-radius: 10px; margin-bottom: 18px; transition: border-color 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
-        .payment-option:hover { border-color: var(--lilac-secondary); }
-        .payment-option.active { border-color: var(--lilac-accent); box-shadow: 0 0 15px rgba(160, 118, 201, 0.3); }
-        .payment-option-header { display: flex; align-items: center; }
-        .payment-option-header input[type="radio"] { margin-right: 15px; transform: scale(1.3); accent-color: var(--lilac-accent); }
-        .payment-option-header label { font-weight: 600; font-size: 1.1em; color: var(--text-dark); display: flex; align-items: center; cursor: pointer; flex-grow: 1; }
-        .payment-logo { height: 28px; margin-left: 10px; vertical-align: middle; }
-        
-        .payment-gateway-fields { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--silver-light); display: none; /* Initially hidden */ }
-        .payment-option.active .payment-gateway-fields { display: block; }
-
-        .secure-payment-info { font-size: 0.9em; color: var(--text-light); margin-top: 15px; display: flex; align-items: center; }
-        .secure-payment-info svg { width: 18px; height: 18px; margin-right: 8px; fill: var(--success-color); }
-        
-        .btn-paypal { background-color: #FFC439; color: #003087; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; font-size:1.05em; width: 100%; justify-content: center; }
-        .btn-paypal:hover { background-color: #f0b830; }
-        .btn-paypal img { height: 22px; }
-        
-        .form-actions { margin-top: 30px; }
-        .btn-pay { width: 100%; padding: 18px; font-size: 1.2em; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-        .payment-terms { font-size: 0.9em; color: var(--text-light); margin-top: 20px; text-align: center; }
-        .payment-terms a {color: var(--lilac-dark); text-decoration:none;}
-        .payment-terms a:hover {text-decoration:underline;}
-
-
         @media (max-width: 992px) {
             .checkout-layout { flex-direction: column-reverse; }
             .order-summary { position: static; width: 100%; margin-bottom: 30px; }
-             .checkout-header h1 { font-size: 2.2em;}
+            .checkout-header h1 { font-size: 2.2em;}
         }
         @media (max-width: 768px) {
             .site-logo-new a { font-size: 2.3em; } 
@@ -184,7 +158,7 @@
             .checkout-form-container, .order-summary { padding: 25px; }
             .checkout-steps { flex-wrap: wrap; gap: 5px; }
             .checkout-step { font-size: 0.85em; padding: 8px 12px; margin: 0 5px;}
-            .checkout-step:not(:last-child)::after { display: none; }
+            .checkout-step:not(:last-child)::after { display: none; } 
         }
          @media (min-width: 993px) { 
             .menu-toggle { display: none !important; } 
@@ -210,10 +184,11 @@
             </nav>
             <div class="header-actions">
                  <div class="language-switcher" id="desktop-lang-switcher">
-                    <a href="paiement.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
+                    <a href="livraison.html" class="lang-link active-lang" lang="fr" hreflang="fr">FR</a>
                 </div>
-                <a href="livraison.html" class="cart-icon-new" aria-label="Panier">
+                <a href="panier.html" class="cart-icon-new" aria-label="Panier">
                     <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    <span class="cart-counter" style="display:none;">0</span>
                 </a>
                 <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="offcanvasMenu">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
@@ -222,7 +197,7 @@
         </div>
     </header>
 
-     <div class="offcanvas-menu" id="offcanvasMenu">
+    <div class="offcanvas-menu" id="offcanvasMenu">
         <button class="close-menu-btn" aria-label="Fermer le menu" aria-controls="offcanvasMenu">&times;</button>
         <nav>
             <ul>
@@ -230,8 +205,8 @@
                 <li><a href="produit.html">Produit</a></li>
                 <li><a href="qui-sommes-nous.html">Notre Histoire</a></li>
                 <li><a href="faq.html">FAQ</a></li>
-                <li><a href="livraison.html">Livraison</a></li>
-                <li><a href="paiement.html" class="active-lang">Paiement</a></li>
+                <li><a href="livraison.html" class="active-lang">Livraison</a></li>
+                <li><a href="paiement.html">Paiement</a></li>
                 <li><a href="politique-de-confidentialite.html">Politique de Confidentialité</a></li>
                 <li><a href="conditions-utilisation.html">Conditions d'Utilisation</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -239,7 +214,7 @@
         </nav>
         <div class="language-switcher offcanvas-lang-switcher" style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--silver-light);">
             <p style="font-weight:500; margin-bottom:10px; color:var(--text-dark); font-size:1em;">Langue :</p>
-            <a href="paiement.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0; padding: 8px 10px;">Français</a>
+            <a href="livraison.html" class="lang-link active-lang" lang="fr" hreflang="fr" style="display:block; margin: 5px 0; padding: 8px 10px;">Français</a>
         </div>
     </div>
     <div class="overlay-screen" id="overlayScreen"></div>
@@ -249,101 +224,83 @@
             <div class="checkout-header">
                 <h1>Finaliser Votre Commande</h1>
                 <ul class="checkout-steps">
-                    <li class="checkout-step completed" id="step-livraison-link"><a href="livraison.html">Livraison</a></li>
-                    <li class="checkout-step active" id="step-paiement">Paiement</li>
+                    <li class="checkout-step active" id="step-livraison">Livraison</li>
+                    <li class="checkout-step" id="step-paiement">Paiement</li>
                     <li class="checkout-step" id="step-confirmation">Confirmation</li>
                 </ul>
             </div>
 
             <div class="checkout-layout">
                 <div class="checkout-form-container">
-                    <div class="shipping-summary">
-                        <h3>Récapitulatif de Livraison</h3>
-                        <div class="shipping-summary-item">
-                            <strong>Contact:</strong> <span id="summary-email-display">Chargement...</span>
-                        </div>
-                        <div class="shipping-summary-item">
-                            <strong>Adresse:</strong> <span id="summary-address-display">Chargement...</span>
-                        </div>
-                         <div class="shipping-summary-item">
-                            <strong>Pays:</strong> <span id="summary-country-display">Chargement...</span>
-                             <a href="livraison.html" class="edit-link">Modifier</a>
-                        </div>
-                    </div>
-
-                    <h2>Choisissez Votre Méthode de Paiement</h2>
-                    <form id="payment-form" action="confirmation.html" method="POST">
-                        <div class="payment-options">
-                            <div class="payment-option active" id="stripe-option">
-                                <div class="payment-option-header">
-                                    <input type="radio" id="stripe-payment" name="payment_method" value="stripe" checked>
-                                    <label for="stripe-payment">Carte de Crédit / Débit</label>
-                                    <img src="https://checkout.stripe.com/images/logos/visa-dark.svg" alt="Visa" class="payment-logo">
-                                    <img src="https://checkout.stripe.com/images/logos/mastercard-dark.svg" alt="Mastercard" class="payment-logo">
-                                    <img src="https://checkout.stripe.com/images/logos/amex-dark.svg" alt="American Express" class="payment-logo">
-                                </div>
-                                <div class="payment-gateway-fields" id="stripe-fields">
-                                    <div class="form-group full-width">
-                                        <label for="card-number">Numéro de carte *</label>
-                                        <input type="text" id="card-number" name="card_number" placeholder="•••• •••• •••• ••••" required autocomplete="cc-number">
-                                        <span class="error-message" aria-live="polite"></span>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="expiry-date">Expiration (MM/AA) *</label>
-                                            <input type="text" id="expiry-date" name="expiry_date" placeholder="MM/AA" required autocomplete="cc-exp">
-                                            <span class="error-message" aria-live="polite"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="cvc">CVC *</label>
-                                            <input type="text" id="cvc" name="cvc" placeholder="•••" required autocomplete="cc-csc">
-                                            <span class="error-message" aria-live="polite"></span>
-                                        </div>
-                                    </div>
-                                    <p class="secure-payment-info">
-                                        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"></path></svg>
-                                        Paiement sécurisé et crypté par Stripe.
-                                    </p>
-                                </div>
+                    <h2>Vos Coordonnées de Livraison</h2>
+                    <form id="shipping-form" action="paiement.html" method="POST"> 
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prenom">Prénom *</label>
+                                <input type="text" id="prenom" name="prenom" required autocomplete="given-name">
+                                <span class="error-message" aria-live="polite"></span>
                             </div>
-
-                            <div class="payment-option" id="paypal-option">
-                                <div class="payment-option-header">
-                                    <input type="radio" id="paypal-payment" name="payment_method" value="paypal">
-                                    <label for="paypal-payment">PayPal</label>
-                                     <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_266x142.png" alt="PayPal" class="payment-logo" style="height: 22px;">
-                                </div>
-                                <div class="payment-gateway-fields" id="paypal-fields">
-                                    <p style="margin-bottom:15px;">Vous serez redirigé(e) vers le site sécurisé de PayPal pour finaliser votre paiement.</p>
-                                    <button type="button" class="btn-paypal" id="paypal-button"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_SbyPP_mc_vs_ms_ae_UK.png" alt="Payer avec PayPal"><span>Payer avec PayPal</span></button>
-                                </div>
+                            <div class="form-group">
+                                <label for="nom">Nom *</label>
+                                <input type="text" id="nom" name="nom" required autocomplete="family-name">
+                                <span class="error-message" aria-live="polite"></span>
                             </div>
                         </div>
-
+                        <div class="form-group full-width">
+                            <label for="email">Adresse e-mail *</label>
+                            <input type="email" id="email" name="email" required autocomplete="email">
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="telephone">Numéro de téléphone</label>
+                            <input type="tel" id="telephone" name="telephone" placeholder="Optionnel pour le suivi de colis" autocomplete="tel">
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="adresse1">Adresse (Ligne 1) *</label>
+                            <input type="text" id="adresse1" name="adresse1" placeholder="Numéro et nom de rue" required autocomplete="address-line1">
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="adresse2">Complément d'adresse</label>
+                            <input type="text" id="adresse2" name="adresse2" placeholder="Appartement, bâtiment, étage, etc." autocomplete="address-line2">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="code_postal">Code Postal *</label>
+                                <input type="text" id="code_postal" name="code_postal" required autocomplete="postal-code">
+                                <span class="error-message" aria-live="polite"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="ville">Ville *</label>
+                                <input type="text" id="ville" name="ville" required autocomplete="address-level2">
+                                <span class="error-message" aria-live="polite"></span>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="pays">Pays *</label>
+                            <select id="pays" name="pays" required autocomplete="country-name">
+                                <option value="FR" selected>France</option>
+                                <option value="BE">Belgique</option>
+                            </select>
+                            <span class="error-message" aria-live="polite"></span>
+                        </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary btn-pay">Payer 149€</button>
+                            <button type="submit" class="btn btn-primary btn-checkout">Continuer vers le paiement</button>
                         </div>
-                        <p class="payment-terms">En cliquant sur "Payer", vous acceptez nos <a href="conditions-utilisation.html" target="_blank">Conditions Générales de Vente</a> et notre <a href="politique-de-confidentialite.html" target="_blank">Politique de Confidentialité</a>.</p>
                     </form>
                 </div>
 
-                <aside class="order-summary">
+                <aside class="order-summary" id="order-summary-container">
                     <h2>Votre Commande</h2>
-                    <div class="summary-item">
-                        <div class="summary-item-image">
-                            <img src="710E7veA9BL._SL1500_.jpg" alt="Masque CryoGlow LED">
-                        </div>
-                        <div class="summary-item-details">
-                            <p class="summary-item-name">Masque Facial CryoGlow LED</p>
-                            <p class="summary-item-qty">Quantité: 1</p>
-                        </div>
-                        <p class="summary-item-price">149€</p>
+                    <div id="summary-items-list">
+                        <!-- Les articles du panier seront injectés ici -->
                     </div>
                     <div class="summary-totals">
-                        <p><span class="total-label">Sous-total :</span> <span class="total-value">149€</span></p>
-                        <p><span class="total-label">Livraison :</span> <span class="total-value">Offerte</span></p>
+                        <p><span class="total-label">Sous-total :</span> <strong id="summary-subtotal">0.00€</strong></p>
+                        <p><span class="total-label">Livraison :</span> <strong id="summary-shipping">Offerte</strong></p>
                         <hr>
-                        <p class="grand-total"><span class="total-label">Total à Payer (TTC) :</span> <span id="total-a-payer" class="total-value">149€</span></p>
+                        <p class="grand-total"><span class="total-label">Total (TTC) :</span> <strong id="summary-grandtotal">0.00€</strong></p>
                     </div>
                 </aside>
             </div>
@@ -364,7 +321,7 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-             // Menu Off-canvas (copied from index.html)
+            // Menu Off-canvas (copied from index.html)
             const menuToggle = document.querySelector('.menu-toggle');
             const closeMenuBtn = document.querySelector('.close-menu-btn');
             const offcanvasMenu = document.getElementById('offcanvasMenu');
@@ -408,146 +365,159 @@
             const navLinks = document.querySelectorAll('#desktop-nav ul li a, .offcanvas-menu nav ul li a');
             navLinks.forEach(link => {
                 const linkPath = link.getAttribute('href').split("/").pop() || "index.html";
-                 if (linkPath === currentPath || (currentPath === "paiement.html" && linkPath === "paiement.html")) { 
+                if (linkPath === currentPath || (currentPath === "livraison.html" && linkPath === "livraison.html")) { // specific for livraison.html
                     link.classList.add('active-lang'); 
                 } else {
                     link.classList.remove('active-lang');
                 }
             });
             
-            // Populate shipping summary
-            const emailDisplay = document.getElementById('summary-email-display');
-            const addressDisplay = document.getElementById('summary-address-display');
-            const countryDisplay = document.getElementById('summary-country-display');
-            
-            const email = localStorage.getItem('eclaria_shipping_email') || 'Non fournie';
-            const prenom = localStorage.getItem('eclaria_shipping_prenom') || '';
-            const nom = localStorage.getItem('eclaria_shipping_nom') || '';
-            const adresse1 = localStorage.getItem('eclaria_shipping_adresse1') || '';
-            const adresse2 = localStorage.getItem('eclaria_shipping_adresse2') || '';
-            const ville = localStorage.getItem('eclaria_shipping_ville') || '';
-            const code_postal = localStorage.getItem('eclaria_shipping_code_postal') || '';
-            const paysCode = localStorage.getItem('eclaria_shipping_pays');
-            const pays = paysCode === 'BE' ? 'Belgique' : (paysCode === 'FR' ? 'France' : 'Non spécifié');
-
-            if(emailDisplay) emailDisplay.textContent = email;
-            let fullAddress = [prenom + ' ' + nom, adresse1, adresse2, `${code_postal} ${ville}`].filter(Boolean).join(', ');
-            if(addressDisplay) addressDisplay.textContent = fullAddress || 'Non fournie';
-            if(countryDisplay) countryDisplay.textContent = pays;
-
-
-            // Payment method toggle and form validation
-            const paymentOptions = document.querySelectorAll('.payment-option');
-            const stripeFields = document.getElementById('stripe-fields');
-            const paypalButton = document.getElementById('paypal-button');
-            const mainPayButton = document.querySelector('.btn-pay');
-            const paymentForm = document.getElementById('payment-form');
-            const cardFields = document.querySelectorAll('#stripe-fields input[required]');
-
-            paymentOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    paymentOptions.forEach(opt => opt.classList.remove('active'));
-                    this.classList.add('active');
-                    const radio = this.querySelector('input[type="radio"]');
-                    if(radio) radio.checked = true;
-
-                    if (this.id === 'stripe-option') {
-                        stripeFields.style.display = 'block';
-                        mainPayButton.style.display = 'block';
-                        if(paypalButton) paypalButton.style.display = 'none';
-                    } else if (this.id === 'paypal-option') {
-                        stripeFields.style.display = 'none';
-                        mainPayButton.style.display = 'none'; // Hide main button if PayPal is selected
-                        if(paypalButton) paypalButton.style.display = 'inline-flex'; // Show PayPal specific button
-                    }
-                });
-            });
-             // Trigger click on the default checked option to set initial state
-            document.querySelector('.payment-option input[type="radio"]:checked').closest('.payment-option').click();
-
-
-            function validateCardField(field) {
-                let isValid = true;
-                let errorMessage = "";
-                const errorSpan = field.nextElementSibling && field.nextElementSibling.classList.contains('error-message') ? field.nextElementSibling : null;
-
-                if (field.value.trim() === "") {
-                    isValid = false;
-                    errorMessage = "Ce champ est obligatoire.";
-                } else if (field.id === "card-number" && !/^\d{13,19}$/.test(field.value.replace(/\s/g, ''))) {
-                    isValid = false;
-                    errorMessage = "Numéro de carte invalide.";
-                } else if (field.id === "expiry-date" && !/^(0[1-9]|1[0-2])\s*\/\s*([0-9]{2})$/.test(field.value.trim())) {
-                    isValid = false;
-                    errorMessage = "Format MM/AA invalide.";
-                } else if (field.id === "cvc" && !/^\d{3,4}$/.test(field.value.trim())) {
-                    isValid = false;
-                    errorMessage = "CVC invalide.";
-                }
-
-                if (errorSpan) {
-                    errorSpan.textContent = errorMessage;
-                    field.classList.toggle('error', !isValid);
-                }
-                return isValid;
+            // --- Fonctions de gestion du Panier ---
+            function getPanier() {
+                const panier = localStorage.getItem('eclaria_panier');
+                return panier ? JSON.parse(panier) : [];
             }
-            
-            cardFields.forEach(input => {
-                input.addEventListener('blur', () => validateCardField(input));
-                input.addEventListener('input', () => {
-                    const errorSpan = input.nextElementSibling && input.nextElementSibling.classList.contains('error-message') ? input.nextElementSibling : null;
-                    if (errorSpan && errorSpan.textContent !== "") {
-                       validateCardField(input);
-                    }
-                });
-            });
 
+            function getNombreTotalArticles() {
+                const panier = getPanier();
+                return panier.reduce((total, item) => total + item.quantite, 0);
+            }
 
-            if(paymentForm){
-                paymentForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    const selectedPaymentMethodRadio = document.querySelector('input[name="payment_method"]:checked');
-                    if (!selectedPaymentMethodRadio) {
-                        alert("Veuillez sélectionner une méthode de paiement.");
-                        return;
-                    }
-                    const selectedPaymentMethod = selectedPaymentMethodRadio.value;
-
-                    if (selectedPaymentMethod === 'stripe') {
-                        let isCardFormValid = true;
-                        cardFields.forEach(field => {
-                            if (!validateCardField(field)) {
-                                isCardFormValid = false;
-                            }
-                        });
-
-                        if (isCardFormValid) {
-                            localStorage.setItem('eclaria_order_total', document.getElementById('total-a-payer').textContent);
-                            localStorage.setItem('eclaria_order_payment_method', 'Carte de Crédit/Débit');
-                            console.log('Paiement Stripe simulé. Redirection...');
-                            window.location.href = paymentForm.action; // confirmation.html
+            function mettreAJourCompteurPanier() {
+                const nombreArticles = getNombreTotalArticles();
+                const compteursPanier = document.querySelectorAll('.cart-counter'); 
+                compteursPanier.forEach(compteur => {
+                    if (compteur) {
+                        if (nombreArticles > 0) {
+                            compteur.textContent = nombreArticles;
+                            compteur.style.display = 'flex'; 
                         } else {
-                            alert('Veuillez corriger les erreurs dans les informations de la carte.');
-                             const firstErrorField = paymentForm.querySelector('#stripe-fields .error');
-                            if (firstErrorField) {
-                                firstErrorField.focus();
-                            }
+                            compteur.style.display = 'none';
                         }
-                    } 
-                    // PayPal submission is handled by its own button's onclick event
+                    }
+                });
+                 const cartLink = document.querySelector('.cart-icon-new');
+                if (cartLink) {
+                    cartLink.href = nombreArticles > 0 ? 'panier.html' : 'panier.html'; 
+                }
+            }
+            
+            function afficherRecapitulatifCommande() {
+                const panier = getPanier();
+                const summaryItemsList = document.getElementById('summary-items-list');
+                const summarySubtotalEl = document.getElementById('summary-subtotal');
+                const summaryGrandtotalEl = document.getElementById('summary-grandtotal');
+                const orderSummaryContainer = document.getElementById('order-summary-container');
+
+
+                if (panier.length === 0) {
+                    // Rediriger si le panier est vide, car l'utilisateur ne devrait pas être ici
+                    window.location.href = 'panier.html';
+                    return;
+                }
+
+                if (!summaryItemsList || !summarySubtotalEl || !summaryGrandtotalEl) return;
+
+                summaryItemsList.innerHTML = ''; // Vider la liste
+                let sousTotal = 0;
+
+                panier.forEach(item => {
+                    const prixTotalItem = item.prixUnitaire * item.quantite;
+                    sousTotal += prixTotalItem;
+                    const itemHtml = `
+                        <div class="summary-item">
+                            <div class="summary-item-image">
+                                <img src="${item.imageSrc}" alt="${item.nomProduit}">
+                            </div>
+                            <div class="summary-item-details">
+                                <p class="summary-item-name">${item.nomProduit}</p>
+                                <p class="summary-item-qty">Quantité: ${item.quantite}</p>
+                            </div>
+                            <p class="summary-item-price">${prixTotalItem.toFixed(2)}€</p>
+                        </div>
+                    `;
+                    summaryItemsList.insertAdjacentHTML('beforeend', itemHtml);
+                });
+
+                summarySubtotalEl.textContent = `${sousTotal.toFixed(2)}€`;
+                summaryGrandtotalEl.textContent = `${sousTotal.toFixed(2)}€`; // Livraison offerte
+            }
+
+
+            // Shipping Form Validation and Data Handling
+            const shippingForm = document.getElementById('shipping-form');
+            if (shippingForm) {
+                const inputs = shippingForm.querySelectorAll('input[required], select[required]');
+
+                function validateField(field) {
+                    let isValid = true;
+                    let errorMessage = "";
+                    const errorSpan = field.nextElementSibling && field.nextElementSibling.classList.contains('error-message') ? field.nextElementSibling : null;
+
+                    if (field.value.trim() === "") {
+                        isValid = false;
+                        errorMessage = "Ce champ est obligatoire.";
+                    } else if (field.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {
+                        isValid = false;
+                        errorMessage = "Veuillez saisir une adresse e-mail valide.";
+                    } else if (field.id === "code_postal" && !/^\d{5}$/.test(field.value) && field.value.trim() !== "") { 
+                        isValid = false;
+                        errorMessage = "Code postal invalide (doit contenir 5 chiffres).";
+                    }
+                    
+                    if (errorSpan) {
+                        errorSpan.textContent = errorMessage;
+                        field.classList.toggle('error', !isValid);
+                    }
+                    return isValid;
+                }
+
+                inputs.forEach(input => {
+                    input.addEventListener('blur', () => validateField(input));
+                    input.addEventListener('input', () => { 
+                         const errorSpan = input.nextElementSibling && input.nextElementSibling.classList.contains('error-message') ? input.nextElementSibling : null;
+                         if (errorSpan && errorSpan.textContent !== "") {
+                            validateField(input); 
+                         }
+                    });
+                });
+
+                shippingForm.addEventListener('submit', function(event) {
+                    event.preventDefault(); 
+                    let isFormValid = true;
+                    inputs.forEach(input => {
+                        if (!validateField(input)) {
+                            isFormValid = false;
+                        }
+                    });
+
+                    if (isFormValid) {
+                        localStorage.setItem('eclaria_shipping_prenom', document.getElementById('prenom').value);
+                        localStorage.setItem('eclaria_shipping_nom', document.getElementById('nom').value);
+                        localStorage.setItem('eclaria_shipping_email', document.getElementById('email').value);
+                        localStorage.setItem('eclaria_shipping_telephone', document.getElementById('telephone').value);
+                        localStorage.setItem('eclaria_shipping_adresse1', document.getElementById('adresse1').value);
+                        localStorage.setItem('eclaria_shipping_adresse2', document.getElementById('adresse2').value);
+                        localStorage.setItem('eclaria_shipping_ville', document.getElementById('ville').value);
+                        localStorage.setItem('eclaria_shipping_code_postal', document.getElementById('code_postal').value);
+                        localStorage.setItem('eclaria_shipping_pays', document.getElementById('pays').value);
+                        
+                        console.log('Données de livraison sauvegardées. Redirection vers paiement.html...');
+                        window.location.href = shippingForm.action; 
+                    } else {
+                        alert('Veuillez corriger les erreurs dans le formulaire avant de continuer.');
+                        const firstErrorField = shippingForm.querySelector('.error');
+                        if (firstErrorField) {
+                            firstErrorField.focus();
+                        }
+                    }
                 });
             }
             
-            if(paypalButton) {
-                paypalButton.addEventListener('click', function() {
-                    localStorage.setItem('eclaria_order_total', document.getElementById('total-a-payer').textContent);
-                    localStorage.setItem('eclaria_order_payment_method', 'PayPal');
-                    alert('Simulation de redirection vers PayPal... Paiement approuvé !');
-                    window.location.href = 'confirmation.html';
-                });
-            }
-
-            console.log('Éclaria Page Paiement (FR) v2 chargée avec succès!');
+            // Initialiser l'affichage
+            mettreAJourCompteurPanier();
+            afficherRecapitulatifCommande();
+            console.log('Éclaria Page Livraison (FR) v2 chargée avec succès!');
         });
     </script>
 </body>
