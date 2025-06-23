@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éclaria - Votre Panier</title>
+    <script src="js/panier-logic.js" defer></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
         :root {
@@ -285,8 +286,18 @@
             const offcanvasMenu = document.getElementById('offcanvasMenu');
             const overlayScreen = document.getElementById('overlayScreen');
             
-            function openMenu() { /* ... */ }
-            function closeMenu() { /* ... */ }
+            function openMenu() { 
+                if(offcanvasMenu) offcanvasMenu.classList.add('open');
+                if(overlayScreen) overlayScreen.classList.add('active');
+                if(menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMenu() { 
+                if(offcanvasMenu) offcanvasMenu.classList.remove('open');
+                if(overlayScreen) overlayScreen.classList.remove('active');
+                if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
             if (menuToggle) menuToggle.addEventListener('click', openMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
             if (overlayScreen) overlayScreen.addEventListener('click', closeMenu);
@@ -316,60 +327,11 @@
                 }
             });
             
-            // --- Fonctions de gestion du Panier ---
-            function getPanier() {
-                const panier = localStorage.getItem('eclaria_panier');
-                return panier ? JSON.parse(panier) : [];
-            }
-
-            function savePanier(panier) {
-                localStorage.setItem('eclaria_panier', JSON.stringify(panier));
-                mettreAJourCompteurPanier();
-                afficherPanier(); // Re-render cart on save
-            }
-            
-            function getNombreTotalArticles() {
-                const panier = getPanier();
-                return panier.reduce((total, item) => total + item.quantite, 0);
-            }
-
-            function mettreAJourCompteurPanier() {
-                const nombreArticles = getNombreTotalArticles();
-                const compteursPanier = document.querySelectorAll('.cart-counter');
-                compteursPanier.forEach(compteur => {
-                    if (compteur) {
-                        if (nombreArticles > 0) {
-                            compteur.textContent = nombreArticles;
-                            compteur.style.display = 'flex';
-                        } else {
-                            compteur.style.display = 'none';
-                        }
-                    }
-                });
-            }
-
-            function modifierQuantite(idProduit, nouvelleQuantite) {
-                let panier = getPanier();
-                const itemIndex = panier.findIndex(item => item.idProduit === idProduit);
-                if (itemIndex > -1) {
-                    nouvelleQuantite = parseInt(nouvelleQuantite);
-                    if (nouvelleQuantite > 0 && nouvelleQuantite <= 10) { // Max 10
-                        panier[itemIndex].quantite = nouvelleQuantite;
-                    } else if (nouvelleQuantite <= 0) {
-                        panier.splice(itemIndex, 1); // Supprimer si quantité <= 0
-                    }
-                }
-                savePanier(panier);
-            }
-
-            function supprimerArticle(idProduit) {
-                let panier = getPanier();
-                panier = panier.filter(item => item.idProduit !== idProduit);
-                savePanier(panier);
-            }
+            // La logique de getPanier, savePanier, getNombreTotalArticles, mettreAJourCompteurPanier, 
+            // modifierQuantite, supprimerArticle est maintenant dans js/panier-logic.js
 
             function afficherPanier() {
-                const panier = getPanier();
+                const panier = getPanier(); // Utilise la fonction globale
                 const containerArticles = document.getElementById('cart-items-list-container');
                 const resumePanierContainer = document.getElementById('cart-summary-container');
                 const messagePanierVideContainer = document.getElementById('cart-empty-message-container');
