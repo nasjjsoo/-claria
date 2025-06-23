@@ -893,15 +893,27 @@
             }
             
             function toggleCart() {
-                miniCart.classList.toggle('active');
-                overlayScreen.classList.toggle('active');
+                const cartIsActive = miniCart.classList.toggle('active');
+                if (cartIsActive) {
+                    overlayScreen.classList.add('active');
+                    // Hide menu if open
+                    if (offcanvasMenu.classList.contains('open')) {
+                        closeMenu();
+                    }
+                } else {
+                    overlayScreen.classList.remove('active');
+                }
             }
 
             if (menuToggle) menuToggle.addEventListener('click', openMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
             if (overlayScreen) overlayScreen.addEventListener('click', function() {
-                closeMenu();
-                miniCart.classList.remove('active');
+                if (offcanvasMenu.classList.contains('open')) {
+                    closeMenu();
+                }
+                if (miniCart.classList.contains('active')) {
+                    toggleCart(); // This will also handle the overlay
+                }
             });
             
             cartButton.addEventListener('click', toggleCart);
@@ -948,14 +960,14 @@
             });
             
             function handleResize() {
-                const isDesktop = window.innerWidth > 992; 
-                if(desktopNav) desktopNav.style.display = isDesktop ? 'flex' : 'none';
-                if(desktopLangSwitcher) desktopLangSwitcher.style.display = isDesktop ? 'flex' : 'none';
-                if(menuToggle) menuToggle.style.display = isDesktop ? 'none' : 'flex';
-                
-                if (isDesktop && offcanvasMenu && offcanvasMenu.classList.contains('open')) { 
+                const isDesktop = window.innerWidth > 992;
+                // Instead of directly manipulating style.display, CSS classes will handle visibility
+                // based on media queries. We just need to ensure the offcanvas menu closes if the screen becomes desktop.
+                if (isDesktop && offcanvasMenu && offcanvasMenu.classList.contains('open')) {
                     closeMenu();
                 }
+                // The CSS already handles showing/hiding .menu-toggle, #desktop-nav, #desktop-lang-switcher
+                // No need for JS to do this on resize.
             }
 
             window.addEventListener('resize', handleResize);
