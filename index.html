@@ -879,15 +879,22 @@
             
             // Événements
             function openMenu() {
+                // If cart is open, close it first. toggleCart will handle overlay logic.
+                if (miniCart.classList.contains('active')) {
+                    toggleCart(); 
+                }
                 if(offcanvasMenu) offcanvasMenu.classList.add('open');
-                if(overlayScreen) overlayScreen.classList.add('active');
+                if(overlayScreen) overlayScreen.classList.add('active'); // Ensure overlay is active for menu
                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
                 document.body.style.overflow = 'hidden'; 
             }
 
             function closeMenu() {
                 if(offcanvasMenu) offcanvasMenu.classList.remove('open');
-                if(overlayScreen) overlayScreen.classList.remove('active');
+                // Only remove overlay if cart is also not open
+                if (!miniCart.classList.contains('active')) {
+                    if(overlayScreen) overlayScreen.classList.remove('active');
+                }
                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = ''; 
             }
@@ -896,23 +903,50 @@
                 const cartIsActive = miniCart.classList.toggle('active');
                 if (cartIsActive) {
                     overlayScreen.classList.add('active');
-                    // Hide menu if open
+                    // Hide menu if open and cart is being opened
                     if (offcanvasMenu.classList.contains('open')) {
-                        closeMenu();
+                        closeMenu(); // closeMenu will handle its part of the overlay
                     }
                 } else {
-                    overlayScreen.classList.remove('active');
+                    // Only remove overlay if menu is also not open
+                    if (!offcanvasMenu.classList.contains('open')) {
+                        overlayScreen.classList.remove('active');
+                    }
                 }
             }
 
             if (menuToggle) menuToggle.addEventListener('click', openMenu);
             if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
             if (overlayScreen) overlayScreen.addEventListener('click', function() {
-                if (offcanvasMenu.classList.contains('open')) {
-                    closeMenu();
+                let cartIsOpen = miniCart.classList.contains('active');
+                let menuIsOpen = offcanvasMenu.classList.contains('open');
+
+                if (cartIsOpen) {
+                    // toggleCart will attempt to remove overlay if menu isn't open
+                    toggleCart(); 
                 }
-                if (miniCart.classList.contains('active')) {
-                    toggleCart(); // This will also handle the overlay
+                // It's important to check menuIsOpen *after* potentially closing the cart,
+                // as toggleCart might affect the decision to close the overlay.
+                // However, closeMenu directly handles its overlay logic.
+                // If cart was open, and menu is also open, toggleCart would have left overlay on.
+                // So, if menu is still open (or was the only thing open), close it.
+                if (menuIsOpen && !miniCart.classList.contains('active')) { // Check if cart is now closed
+                    closeMenu();
+                } else if (menuIsOpen && cartIsOpen) {
+                    // This case implies menu was open, cart was opened, then overlay was clicked.
+                    // We should decide a priority or close both. Let's try closing the cart first (done above)
+                    // and if menu is still open, user might want to close that next.
+                    // For now, clicking overlay when both are open could close cart, leaving menu.
+                    // Or, if we want overlay click to close *activemost* or *both*:
+                    // To close both:
+                    // if (cartIsOpen) toggleCart(); // cart handles its overlay logic
+                    // if (menuIsOpen) closeMenu(); // menu handles its overlay logic
+                    // To ensure overlay is cleared if both were closed:
+                    // if (!miniCart.classList.contains('active') && !offcanvasMenu.classList.contains('open')) {
+                    //    overlayScreen.classList.remove('active');
+                    // }
+                    // The current logic: if cart is open, clicking overlay closes cart. If menu is open (and cart isn't), it closes menu.
+                    // This seems reasonable. The functions themselves manage the overlay state based on whether the *other* component is open.
                 }
             });
             
