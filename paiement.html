@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Éclaria - Paiement Sécurisé</title>
+    <script src="js/panier-logic.js" defer></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap');
         :root {
@@ -15,14 +16,13 @@
         *, *::before, *::after { box-sizing: border-box; }
         body { 
             font-family: var(--font-primary); margin: 0; padding: 0; padding-top: 70px; 
-            background-color: var(--silver-light); /* Fond général pour les pages de checkout */
+            background-color: var(--silver-light); 
             color: var(--text-dark); 
             line-height: 1.7; font-weight: 400;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
         .container { width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
         
-        /* Header (Copied from index.html for consistency) */
         .site-header-new { 
             background-color: rgba(255, 255, 255, 0.97); backdrop-filter: blur(8px); 
             padding: 0 20px; position: fixed; top: 0; left: 0; width: 100%; 
@@ -38,9 +38,15 @@
         #desktop-nav a:hover, #desktop-nav a.active-lang { color: var(--lilac-accent); }
         #desktop-nav a:hover::after, #desktop-nav a.active-lang::after { width: 100%; }
         .header-actions { display: flex; align-items: center; }
-        .menu-toggle, .cart-icon-new { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .menu-toggle { background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; }
+        .cart-icon-new { position: relative; background: none; border: none; cursor: pointer; padding: 10px; margin-left: 10px; text-decoration: none;}
         .menu-toggle svg, .cart-icon-new svg { width: 26px; height: 26px; fill: var(--text-dark); transition: fill 0.3s ease; }
         .menu-toggle:hover svg, .cart-icon-new:hover svg { fill: var(--lilac-accent); }
+        .cart-counter {
+            position: absolute; top: -5px; right: -5px; background-color: var(--error-color); color: var(--white-pure);
+            border-radius: 50%; width: 18px; height: 18px; font-size: 0.7em; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; line-height: 1; pointer-events: none;
+        }
         .language-switcher { margin-left: 20px; display:flex; align-items:center; }
         .language-switcher .lang-link { font-family: var(--font-headings); font-weight: 500; font-size: 0.85em; color: var(--text-light); text-decoration: none; padding: 6px 10px; margin: 0 3px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
         .language-switcher .lang-link.active-lang { color: var(--lilac-dark); font-weight: 600; background-color: var(--lilac-primary); }
@@ -56,7 +62,6 @@
         .overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 62, 80, 0.5); z-index: 1050; }
         .overlay-screen.active { display: block; }
         
-        /* Main content and typography (Copied from index.html) */
         main { padding-top: 40px; padding-bottom: 60px; min-height: calc(100vh - 70px - 180px); }
         h1, h2, h3 { font-family: var(--font-headings); font-weight: 600; color: var(--text-dark); margin-bottom: 0.8em; }
         p { margin-bottom: 1.6em; font-size: 1.05em; color:var(--text-light); }
@@ -64,7 +69,6 @@
         .btn-primary { background-color: var(--lilac-accent); color: var(--white-pure); border-color: var(--lilac-accent); box-shadow: 0 4px 15px rgba(160, 118, 201, 0.2); }
         .btn-primary:hover { background-color: var(--lilac-dark); border-color: var(--lilac-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(126, 87, 194, 0.3); }
 
-        /* Footer (Copied from index.html) */
         .site-footer { background-color: var(--text-dark); color: var(--silver-light); padding: 50px 0; text-align: center; font-size: 0.95em; margin-top:auto; }
         .footer-links { margin-bottom: 20px; }
         .footer-links a { color: var(--silver-light); text-decoration: none; margin: 0 12px; transition: color 0.3s ease; }
@@ -74,7 +78,6 @@
         .social-media-footer a:hover svg { fill: var(--lilac-primary); }
         .copyright { margin-top: 20px; font-size: 0.9em; opacity: 0.8; }
 
-        /* Checkout Specific Styles (from livraison.html, adapted for paiement.html) */
         .checkout-header { text-align: center; margin-bottom: 35px; }
         .checkout-header h1 { font-size: 2.5em; color: var(--text-dark); margin-bottom: 0.3em;}
         
@@ -100,8 +103,8 @@
         
         .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.95em; color: var(--text-dark); }
         .form-group input[type="text"],
-        .form-group input[type="email"], /* Though not used directly on this page, good to have */
-        .form-group input[type="tel"] { /* For things like cardholder phone */
+        .form-group input[type="email"], 
+        .form-group input[type="tel"] { 
             width: 100%; padding: 14px 18px; border: 1px solid var(--silver-medium); border-radius: 8px; 
             font-family: var(--font-primary); font-size: 1em; color: var(--text-dark);
             transition: border-color 0.3s ease, box-shadow 0.3s ease; background-color: var(--white-pure);
@@ -112,8 +115,7 @@
             box-shadow: 0 0 0 3px rgba(160, 118, 201, 0.2);
         }
          .form-group input.error { border-color: var(--error-color); }
-        .error-message { color: var(--error-color); font-size: 0.85em; margin-top: 5px; display: block; min-height: 1em; /* Reserve space */}
-
+        .error-message { color: var(--error-color); font-size: 0.85em; margin-top: 5px; display: block; min-height: 1em; }
 
         .order-summary { flex: 1; background-color: var(--white-pure); padding: 30px; border-radius: 12px; box-shadow: 0 8px 25px rgba(44,62,80,0.08); position: sticky; top: 90px; }
         .order-summary h2 { font-size: 1.7em; margin-bottom: 20px; color: var(--text-dark); border-bottom: 1px solid var(--silver-medium); padding-bottom: 15px;}
@@ -133,7 +135,6 @@
         .summary-totals .grand-total .total-label, .summary-totals .grand-total .total-value { font-size: 1.3em; font-weight: 600; color: var(--lilac-dark); }
         .summary-totals hr { border: none; border-top: 1px dashed var(--silver-medium); margin: 15px 0; }
 
-        /* Payment Page Specific Styles */
         .shipping-summary { background-color: var(--lilac-primary); padding: 20px 25px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--lilac-secondary); }
         .shipping-summary h3 { font-size: 1.3em; color: var(--text-dark); margin-top: 0; margin-bottom: 15px; padding-bottom:10px; border-bottom:1px solid var(--lilac-secondary);}
         .shipping-summary-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.95em; }
@@ -151,7 +152,7 @@
         .payment-option-header label { font-weight: 600; font-size: 1.1em; color: var(--text-dark); display: flex; align-items: center; cursor: pointer; flex-grow: 1; }
         .payment-logo { height: 28px; margin-left: 10px; vertical-align: middle; }
         
-        .payment-gateway-fields { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--silver-light); display: none; /* Initially hidden */ }
+        .payment-gateway-fields { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--silver-light); display: none; }
         .payment-option.active .payment-gateway-fields { display: block; }
 
         .secure-payment-info { font-size: 0.9em; color: var(--text-light); margin-top: 15px; display: flex; align-items: center; }
@@ -328,7 +329,7 @@
                     </form>
                 </div>
 
-                <aside class="order-summary">
+                <aside class="order-summary" id="order-summary-container-paiement">
                     <h2>Votre Commande</h2>
                     <div id="summary-items-list-paiement">
                         <!-- Les articles du panier seront injectés ici -->
@@ -409,43 +410,11 @@
                 }
             });
             
-            // --- Fonctions de gestion du Panier (dupliquées ici pour autonomie de la page) ---
-            function getPanier() {
-                const panier = localStorage.getItem('eclaria_panier');
-                return panier ? JSON.parse(panier) : [];
-            }
-
-            function savePanier(panier) { // Utilisé pour vider le panier
-                localStorage.setItem('eclaria_panier', JSON.stringify(panier));
-                mettreAJourCompteurPanier();
-            }
-
-            function getNombreTotalArticles() {
-                const panier = getPanier();
-                return panier.reduce((total, item) => total + item.quantite, 0);
-            }
-
-            function mettreAJourCompteurPanier() {
-                const nombreArticles = getNombreTotalArticles();
-                const compteursPanier = document.querySelectorAll('.cart-counter'); 
-                compteursPanier.forEach(compteur => {
-                    if (compteur) {
-                        if (nombreArticles > 0) {
-                            compteur.textContent = nombreArticles;
-                            compteur.style.display = 'flex'; 
-                        } else {
-                            compteur.style.display = 'none';
-                        }
-                    }
-                });
-                const cartLink = document.querySelector('.cart-icon-new');
-                if (cartLink) {
-                     cartLink.href = nombreArticles > 0 ? 'panier.html' : 'panier.html';
-                }
-            }
+            // La logique de getPanier, savePanier (partiellement), getNombreTotalArticles, mettreAJourCompteurPanier
+            // est maintenant dans js/panier-logic.js
 
             function afficherRecapitulatifCommandePaiement() {
-                const panier = getPanier();
+                const panier = getPanier(); // Fonction globale
                 const summaryItemsList = document.getElementById('summary-items-list-paiement');
                 const summarySubtotalEl = document.getElementById('summary-subtotal-paiement');
                 const summaryGrandtotalEl = document.getElementById('summary-grandtotal-paiement');
@@ -453,7 +422,6 @@
 
 
                 if (panier.length === 0 && window.location.pathname.includes("paiement.html")) {
-                    // Si le panier est vide et qu'on est sur la page de paiement, rediriger
                     alert("Votre panier est vide. Vous allez être redirigé.");
                     window.location.href = 'panier.html';
                     return;
@@ -486,11 +454,8 @@
                 summaryGrandtotalEl.textContent = `${sousTotal.toFixed(2)}€`; 
                 if(payButton) payButton.textContent = `Payer ${sousTotal.toFixed(2)}€`;
                 
-                // Sauvegarder le total pour la page de confirmation
                 localStorage.setItem('eclaria_order_total', `${sousTotal.toFixed(2)}€`);
             }
-
-            // --- Fin Fonctions de gestion du Panier ---
 
 
             // Populate shipping summary
